@@ -1,0 +1,33 @@
+.appBar__container {
+  .brand__wrapper {
+    margin-right: auto;
+
+    .brand__name {
+      color: #fff;
+    }
+  }
+
+  .menu__wrapper {
+    align-items: center;
+
+    .menu__item {
+      padding: 0 1em;
+      color: #fff;
+    }
+  }
+
+  .menu__btn {
+    color: #fff;
+  }
+
+  .link {
+    text-decoration: none;
+  }
+}
+
+.mobileMenu__wrapper {
+  .mobileMenu__brand {
+    text-align: center;
+    padding: 0.25em 0;
+  }
+}
