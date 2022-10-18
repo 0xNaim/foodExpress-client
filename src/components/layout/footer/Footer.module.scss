@@ -1,5 +1,20 @@
 .footer__wrapper {
-  background: #ededed;
-  .footer__text {
-  }
+  width: 100vw;
+  padding: 4rem 0rem;
+  background: rgb(28, 28, 48);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upper_footer {
+  width: 70vw;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+}
+.lower_footer {
+  width: 70vw;
+  display: flex;
+  justify-content: space-between;
 }
