@@ -8,13 +8,20 @@
 }
 
 .upper_footer {
-  width: 70vw;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5rem;
 }
 .lower_footer {
-  width: 70vw;
+  width: 80vw;
   display: flex;
+  justify-content: space-between;
+}
+
+.privacyDiv {
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }

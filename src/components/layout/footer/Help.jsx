@@ -1,23 +1,21 @@
 import { Link, Typography } from "@mui/material";
 import React from "react";
+import { hoverStyle } from "./Services";
 
 const Help = () => {
   const helpMsg = ["Help", "FAQs", "Contact Us"];
   return (
     <div>
       {helpMsg.map((msg) => (
-        <Link key={msg} sx={{ cursor: "pointer" }}>
-          <ul>
-            <li>
-              <Typography
-                variant="body1"
-                sx={{ color: "white", lineHeight: "2.3" }}
-              >
+        <ul>
+          <li>
+            <Link href="#" key={msg} underline={"none"}>
+              <Typography variant="body1" sx={hoverStyle}>
                 {msg}
               </Typography>
-            </li>
-          </ul>
-        </Link>
+            </Link>
+          </li>
+        </ul>
       ))}
     </div>
   );

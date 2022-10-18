@@ -1,28 +1,23 @@
-import { Link, Typography } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 import React from "react";
-import styled from "styled-components";
+import { hoverStyle } from "./Services";
+import styles from "./Footer.module.scss";
 
 const TermsCondition = () => {
   const str = ["Terms & Conditions", "Privacy Policy"];
   return (
-    <div>
+    <div className={styles.privacyDiv}>
       {str.map((s) => (
-        <Link key={s} sx={{ cursor: "pointer" }}>
-          <Typography variant="body1" color="white">
-            {s}
-          </Typography>
-        </Link>
+        <p>
+          <Link href="#" key={s} sx={{ cursor: "pointer" }} underline={"none"}>
+            <Typography variant="body1" sx={hoverStyle}>
+              {s}
+            </Typography>
+          </Link>
+        </p>
       ))}
     </div>
   );
 };
 
 export default TermsCondition;
-
-// const linkStyle = styled.p`
-//   background-color: red;
-//   width: 50vw;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-// `;

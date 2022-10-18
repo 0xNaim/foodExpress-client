@@ -6,7 +6,7 @@ const FooterButton = () => {
     <div>
       <Typography
         variant="body1"
-        sx={{ color: "white", marginBottom: "1rem", marginTop: ".5rem" }}
+        sx={{ color: "#f1f1f1", marginBottom: "1rem", marginTop: ".5rem" }}
       >
         Ready to get started?
       </Typography>
