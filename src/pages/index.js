@@ -24,19 +24,22 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Storefront</title>
+        <title>FoodExpress || Home</title>
       </Head>
 
       <Layout>
         <Box
-          component="div"
-          sx={{ display: "flex", alignItems: "center", paddingY: 5 }}
+          component='div'
+          sx={{ display: 'flex', alignItems: 'center', paddingY: 5 }}
         >
-          <Button variant="outlined" onClick={handleDecrement}>
+          <Button variant='outlined' onClick={handleDecrement}>
             Decrement
           </Button>
           <Typography sx={{ paddingX: 1 }}>{count}</Typography>
-          <Button variant="outlined" onClick={handleIncrement}>
+          <Button
+            variant='contained'
+            onClick={handleIncrement}
+          >
             Increment
           </Button>
         </Box>
