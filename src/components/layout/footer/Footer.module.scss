@@ -36,7 +36,8 @@
 
   .footer__secondary {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items: center;
     margin-top: 4em;
 
     @media only screen and (max-width: 900px) {
@@ -47,10 +48,6 @@
       display: flex;
       width: 250px;
       justify-content: space-between;
-
-      @media only screen and (max-width: 900px) {
-        flex-direction: column;
-      }
 
       .__text {
         font-size: 0.9em;
