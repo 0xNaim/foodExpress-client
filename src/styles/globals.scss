@@ -1,0 +1,18 @@
+:root {
+  --clr-primary: #078852;
+  --clr-primary-light: hsl(153, 74%, 38%);
+  --clr-black: #000;
+  --clr-grey: #5c5c5c;
+  --fw-body: 300;
+  --fw-bold: 800;
+  --fw-title: 400;
+  --fw-number: 800;
+}
+
+@media only screen and (max-width: 900px) {
+  .MuiBadge-badge {
+    top: 15px !important;
+    border: 2px solid #fff !important;
+    padding: 0 4px !important;
+  }
+}

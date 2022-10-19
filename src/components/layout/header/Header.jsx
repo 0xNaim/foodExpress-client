@@ -1,14 +1,13 @@
-import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
   AppBar,
+  Badge,
   Box,
+  Button,
   Divider,
   Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -29,7 +28,6 @@ const navItems = [
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
-
   const toggleDrawerHandler = () => setOpenDrawer(!openDrawer);
 
   return (
@@ -39,64 +37,92 @@ const Header = () => {
           <Box component={'div'} className={styles.brand__wrapper}>
             <Link href='/'>
               <a className={styles.link}>
-                <Typography className={styles.brand__name} variant='h5'>
-                  Logo
+                <Typography className={styles.brand__name} variant='h4'>
+                  <Box
+                    className={styles['brand__name--color']}
+                    component='span'
+                  >
+                    Food
+                  </Box>
+                  Express
                 </Typography>
               </a>
             </Link>
           </Box>
 
-          <Box
-            component='div'
-            className={styles.menu__wrapper}
-            sx={{ display: { xs: 'none', md: 'flex' } }}
-          >
-            {navItems.map((item, idx) => (
-              <Link href={item.link} key={idx}>
-                <a className={styles.link}>
-                  <Typography className={styles.menu__item} variant='body2'>
-                    {item.name}
-                  </Typography>
-                </a>
-              </Link>
-            ))}
+          <Box component='div' className={styles.search__wrapper}>
+            <input
+              className={styles.search__input}
+              type='text'
+              placeholder='Search any product'
+            />
+            <Button
+              className={styles.search__btn}
+              variant='contained'
+              disableRipple
+            >
+              Search
+            </Button>
           </Box>
 
-          <IconButton
-            onClick={toggleDrawerHandler}
-            sx={{ display: { md: 'none' } }}
-          >
-            <MenuIcon className={styles.menu__btn} />
-          </IconButton>
+          <Box component='div' className={styles.info}>
+            <Box component='div' className={styles.support__info}>
+              <Typography className={styles.support__number} variant='h6'>
+                +8801 90000 0000
+              </Typography>
+              <Typography className={styles.support__text} variant='body2'>
+                24/7 Support
+              </Typography>
+            </Box>
+
+            <Box
+              onClick={toggleDrawerHandler}
+              component='div'
+              className={styles.cart__wrapper}
+            >
+              <IconButton disableRipple>
+                <Badge badgeContent={5} color='error' max={10}>
+                  <ShoppingCartIcon className={styles['cart--icon']} />
+                </Badge>
+              </IconButton>
+
+              <Box className={styles.cart} component='div'>
+                <Typography className={styles.cart__title} variant='body2'>
+                  Your Cart
+                </Typography>
+                <Typography className={styles.cart__total} variant='body1'>
+                  $100.00
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box className={styles.account} component='div'>
+              <IconButton className={styles.account__iconBtn} disableRipple>
+                <AccountCircleIcon
+                  className={styles.account__icon}
+                  color='primary'
+                />
+              </IconButton>
+            </Box>
+          </Box>
         </Toolbar>
       </AppBar>
 
       <Drawer
-        className={styles.mobileMenu__wrapper}
         variant='temporary'
         open={openDrawer}
         onClose={toggleDrawerHandler}
+        anchor='right'
         ModalProps={{
           keepMounted: true, // Better open performance on mobile.
         }}
         sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '75%' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '300px' },
         }}
       >
         <Box component='div'>
-          <Typography className={styles.mobileMenu__brand}  variant='h5'>Storefront</Typography>
+          <Typography variant='h5' textAlign={'center'}>Cart</Typography>
           <Divider />
-
-          <List>
-            {navItems.map((item, idx) => (
-              <ListItem key={idx} disablePadding>
-                <ListItemButton>
-                  <ListItemText primary={item.name} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
         </Box>
       </Drawer>
     </>
