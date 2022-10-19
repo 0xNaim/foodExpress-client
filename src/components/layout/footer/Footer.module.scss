@@ -1,20 +1,4 @@
 .footer__wrapper {
-  width: 100vw;
-  padding: 4rem 10rem;
-  background: rgb(28, 28, 48);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.upper_footer {
-  width: 80vw;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5rem;
-}
-.lower_footer {
-  width: 80vw;
-  display: flex;
-  justify-content: space-between;
+  background-color: var(--clr-bg);
+  color: var(--clr-white)
 }
