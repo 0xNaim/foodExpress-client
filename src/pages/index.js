@@ -36,10 +36,7 @@ const Home = () => {
             Decrement
           </Button>
           <Typography sx={{ paddingX: 1 }}>{count}</Typography>
-          <Button
-            variant='contained'
-            onClick={handleIncrement}
-          >
+          <Button variant='contained' onClick={handleIncrement}>
             Increment
           </Button>
         </Box>
