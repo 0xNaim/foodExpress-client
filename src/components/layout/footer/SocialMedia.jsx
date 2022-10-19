@@ -7,10 +7,10 @@ import { Link } from "@mui/material";
 const SocialMedia = () => {
   return (
     <div style={{}}>
-      <Link href="#" sx={{ color: "green" }}>
+      <Link href="#" sx={{ color: "green", marginRight: "1rem" }}>
         <FacebookIcon />
       </Link>
-      <Link href="#" sx={{ color: "green" }}>
+      <Link href="#" sx={{ color: "green", marginRight: "1rem" }}>
         <TwitterIcon />
       </Link>
       <Link href="#" sx={{ color: "green" }}>

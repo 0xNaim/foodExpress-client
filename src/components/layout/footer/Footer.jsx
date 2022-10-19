@@ -12,16 +12,16 @@ const Footer = () => {
     <div className={styles.footer__wrapper}>
       <div className={styles.upper_footer}>
         <Grid container spacing={3}>
-          <Grid item sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={6} md={3} lg={3}>
             <FooterButton />
           </Grid>
-          <Grid item sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={6} md={3} lg={3}>
             <Services />
           </Grid>
-          <Grid item sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={6} md={3} lg={3}>
             <About />
           </Grid>
-          <Grid item sm={12} md={6} lg={3}>
+          <Grid item xs={12} sm={6} md={3} lg={3}>
             <Help />
           </Grid>
         </Grid>
