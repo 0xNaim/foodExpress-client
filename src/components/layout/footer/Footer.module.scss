@@ -1,7 +1,7 @@
 .footer__wrapper {
   background-color: var(--clr-bg);
   color: var(--clr-white);
-  padding: 5em 0;
+  padding: 6em 0;
 
   @media only screen and (max-width: 900px) {
     padding: 1.5em 0;
@@ -10,6 +10,8 @@
   .link {
     text-decoration: none;
     color: inherit;
+    display: block;
+    width: fit-content;
   }
 
   .getStarted__title {
@@ -28,6 +30,7 @@
 
   .item__link {
     margin: 1em 0;
+    font-size: 0.875em;
 
     &:hover {
       text-decoration: underline;
@@ -42,6 +45,7 @@
 
     @media only screen and (max-width: 900px) {
       margin-top: 2em;
+      justify-items: center;
     }
 
     .__left {
@@ -62,8 +66,13 @@
         margin-left: 0;
       }
 
-      .__icons {
-        margin: 0 0.2em;
+      .social__link {
+        text-decoration: none;
+        color: inherit;
+
+        .__icons {
+          margin: 0 0.2em;
+        }
       }
     }
   }
