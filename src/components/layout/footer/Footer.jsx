@@ -42,9 +42,9 @@ const Footer = () => {
               {data?.links?.map((link, index) => (
                 <Link href={link.url} key={index}>
                   <a className={styles.link}>
-                    <Typography className={styles.item__link} variant='body2'>
+                    <Box component='div' className={styles.item__link} >
                       {link.name}
-                    </Typography>
+                    </Box>
                   </a>
                 </Link>
               ))}
@@ -76,7 +76,7 @@ const Footer = () => {
           <Box className={styles.__right} component='div'>
             {footerSocial?.map((item, index) => (
               <Link href={item.url} key={index}>
-                <a className={styles.link}>
+                <a className={styles.social__link}>
                   <Tooltip title={item.name}>
                     <IconButton className={styles.__icons} color='primary'>
                       {item.icon}
