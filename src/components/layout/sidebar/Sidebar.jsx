@@ -11,8 +11,11 @@ import {
   IconButton,
   Toolbar,
   Typography,
+  CircularProgress,
 } from '@mui/material';
 import Link from 'next/link';
+import Backdrop from '../../ui/Backdrop/Backdrop';
+import styles from './Sidebar.module.css';
 
 
 const navItems = [
@@ -26,14 +29,17 @@ const navItems = [
   },
 ];
 
-const Sidebar = () => {
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const toggleDrawerHandler = () => setOpenDrawer(!openDrawer);
-
+const Sidebar = (props) => {
+  const { sidebar, changeSidebar = { changeSidebar } } = props
   return (
     <>
-    <h1 style={{fontSize:"5rem"}}>This is sidebar</h1>
+        <div className={`${styles.sidebar_container} ${sidebar && styles.sidebar_container_true}`}>
+          <h1 style={{ fontSize: "5rem" }}>This is sidebar</h1>
+        </div>
+        {/* <CircularProgress color="inherit" /> */}
+        {/* <Backdrop show={sidebar} click={changeSidebar}/> */}
     </>
+
   );
 };
 

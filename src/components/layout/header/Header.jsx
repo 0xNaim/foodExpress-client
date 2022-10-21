@@ -10,10 +10,15 @@ import {
   IconButton,
   Toolbar,
   Typography,
+
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from './Header.module.scss';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+
+import styled from './Header.module.css';
 
 const navItems = [
   {
@@ -26,14 +31,17 @@ const navItems = [
   },
 ];
 
-const Header = () => {
+const Header = (props) => {
+  const {sidebar, changeSidebar} = props;
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawerHandler = () => setOpenDrawer(!openDrawer);
 
   return (
     <>
+    <div style={{zIndex:"20"}}>
       <AppBar position='static' className={styles.appBar__container}>
         <Toolbar>
+          <div onClick={()=>changeSidebar()} className={styled.menu_icon} >{sidebar ? <CloseIcon className={styled.menu_icon} style={{ color: "black", fontSize: "2.5rem" }} />:<MenuIcon className={styled.menu_icon} style={{ color: "black", fontSize: "2.5rem" }} />}</div>
           <Box component={'div'} className={styles.brand__wrapper}>
             <Link href='/'>
               <a className={styles.link}>
@@ -125,6 +133,7 @@ const Header = () => {
           <Divider />
         </Box>
       </Drawer>
+      </div>
     </>
   );
 };

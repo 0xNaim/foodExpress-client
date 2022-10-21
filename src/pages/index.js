@@ -2,6 +2,7 @@ import { Typography, Box, Button, IconButton } from "@mui/material";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/layout";
+import Footer from "../components/layout/footer/Footer";
 import {
   countDecrement,
   countIncrement,
@@ -30,7 +31,7 @@ const Home = () => {
       <Layout>
         <Box
           component='div'
-          sx={{ display: 'flex', alignItems: 'center', paddingY: 5 }}
+          style={{height:"100vh", padding:"1rem"}}
         >
           <Button variant='outlined' onClick={handleDecrement}>
             Decrement
@@ -40,6 +41,7 @@ const Home = () => {
             Increment
           </Button>
         </Box>
+        {/* <Footer/> */}
       </Layout>
     </>
   );

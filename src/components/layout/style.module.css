@@ -1,0 +1,38 @@
+.layout{
+    display: grid;
+    grid-template-columns:1fr 6fr;
+    height: 100%;
+    position: relative;
+}
+
+.fa_bars{
+    font-size: 2rem;
+    top: 10;
+    background-color: white;
+}
+
+.children{
+    /* margin-top: 3.5rem; */
+    /* padding: 1rem; */
+}
+
+@media screen and (max-width:786px)
+{
+    .layout{
+        display: grid;
+        grid-template-columns:1fr;
+        height: 100%;
+        align-items: start;
+        overflow: hidden;
+    }   
+
+
+}
+@media screen and (min-width:992px)
+{
+
+}
+@media screen and (min-width:1200px)
+{
+
+}
