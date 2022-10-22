@@ -14,9 +14,9 @@ const ListItems = ({ open, handleClick, categories }) => {
   return (
     <List>
       {categories?.map((category) => {
-        const { attributes } = category;
-        const { sub_categories } = attributes;
-        const { data } = sub_categories;
+        const { attributes } = category || {};
+        const { sub_categories } = attributes || {};
+        const { data } = sub_categories || {};
 
         return (
           <Box component='div' key={category.id}>
