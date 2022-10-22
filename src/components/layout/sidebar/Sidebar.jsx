@@ -22,19 +22,20 @@ const Sidebar = () => {
     isLoading,
   } = useGetCategoriesQuery();
 
-  const categories = data.map((category) => category.attributes);
+  const categories = data.map((category) => category);
 
   return (
     <Paper component='div' className={styles.sidebar}>
       <List>
         {categories?.map((category) => {
-          const { sub_categories } = category;
+          const { attributes } = category;
+          const { sub_categories } = attributes;
           const { data } = sub_categories;
 
           return (
-            <Box component='div' key={category.slug}>
+            <Box component='div' key={category.id}>
               <ListItemButton disableRipple onClick={handleClick}>
-                <ListItemText primary={category.categoryName} />
+                <ListItemText primary={attributes.categoryName} />
                 {open ? <ExpandLess /> : <KeyboardArrowRightIcon />}
               </ListItemButton>
 
