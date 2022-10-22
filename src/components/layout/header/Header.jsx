@@ -1,4 +1,5 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
   AppBar,
@@ -6,45 +7,58 @@ import {
   Box,
   Button,
   Divider,
-  Drawer,
   IconButton,
   Toolbar,
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useGetCategoriesQuery } from '../../../services/categoriesApi';
+import MyDrawer from '../../ui/Drawer';
+import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
-
-const navItems = [
-  {
-    name: 'Home',
-    link: '/',
-  },
-  {
-    name: 'Product',
-    link: '/product',
-  },
-];
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const toggleDrawerHandler = () => setOpenDrawer(!openDrawer);
+  const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
+
+  const toggleDrawerHandler = () => setOpenDrawer((prev) => !prev);
+  const toggleCategoryDrawerHandler = () =>
+    setOpenCategoryDrawer((prev) => !prev);
+
+  const [open, setOpen] = useState({});
+
+  const handleClick = (id) => setOpen({ [id]: !open[id] });
+
+  const {
+    data: { data },
+    isLoading,
+    isSuccess,
+  } = useGetCategoriesQuery();
+
+  const categories = data.map((category) => category);
 
   return (
     <>
       <AppBar position='static' className={styles.appBar__container}>
         <Toolbar>
+          <Box component='div' className={styles.appBar__menuIcon}>
+            <IconButton color='primary' onClick={toggleCategoryDrawerHandler}>
+              <MenuIcon />
+            </IconButton>
+          </Box>
+
           <Box component={'div'} className={styles.brand__wrapper}>
             <Link href='/'>
               <a className={styles.link}>
                 <Typography className={styles.brand__name} variant='h4'>
+                  Food
                   <Box
                     className={styles['brand__name--color']}
                     component='span'
                   >
-                    Food
+                    Express
                   </Box>
-                  Express
                 </Typography>
               </a>
             </Link>
@@ -108,23 +122,41 @@ const Header = () => {
         </Toolbar>
       </AppBar>
 
-      <Drawer
-        variant='temporary'
-        open={openDrawer}
-        onClose={toggleDrawerHandler}
-        anchor='right'
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        sx={{
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '300px' },
-        }}
-      >
+      <MyDrawer open={openDrawer} onClose={toggleDrawerHandler} anchor='right'>
         <Box component='div'>
-          <Typography variant='h5' textAlign={'center'}>Cart</Typography>
+          <Typography variant='h5' textAlign={'center'}>
+            Cart
+          </Typography>
           <Divider />
         </Box>
-      </Drawer>
+      </MyDrawer>
+
+      <MyDrawer
+        open={openCategoryDrawer}
+        onClose={toggleCategoryDrawerHandler}
+        anchor='left'
+      >
+        <Box component='div'>
+          <Typography className={styles['sicebar-brand__name']} variant='h5'>
+            Food
+            <Box
+              className={styles['sicebar-brand__name--color']}
+              component='span'
+            >
+              Express
+            </Box>
+          </Typography>
+          <Divider />
+        </Box>
+
+        {isSuccess && data?.length > 0 && (
+          <ListItems
+            categories={categories}
+            handleClick={handleClick}
+            open={open}
+          />
+        )}
+      </MyDrawer>
     </>
   );
 };
