@@ -1,6 +1,7 @@
 import { Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
+import CategorySkeleton from '../../ui/loading/CategorySkeleton';
 import ListItems from './list/List';
 import styles from './Sidebar.module.scss';
 
@@ -22,6 +23,15 @@ const Sidebar = () => {
       {categories?.length === 0 && (
         <Typography variant='body1'>There is no categories</Typography>
       )}
+
+      {isLoading && <>
+        <CategorySkeleton />
+        <CategorySkeleton />
+        <CategorySkeleton />
+        <CategorySkeleton />
+        <CategorySkeleton />
+        <CategorySkeleton />
+      </>}
 
       {isSuccess && categories?.length > 0 && (
         <ListItems
