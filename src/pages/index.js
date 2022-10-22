@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>FoodExpress || Home</title>
+        <title>Home || FoodExpress</title>
       </Head>
 
       <Layout>
