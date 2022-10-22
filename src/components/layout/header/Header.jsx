@@ -14,7 +14,7 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
-import MyDrawer from '../../ui/Drawer';
+import MyDrawer from '../../drawer/Drawer';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
@@ -33,7 +33,6 @@ const Header = () => {
   const { data, isLoading, isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
-  console.log('Header', categories);
 
   return (
     <>
