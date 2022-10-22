@@ -1,63 +1,35 @@
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import {
-  Box,
-  Collapse,
-  List,
-  ListItemButton,
-  ListItemText,
-  Paper,
-} from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
+import ListItems from './list/List';
 import styles from './Sidebar.module.scss';
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({});
 
-  const handleClick = () => setOpen(!open);
+  const handleClick = (id) => setOpen({ [id]: !open[id] });
 
   const {
     data: { data },
     isLoading,
+    isSuccess,
   } = useGetCategoriesQuery();
 
   const categories = data.map((category) => category);
 
   return (
-    <Paper component='div' className={styles.sidebar}>
-      <List>
-        {categories?.map((category) => {
-          const { attributes } = category;
-          const { sub_categories } = attributes;
-          const { data } = sub_categories;
+    <Paper className={styles.sidebar}>
+      {data?.length === 0 && (
+        <Typography variant='body1'>There is no categories</Typography>
+      )}
 
-          return (
-            <Box component='div' key={category.id}>
-              <ListItemButton disableRipple onClick={handleClick}>
-                <ListItemText primary={attributes.categoryName} />
-                {open ? <ExpandLess /> : <KeyboardArrowRightIcon />}
-              </ListItemButton>
-
-              <Collapse in={open} timeout='auto' unmountOnExit>
-                <List component='div' disablePadding>
-                  {data?.map((subCategory) => (
-                    <ListItemButton
-                      key={subCategory.slug}
-                      disableRipple
-                      sx={{ pl: 4 }}
-                    >
-                      <ListItemText
-                        primary={subCategory.attributes.subCategoryName}
-                      />
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Collapse>
-            </Box>
-          );
-        })}
-      </List>
+      {isSuccess && data?.length > 0 && (
+        <ListItems
+          categories={categories}
+          handleClick={handleClick}
+          open={open}
+        />
+      )}
     </Paper>
   );
 };
