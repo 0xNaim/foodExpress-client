@@ -21,12 +21,12 @@ import styles from './Header.module.scss';
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
+  const [open, setOpen] = useState({});
 
   const toggleDrawerHandler = () => setOpenDrawer((prev) => !prev);
+
   const toggleCategoryDrawerHandler = () =>
     setOpenCategoryDrawer((prev) => !prev);
-
-  const [open, setOpen] = useState({});
 
   const handleClick = (id) => setOpen({ [id]: !open[id] });
 
@@ -36,7 +36,7 @@ const Header = () => {
     isSuccess,
   } = useGetCategoriesQuery();
 
-  const categories = data.map((category) => category);
+  const categories = data?.map((category) => category);
 
   return (
     <>
@@ -148,6 +148,10 @@ const Header = () => {
           </Typography>
           <Divider />
         </Box>
+
+        {data?.length === 0 && (
+          <Typography variant='body1'>There is no categories</Typography>
+        )}
 
         {isSuccess && data?.length > 0 && (
           <ListItems

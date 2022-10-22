@@ -15,7 +15,7 @@ const Sidebar = () => {
     isSuccess,
   } = useGetCategoriesQuery();
 
-  const categories = data.map((category) => category);
+  const categories = data?.map((category) => category);
 
   return (
     <Paper className={styles.sidebar}>
