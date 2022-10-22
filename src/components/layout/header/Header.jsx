@@ -30,13 +30,10 @@ const Header = () => {
 
   const handleClick = (id) => setOpen({ [id]: !open[id] });
 
-  const {
-    data: { data },
-    isLoading,
-    isSuccess,
-  } = useGetCategoriesQuery();
+  const { data, isLoading, isSuccess } = useGetCategoriesQuery();
 
-  const categories = data?.map((category) => category);
+  const categories = data?.data?.map((category) => category);
+  console.log('Header', categories);
 
   return (
     <>
@@ -149,11 +146,11 @@ const Header = () => {
           <Divider />
         </Box>
 
-        {data?.length === 0 && (
+        {categories?.length === 0 && (
           <Typography variant='body1'>There is no categories</Typography>
         )}
 
-        {isSuccess && data?.length > 0 && (
+        {isSuccess && categories?.length > 0 && (
           <ListItems
             categories={categories}
             handleClick={handleClick}
