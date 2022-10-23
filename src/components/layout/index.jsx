@@ -13,10 +13,10 @@ const Layout = ({ children }) => {
 
       <Container maxWidth='xl'>
         <Grid container>
-          <Grid item md={2.5}>
+          <Grid item md={2}>
             <Sidebar />
           </Grid>
-          <Grid item md={9.5} className={styles.children__wrapper}>
+          <Grid item md={10} className={styles.children__wrapper}>
             {children}
           </Grid>
         </Grid>
