@@ -1,6 +1,7 @@
 import { Container, Grid } from '@mui/material';
 import Footer from './footer/Footer';
 import Header from './header/Header';
+import styles from './Layout.module.scss';
 import Sidebar from './sidebar/Sidebar';
 import SubHeader from './sub-header/SubHeader';
 
@@ -12,10 +13,10 @@ const Layout = ({ children }) => {
 
       <Container maxWidth='xl'>
         <Grid container>
-          <Grid item md={2.5}>
+          <Grid item xs={0} md={2}>
             <Sidebar />
           </Grid>
-          <Grid item md={9.5}>
+          <Grid item xs={12} md={10} className={styles.children__wrapper}>
             {children}
           </Grid>
         </Grid>

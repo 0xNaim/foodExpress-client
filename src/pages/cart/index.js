@@ -1,11 +1,18 @@
-import CartView from "../../components/cart/CartView";
-import Layout from "../../components/layout";
+import Head from 'next/head';
+import CartView from '../../components/cart/CartView';
+import Layout from '../../components/layout';
 
 const Cart = () => {
   return (
-    <Layout>
-      <CartView />
-    </Layout>
+    <>
+      <Head>
+        <title>Cart || FoodExpress</title>
+      </Head>
+
+      <Layout>
+        <CartView />
+      </Layout>
+    </>
   );
 };
 
