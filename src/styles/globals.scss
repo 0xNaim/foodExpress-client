@@ -11,6 +11,13 @@
   --fw-number: 800;
 }
 
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 @media only screen and (max-width: 900px) {
   .MuiBadge-badge {
     top: 15px !important;
