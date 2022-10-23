@@ -18,3 +18,11 @@
     padding: 0 4px !important;
   }
 }
+
+.MuiDrawer-paper {
+  box-sizing: border-box !important;
+  width: 300px !important;
+  @media only screen and (max-width: 900px) {
+    width: 70% !important;
+  }
+}

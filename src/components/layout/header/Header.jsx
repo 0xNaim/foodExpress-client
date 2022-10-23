@@ -30,7 +30,7 @@ const Header = () => {
 
   const handleClick = (id) => setOpen({ [id]: !open[id] });
 
-  const { data, isLoading, isSuccess } = useGetCategoriesQuery();
+  const { data, isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
 
@@ -39,9 +39,7 @@ const Header = () => {
       <AppBar position='static' className={styles.appBar__container}>
         <Toolbar>
           <Box component='div' className={styles.appBar__menuIcon}>
-            <IconButton color='primary' onClick={toggleCategoryDrawerHandler}>
-              <MenuIcon />
-            </IconButton>
+            <MenuIcon color='primary' onClick={toggleCategoryDrawerHandler} />
           </Box>
 
           <Box component={'div'} className={styles.brand__wrapper}>
