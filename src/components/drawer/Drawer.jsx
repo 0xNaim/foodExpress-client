@@ -1,20 +1,16 @@
-import { Drawer } from "@mui/material";
+import { Drawer } from '@mui/material';
 
-const MyDrawer = ({open, onClose, anchor, children}) => {
+const MyDrawer = ({ open, onClose, anchor, children }) => {
   return (
     <Drawer
+      className={'MuiDrawer-paper'}
       variant='temporary'
       open={open}
       onClose={onClose}
       anchor={anchor}
-      ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
-      }}
-      sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '300px' },
-      }}
+      ModalProps={{ keepMounted: true }}
     >
-     {children}
+      {children}
     </Drawer>
   );
 };
