@@ -6,11 +6,20 @@
     text-decoration: none;
   }
 
+  .appBar__menuIcon {
+    margin-right: auto;
+    display: none;
+
+    @media only screen and (max-width: 900px) {
+      display: block;
+    }
+  }
+
   .brand__wrapper {
     margin-right: auto;
 
     .brand__name {
-      color: var(--clr-primary);
+      color: var(--clr-black);
       font-weight: 700;
 
       @media only screen and (max-width: 900px) {
@@ -18,7 +27,7 @@
       }
 
       .brand__name--color {
-        color: var(--clr-black);
+        color: var(--clr-primary);
       }
     }
   }
@@ -133,6 +142,16 @@
     .search__wrapper {
       display: none;
     }
+  }
+}
+
+.sicebar-brand__name {
+  text-align: center;
+  font-weight: var(--fw-title) !important;
+  padding: 0.5em 0;
+
+  &--color {
+    color: var(--clr-primary);
   }
 }
 
