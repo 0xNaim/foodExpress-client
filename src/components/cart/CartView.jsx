@@ -80,20 +80,17 @@ const CartView = () => {
                     <Typography variant='caption'>{data.quantity}</Typography>
                   </Box>
 
-                  <Box
-                    component='div'
-                    className={styles.button__wrapper}
-                  >
+                  <Box component='div' className={styles.button__wrapper}>
                     <IconButton disableRipple>
-                      <Remove sx={{fontSize: 20}} /> 
+                      <Remove sx={{ fontSize: 20 }} />
                     </IconButton>
                     <Typography variant='body1'>1</Typography>
                     <IconButton disableRipple>
-                      <Add sx={{fontSize: 20}}  />
+                      <Add sx={{ fontSize: 20 }} />
                     </IconButton>
                   </Box>
 
-                  <Box component='div'>
+                  <Box component='div' className={styles.clear__btn}>
                     <IconButton disableRipple>
                       <Clear color='error' />
                     </IconButton>

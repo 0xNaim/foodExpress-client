@@ -10,8 +10,6 @@
 }
 
 .left_part {
-  /* padding: 0 2rem; */
-  /* width: 100%; */
   border-right: 1px solid #ddd;
   padding-right: 2rem;
 }
@@ -44,18 +42,22 @@
 .product_details {
   width: 100%;
   padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
 
   .button__wrapper {
     display: flex;
     align-items: center;
+    justify-content: center;
+  }
+
+  .clear__btn {
+    justify-self: end;
   }
 }
 
 .right_part {
-  /* padding: 0 2rem; */
   padding-left: 2rem;
 }
 
