@@ -16,8 +16,8 @@ import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
-import Signin from '../Auth/Signin';
-import SignUp from '../Auth/SignUp';
+import Signin from '../../auth/SignUp';
+import SignUp from '../../auth/Signin';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
