@@ -15,6 +15,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import MyDrawer from '../../drawer/Drawer';
+import Modal from '../../modal/Modal';
+import Signin from '../Auth/Signin';
+import SignUp from '../Auth/SignUp';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
@@ -22,7 +25,16 @@ const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
   const [open, setOpen] = useState({});
-
+  const [signUp, setSignUp] =useState(false);
+  const [openModel, setOpenModel] =useState(false);
+    // handle signup
+    const handleSignUp = ()=>{
+      setSignUp(!signUp);
+    }
+    // modal close 
+    const handleClose = ()=>{
+      setOpenModel(false);
+    }
   const toggleDrawerHandler = () => setOpenDrawer((prev) => !prev);
 
   const toggleCategoryDrawerHandler = () =>
@@ -30,7 +42,7 @@ const Header = () => {
 
   const handleClick = (id) => setOpen({ [id]: !open[id] });
 
-  const { data, isSuccess } = useGetCategoriesQuery();
+  const { data, isLoading, isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
 
@@ -39,7 +51,9 @@ const Header = () => {
       <AppBar position='static' className={styles.appBar__container}>
         <Toolbar>
           <Box component='div' className={styles.appBar__menuIcon}>
-            <MenuIcon color='primary' onClick={toggleCategoryDrawerHandler} />
+            <IconButton color='primary' onClick={toggleCategoryDrawerHandler}>
+              <MenuIcon />
+            </IconButton>
           </Box>
 
           <Box component={'div'} className={styles.brand__wrapper}>
@@ -104,7 +118,7 @@ const Header = () => {
               </Box>
             </Box>
 
-            <Box className={styles.account} component='div'>
+            <Box className={styles.account} component='div' onClick={()=>setOpenModel(true)}>
               <IconButton className={styles.account__iconBtn} disableRipple>
                 <AccountCircleIcon
                   className={styles.account__icon}
@@ -112,6 +126,14 @@ const Header = () => {
                 />
               </IconButton>
             </Box>
+            <Modal openModel={openModel} 
+              handleClose={handleClose}>
+              {
+                signUp?<SignUp handleSignUp={handleSignUp}/>:<Signin handleClose={handleClose}
+                  handleSignUp={handleSignUp}
+                />
+              }
+              </Modal>
           </Box>
         </Toolbar>
       </AppBar>
