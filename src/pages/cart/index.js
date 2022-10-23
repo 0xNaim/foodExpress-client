@@ -1,10 +1,10 @@
-import { Typography } from "@mui/material";
+import CartView from "../../components/cart/CartView";
 import Layout from "../../components/layout";
 
 const Cart = () => {
   return (
     <Layout>
-      <Typography>Cart page</Typography>
+      <CartView />
     </Layout>
   );
 };
