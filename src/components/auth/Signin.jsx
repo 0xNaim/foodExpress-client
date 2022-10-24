@@ -85,6 +85,7 @@ const Signin = ({ handleSignUp }) => {
         <FormControl sx={{ m: 1 }} variant='outlined'>
           <Button
             variant='contained'
+            disableRipple
             style={{
               marginTop: '40px',
               borderRadius: '14px',
@@ -98,7 +99,14 @@ const Signin = ({ handleSignUp }) => {
           <Grid item xs={12} display='flex' justifyContent='center'>
             <p>
               Don&apos;t Have Account?{' '}
-              <Button onClick={handleSignUp} color='primary'>
+              <Button
+                disableRipple
+                onClick={handleSignUp}
+                color='primary'
+                sx={{
+                  '&:hover': { background: 'none' },
+                }}
+              >
                 Sign Up
               </Button>
             </p>

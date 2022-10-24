@@ -145,6 +145,22 @@
   }
 }
 
+@media only screen and (max-width: 900px) {
+  .appBar__container {
+    padding: 0;
+  }
+}
+
+.sidebar-cart__wrapper {
+  .sidebar-cart__title {
+    padding: 0.25em 0;
+  }
+
+  .sidebar-cart__content {
+    padding: .75em;
+  }
+}
+
 .sicebar-brand__name {
   text-align: center;
   font-weight: var(--fw-title) !important;
@@ -152,11 +168,5 @@
 
   &--color {
     color: var(--clr-primary);
-  }
-}
-
-@media only screen and (max-width: 900px) {
-  .appBar__container {
-    padding: 0;
   }
 }
