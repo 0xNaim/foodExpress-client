@@ -40,10 +40,10 @@ const Home = () => {
             <Card sx={{ maxWidth: "full" }}>
               <CardMedia
                 sx={{
-                  objectFit: "contain"
+                  objectFit: "contain",
+                  height:"50%"
                 }}
                 component="img"
-                height="200"
                 image="https://chaldn.com/_mpimage/broiler-chicken-skin-off-50-gm-1-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D74661&q=low&v=1&m=400&webp=1"
                 alt="green iguana"
               />
@@ -61,7 +61,6 @@ const Home = () => {
                 <Button size="small">Learn More</Button>
               </CardActions>
             </Card>
-
 
           </Grid>
           <Grid item xs={3}>
