@@ -11,10 +11,25 @@
   --fw-number: 800;
 }
 
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 @media only screen and (max-width: 900px) {
   .MuiBadge-badge {
     top: 15px !important;
     border: 2px solid #fff !important;
     padding: 0 4px !important;
+  }
+}
+
+.MuiDrawer-paper {
+  box-sizing: border-box !important;
+  width: 300px !important;
+  @media only screen and (max-width: 900px) {
+    width: 70% !important;
   }
 }

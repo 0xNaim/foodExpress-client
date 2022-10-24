@@ -1,47 +1,80 @@
-import { Typography, Box, Button, IconButton } from "@mui/material";
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
-import Layout from "../components/layout";
-import Footer from "../components/layout/footer/Footer";
-import {
-  countDecrement,
-  countIncrement,
-} from "../redux/features/counter/counterSlice";
-import { useUsersQuery } from "../services/users/usersApi";
+
+// import { Typography } from '@mui/material';
+import Link from 'next/link'
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+
+// import Item from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Head from 'next/head';
+import Layout from '../components/layout';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const Home = () => {
-  const { count } = useSelector((state) => state.counter);
-  const { data: todos } = useUsersQuery();
-  const dispatch = useDispatch();
-
-  const handleIncrement = () => {
-    dispatch(countIncrement());
-  };
-
-  const handleDecrement = () => {
-    dispatch(countDecrement());
-  };
-
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
   return (
     <>
       <Head>
-        <title>FoodExpress || Home</title>
+        <title>Home || FoodExpress</title>
       </Head>
 
       <Layout>
-        <Box
-          component='div'
-          style={{height:"100vh", padding:"1rem"}}
-        >
-          <Button variant='outlined' onClick={handleDecrement}>
-            Decrement
-          </Button>
-          <Typography sx={{ paddingX: 1 }}>{count}</Typography>
-          <Button variant='contained' onClick={handleIncrement}>
-            Increment
-          </Button>
-        </Box>
-        {/* <Footer/> */}
+
+        {/* <Typography variant='h4'>
+          Home
+        </Typography> */}
+        <Grid style={{ padding: "1rem" }} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={12} sm={6} lg={3} >
+
+            <Card sx={{ maxWidth: "full" }}>
+              <CardMedia
+                sx={{
+                  objectFit: "contain"
+                }}
+                component="img"
+                height="200"
+                image="https://chaldn.com/_mpimage/broiler-chicken-skin-off-50-gm-1-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D74661&q=low&v=1&m=400&webp=1"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Lizards are a widespread group of squamate reptiles, with over 6,000
+                  species, ranging across all continents except Antarctica
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Link href=""><Button size="small">Share</Button></Link>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+
+
+          </Grid>
+          <Grid item xs={3}>
+            <Item>2</Item>
+          </Grid>
+          <Grid item xs={3}>
+            <Item>3</Item>
+          </Grid>
+          <Grid item xs={3}>
+            <Item>4</Item>
+          </Grid>
+        </Grid>
+
       </Layout>
     </>
   );
