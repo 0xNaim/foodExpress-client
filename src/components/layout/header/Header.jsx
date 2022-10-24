@@ -149,11 +149,64 @@ const Header = () => {
             variant='h5'
             textAlign={'center'}
           >
-            Cart
+            Shopping Cart
           </Typography>
           <Divider />
+
           <Box className={styles['sidebar-cart__content']} component='div'>
             <CartItems />
+          </Box>
+
+          <Divider className={styles.separator} />
+
+          <Box className={styles['sidebar-cart__btnGroup']} component='div'>
+            <Box
+              className={styles['sidebar-cart__price__wrapper']}
+              component='div'
+            >
+              <Typography
+                className={styles['sidebar-cart__subtotal']}
+                variant='body1'
+              >
+                Subtotal:
+              </Typography>
+              <Typography
+                className={styles['sidebar-cart__price']}
+                variant='body1'
+              >
+                500 TK
+              </Typography>
+            </Box>
+
+            <Box
+              className={styles['sidebar-cart__btn__wrapper']}
+              component='div'
+            >
+              <Link href='/cart' passHref>
+                <a className={styles['sidebar-cart__link']}>
+                  <Button
+                    className={styles['sidebar-cart__btn']}
+                    variant='outlined'
+                    fullWidth
+                    disableRipple
+                  >
+                    View Cart
+                  </Button>
+                </a>
+              </Link>
+              <Link href='/checkout' passHref>
+                <a className={styles['sidebar-cart__link']}>
+                  <Button
+                    className={styles['sidebar-cart__btn']}
+                    variant='contained'
+                    fullWidth
+                    disableRipple
+                  >
+                    Checkout
+                  </Button>
+                </a>
+              </Link>
+            </Box>
           </Box>
         </Box>
       </MyDrawer>

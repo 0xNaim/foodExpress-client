@@ -154,10 +154,47 @@
 .sidebar-cart__wrapper {
   .sidebar-cart__title {
     padding: 0.25em 0;
+    font-weight: var(--fw-title);
   }
 
   .sidebar-cart__content {
-    padding: .75em;
+    padding: 0.75em;
+  }
+
+  .separator {
+    margin: 0.75em 0;
+  }
+
+  .sidebar-cart__btnGroup {
+    padding: 0.75em;
+
+    .sidebar-cart__price__wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75em;
+
+      .sidebar-cart__subtotal,
+      .sidebar-cart__price {
+        font-weight: var(--fw-title);
+      }
+
+      .sidebar-cart__price {
+        color: var(--clr-primary);
+      }
+    }
+
+    .sidebar-cart__btn__wrapper {
+      .sidebar-cart__link {
+        text-decoration: none;
+        color: inherit;
+
+        .sidebar-cart__btn {
+          text-transform: capitalize;
+          margin-bottom: 0.75em;
+        }
+      }
+    }
   }
 }
 

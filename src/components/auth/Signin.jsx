@@ -98,7 +98,7 @@ const Signin = ({ handleSignUp }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} display='flex' justifyContent='center'>
             <p>
-              Don&apos;t Have Account?{' '}
+              Don&apos;t Have An Account?{' '}
               <Button
                 disableRipple
                 onClick={handleSignUp}
