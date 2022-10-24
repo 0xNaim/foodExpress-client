@@ -8,12 +8,12 @@ const SubHeader = () => {
     <>
       <Container maxWidth='xl' className={styles['sub-header__container']}>
         <Grid container>
-          <Grid item md={2.5}>
+          <Grid item md={2}>
             <Box component='span' className={styles['sub-header__btn']}>
               All Categories
             </Box>
           </Grid>
-          <Grid item md={9.5}>
+          <Grid item md={10}>
             <Box component='div' className={styles['sub-header']}>
               <Link href='/shop' passHref>
                 <a className={styles['sub-header--link']}>

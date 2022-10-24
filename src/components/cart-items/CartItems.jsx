@@ -1,13 +1,13 @@
 import { Add, Clear, Remove } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
-import { cartData } from '../../../data/cartData';
+import { cartData } from '../../data/cartData';
 import styles from './CartItem.module.scss';
 
 const CartItems = ({ showQuantity }) => {
   return (
     <>
-      {cartData.map((data, i) => (
+      {cartData?.map((data, i) => (
         <Box className={styles.cartItems__wrapper} key={i} component='div'>
           <Box
             component={'div'}
