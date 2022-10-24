@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import SignUp from '../../auth/Signin';
 import Signin from '../../auth/SignUp';
-import CartItems from '../../cart/cart-items/CartItems';
+import CartItems from '../../cart-items/CartItems';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import ListItems from '../sidebar/list/List';
@@ -52,9 +52,7 @@ const Header = () => {
       <AppBar position='static' className={styles.appBar__container}>
         <Toolbar>
           <Box component='div' className={styles.appBar__menuIcon}>
-            <IconButton color='primary' onClick={toggleCategoryDrawerHandler}>
-              <MenuIcon />
-            </IconButton>
+            <MenuIcon color='primary' onClick={toggleCategoryDrawerHandler} />
           </Box>
 
           <Box component={'div'} className={styles.brand__wrapper}>
