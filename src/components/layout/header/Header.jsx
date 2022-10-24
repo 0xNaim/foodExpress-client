@@ -14,10 +14,11 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
+import SignUp from '../../auth/Signin';
+import Signin from '../../auth/SignUp';
+import CartItems from '../../cart/cart-items/CartItems';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
-import Signin from '../../auth/SignUp';
-import SignUp from '../../auth/Signin';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
@@ -25,16 +26,16 @@ const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
   const [open, setOpen] = useState({});
-  const [signUp, setSignUp] =useState(false);
-  const [openModel, setOpenModel] =useState(false);
-    // handle signup
-    const handleSignUp = ()=>{
-      setSignUp(!signUp);
-    }
-    // modal close 
-    const handleClose = ()=>{
-      setOpenModel(false);
-    }
+  const [signUp, setSignUp] = useState(false);
+  const [openModel, setOpenModel] = useState(false);
+  // handle signup
+  const handleSignUp = () => {
+    setSignUp(!signUp);
+  };
+  // modal close
+  const handleClose = () => {
+    setOpenModel(false);
+  };
   const toggleDrawerHandler = () => setOpenDrawer((prev) => !prev);
 
   const toggleCategoryDrawerHandler = () =>
@@ -118,7 +119,11 @@ const Header = () => {
               </Box>
             </Box>
 
-            <Box className={styles.account} component='div' onClick={()=>setOpenModel(true)}>
+            <Box
+              className={styles.account}
+              component='div'
+              onClick={() => setOpenModel(true)}
+            >
               <IconButton className={styles.account__iconBtn} disableRipple>
                 <AccountCircleIcon
                   className={styles.account__icon}
@@ -126,24 +131,83 @@ const Header = () => {
                 />
               </IconButton>
             </Box>
-            <Modal openModel={openModel} 
-              handleClose={handleClose}>
-              {
-                signUp?<SignUp handleSignUp={handleSignUp}/>:<Signin handleClose={handleClose}
-                  handleSignUp={handleSignUp}
-                />
-              }
-              </Modal>
+            <Modal openModel={openModel} handleClose={handleClose}>
+              {signUp ? (
+                <SignUp handleSignUp={handleSignUp} />
+              ) : (
+                <Signin handleClose={handleClose} handleSignUp={handleSignUp} />
+              )}
+            </Modal>
           </Box>
         </Toolbar>
       </AppBar>
 
       <MyDrawer open={openDrawer} onClose={toggleDrawerHandler} anchor='right'>
-        <Box component='div'>
-          <Typography variant='h5' textAlign={'center'}>
-            Cart
+        <Box className={styles['sidebar-cart__wrapper']} component='div'>
+          <Typography
+            className={styles['sidebar-cart__title']}
+            variant='h5'
+            textAlign={'center'}
+          >
+            Shopping Cart
           </Typography>
           <Divider />
+
+          <Box className={styles['sidebar-cart__content']} component='div'>
+            <CartItems />
+          </Box>
+
+          <Divider className={styles.separator} />
+
+          <Box className={styles['sidebar-cart__btnGroup']} component='div'>
+            <Box
+              className={styles['sidebar-cart__price__wrapper']}
+              component='div'
+            >
+              <Typography
+                className={styles['sidebar-cart__subtotal']}
+                variant='body1'
+              >
+                Subtotal:
+              </Typography>
+              <Typography
+                className={styles['sidebar-cart__price']}
+                variant='body1'
+              >
+                500 TK
+              </Typography>
+            </Box>
+
+            <Box
+              className={styles['sidebar-cart__btn__wrapper']}
+              component='div'
+            >
+              <Link href='/cart' passHref>
+                <a className={styles['sidebar-cart__link']}>
+                  <Button
+                    className={styles['sidebar-cart__btn']}
+                    variant='outlined'
+                    fullWidth
+                    disableRipple
+                  >
+                    View Cart
+                  </Button>
+                </a>
+              </Link>
+              <Link href='/checkout' passHref>
+                <a className={styles['sidebar-cart__link']}>
+                  <Button
+                    className={styles['sidebar-cart__btn']}
+                    variant='contained'
+                    fullWidth
+                    disableRipple
+                  >
+                    Checkout
+                  </Button>
+                </a>
+              </Link>
+            </Box>
+          </Box>
         </Box>
       </MyDrawer>
 
