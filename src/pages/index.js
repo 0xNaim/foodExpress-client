@@ -12,8 +12,6 @@ const Home = () => {
 
       <Layout>
         <Typography variant='h4'>Home Page</Typography>
-
-        <Product />
       </Layout>
     </>
   );
