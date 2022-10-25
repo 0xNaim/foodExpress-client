@@ -1,0 +1,9 @@
+.button {
+  display: flex !important;
+  align-items: center !important;
+  text-transform: capitalize !important;
+
+  .button__icon {
+    margin-right: 0.25em;
+  }
+}
