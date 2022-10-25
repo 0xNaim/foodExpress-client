@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { cartData } from '../../data/cartData';
 import styles from './CartItem.module.scss';
 
-const CartItems = ({ showQuantity }) => {
+const CartItem = ({ showQuantity }) => {
   return (
     <>
       {cartData?.map((data, i) => (
@@ -59,4 +59,4 @@ const CartItems = ({ showQuantity }) => {
   );
 };
 
-export default CartItems;
+export default CartItem;

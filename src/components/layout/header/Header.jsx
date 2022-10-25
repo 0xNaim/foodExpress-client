@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import SignUp from '../../auth/Signin';
 import Signin from '../../auth/SignUp';
-import CartItems from '../../cart-items/CartItems';
+import CartItem from '../../cart-item/CartItem';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import ListItems from '../sidebar/list/List';
@@ -152,7 +152,7 @@ const Header = () => {
           <Divider />
 
           <Box className={styles['sidebar-cart__content']} component='div'>
-            <CartItems />
+            <CartItem />
           </Box>
 
           <Divider className={styles.separator} />

@@ -8,7 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import Head from 'next/head';
-import CartItems from '../components/cart-items/CartItems';
+import Link from 'next/link';
+import CartItem from '../components/cart-item/CartItem';
 import Layout from '../components/layout';
 import styles from '../styles/Cart.module.scss';
 
@@ -46,7 +47,7 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
-                <CartItems showQuantity />
+                <CartItem showQuantity />
               </Box>
             </Grid>
 
@@ -87,15 +88,19 @@ const Cart = () => {
                     </TableRow>
 
                     <TableRow className={''}>
-                      <Button
-                        variant='contained'
-                        color='primary'
-                        fullWidth
-                        disableRipple
-                        sx={{ borderRadius: '10px' }}
-                      >
-                        Submit
-                      </Button>
+                      <Link href='/checkout' passHref>
+                        <a>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            fullWidth
+                            disableRipple
+                            sx={{ textTransform: 'capitalize' }}
+                          >
+                            Checkout
+                        </Button>
+                        </a>
+                      </Link>
                     </TableRow>
                   </TableBody>
                 </Table>
