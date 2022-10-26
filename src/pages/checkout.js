@@ -1,8 +1,12 @@
-import { Typography } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import Head from 'next/head';
+import ShippingForm from '../components/checkout-form/ShippingForm';
 import Layout from '../components/layout';
+import styles from '../styles/Checkout.module.scss'
 
 const Checkout = () => {
+  
+
   return (
     <>
       <Head>
@@ -10,7 +14,11 @@ const Checkout = () => {
       </Head>
 
       <Layout>
-        <Typography variant='h4'>Checkout Page</Typography>
+        <Box className={styles.checkout__wrapper} component='main' maxWidth={'md'}>
+          <Paper className={styles.checkout__paper}>
+            <ShippingForm />
+          </Paper>
+        </Box>
       </Layout>
     </>
   );
