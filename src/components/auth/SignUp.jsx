@@ -32,7 +32,7 @@ const SignUp = ({ handleSignUp }) => {
   };
   //from style
   const style = {
-    p: 6,
+    p: { xs: 2, md: 6 },
   };
   return (
     <>
