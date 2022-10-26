@@ -1,0 +1,32 @@
+.cart_wrapper {
+  overflow: hidden;
+}
+
+.left_part {
+  border-right: 1px solid #ddd;
+  padding-right: 2rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .left_part {
+    border-right: none;
+    padding-right: 0;
+    margin-bottom: 3rem;
+  }
+}
+
+.right_part {
+  padding-left: 2rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .right_part {
+    padding-left: 0;
+  }
+}
+
+.table_row {
+  display: flex !important;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
