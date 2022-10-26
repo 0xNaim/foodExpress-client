@@ -8,9 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import CartBtn from '../ui/Button/CartBtn';
+import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
-
 
 const Product = ({ image, title, weight, regularPrice, sellPrice }) => {
   return (
@@ -60,7 +59,7 @@ const Product = ({ image, title, weight, regularPrice, sellPrice }) => {
             <ArrowRightAltIcon />
           </Button>
           <Box className={styles['product__cart--btn']} component={'div'}>
-            <CartBtn showCartIcon />
+            <CustomButton label='Add To Cart' showCartIcon fullWidth />
           </Box>
         </Box>
       </CardActions>
