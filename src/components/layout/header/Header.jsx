@@ -19,6 +19,7 @@ import Signin from '../../auth/SignUp';
 import CartItem from '../../cart-item/CartItem';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
+import CustomButton from '../../ui/Button/CustomButton';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
@@ -182,26 +183,23 @@ const Header = () => {
             >
               <Link href='/cart' passHref>
                 <a className={styles['sidebar-cart__link']}>
-                  <Button
-                    className={styles['sidebar-cart__btn']}
-                    variant='outlined'
-                    fullWidth
-                    disableRipple
-                  >
-                    View Cart
-                  </Button>
+                  <Box className={styles['sidebar-cart__btn']} component='div'>
+                    <CustomButton
+                      label='View Cart'
+                      variant='outlined'
+                      fullWidth
+                    />
+                  </Box>
                 </a>
               </Link>
               <Link href='/checkout' passHref>
                 <a className={styles['sidebar-cart__link']}>
-                  <Button
+                  <Box
                     className={styles['sidebar-cart__btn']}
-                    variant='contained'
-                    fullWidth
-                    disableRipple
+                    component='div'
                   >
-                    Checkout
-                  </Button>
+                    <CustomButton label='Checkout' fullWidth />
+                  </Box>
                 </a>
               </Link>
             </Box>

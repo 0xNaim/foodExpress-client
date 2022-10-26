@@ -1,5 +1,6 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
+import CustomButton from '../ui/Button/CustomButton';
 import CustomTextField from './CustomTextField';
 import styles from './ShippingForm.module.scss';
 
@@ -22,22 +23,10 @@ const ShippingForm = () => {
       <Box className={styles['shipping-form__btn-group']} component='div'>
         <Link href='/cart'>
           <a className={styles['shipping-form__link']}>
-            <Button
-              className={styles['shipping-form__btn']}
-              variant='outlined'
-              disableRipple
-            >
-              Back To Cart
-            </Button>
+            <CustomButton label='Back To Cart' variant='outlined' />
           </a>
         </Link>
-        <Button
-          className={styles['shipping-form__btn']}
-          variant='contained'
-          disableRipple
-        >
-          Next
-        </Button>
+        <CustomButton label='Next' />
       </Box>
     </Box>
   );

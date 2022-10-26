@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Grid,
   Table,
   TableBody,
@@ -11,6 +10,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import CartItem from '../components/cart-item/CartItem';
 import Layout from '../components/layout';
+import CustomButton from '../components/ui/Button/CustomButton';
 import styles from '../styles/Cart.module.scss';
 
 const cartDetailsData = [
@@ -89,16 +89,8 @@ const Cart = () => {
 
                     <TableRow className={''}>
                       <Link href='/checkout' passHref>
-                        <a>
-                          <Button
-                            variant='contained'
-                            color='primary'
-                            fullWidth
-                            disableRipple
-                            sx={{ textTransform: 'capitalize' }}
-                          >
-                            Checkout
-                        </Button>
+                        <a className={styles.link}>
+                          <CustomButton label='Checkout' fullWidth />
                         </a>
                       </Link>
                     </TableRow>
