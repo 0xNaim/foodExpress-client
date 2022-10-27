@@ -10,11 +10,7 @@ const Sidebar = () => {
 
   const handleClick = (id) => setOpen({ [id]: !open[id] });
 
-  const {
-    data,
-    isLoading,
-    isSuccess,
-  } = useGetCategoriesQuery();
+  const { data, isLoading, isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
 
@@ -24,14 +20,16 @@ const Sidebar = () => {
         <Typography variant='body1'>There is no categories</Typography>
       )}
 
-      {isLoading && <>
-        <CategorySkeleton />
-        <CategorySkeleton />
-        <CategorySkeleton />
-        <CategorySkeleton />
-        <CategorySkeleton />
-        <CategorySkeleton />
-      </>}
+      {isLoading && (
+        <>
+          <CategorySkeleton />
+          <CategorySkeleton />
+          <CategorySkeleton />
+          <CategorySkeleton />
+          <CategorySkeleton />
+          <CategorySkeleton />
+        </>
+      )}
 
       {isSuccess && categories?.length > 0 && (
         <ListItems
