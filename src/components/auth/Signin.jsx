@@ -34,7 +34,7 @@ const Signin = ({ handleSignUp }) => {
   };
   //from style
   const style = {
-    p: {xs: 2, md: 6},
+    p: { xs: 2, md: 6 },
   };
   return (
     <>

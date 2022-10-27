@@ -9,7 +9,7 @@ const style = {
   position: 'absolute',
   left: '50%',
   top: '50%',
-  width: {xs: '300px', md: '521px'},
+  width: { xs: '300px', md: '521px' },
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
   borderRadius: '27px',
