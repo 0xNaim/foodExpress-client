@@ -9,10 +9,11 @@ import {
   Divider,
   IconButton,
   Toolbar,
-  Typography,
+  Typography
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
+import { cartData } from '../../../data/cartData';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import SignUp from '../../auth/Signin';
 import Signin from '../../auth/SignUp';
@@ -47,6 +48,12 @@ const Header = () => {
   const { data, isLoading, isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
+
+  const shippingCost = 30;
+  const totalPrice = cartData.reduce(
+    (accu, curr) => accu + curr.price.split(' ')[0] * curr.quantity,
+    0
+  );
 
   return (
     <>
@@ -167,13 +174,13 @@ const Header = () => {
                 className={styles['sidebar-cart__subtotal']}
                 variant='body1'
               >
-                Subtotal:
+                Total + Shipping:
               </Typography>
               <Typography
                 className={styles['sidebar-cart__price']}
                 variant='body1'
               >
-                500 TK
+                {totalPrice + shippingCost} Tk
               </Typography>
             </Box>
 
@@ -194,10 +201,7 @@ const Header = () => {
               </Link>
               <Link href='/checkout' passHref>
                 <a className={styles['sidebar-cart__link']}>
-                  <Box
-                    className={styles['sidebar-cart__btn']}
-                    component='div'
-                  >
+                  <Box className={styles['sidebar-cart__btn']} component='div'>
                     <CustomButton label='Checkout' fullWidth />
                   </Box>
                 </a>

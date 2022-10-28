@@ -11,6 +11,7 @@ import Link from 'next/link';
 import CartItem from '../components/cart-item/CartItem';
 import Layout from '../components/layout';
 import CustomButton from '../components/ui/Button/CustomButton';
+import { cartData } from '../data/cartData';
 import styles from '../styles/Cart.module.scss';
 
 const cartDetailsData = [
@@ -29,6 +30,14 @@ const cartDetailsData = [
 ];
 
 const Cart = () => {
+  const shipping = 30;
+
+  let totalPrice = 0;
+  totalPrice = cartData.reduce(
+    (accu, curr) => accu + curr.price.split(' ')[0] * curr.quantity,
+    0
+  );
+
   return (
     <>
       <Head>
@@ -47,7 +56,7 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
-                <CartItem showQuantity />
+                <CartItem showQuantity showTotal />
               </Box>
             </Grid>
 
@@ -63,7 +72,7 @@ const Cart = () => {
 
                 <Table>
                   <TableBody>
-                    {cartDetailsData?.map((d) => (
+                    {/* {cartDetailsData?.map((d) => (
                       <TableRow key={d.title} className={styles.table_row}>
                         <Typography variant='body1' fontWeight={'500'}>
                           {d.title}:
@@ -73,17 +82,47 @@ const Cart = () => {
                           {d.amount}
                         </Typography>
                       </TableRow>
-                    ))}
+                    ))} */}
+
+                    <TableRow className={styles.table_row}>
+                      <Typography variant='body1' fontWeight={'500'}>
+                        Total Items:
+                      </Typography>
+
+                      <Typography variant='body1' fontWeight={'500'}>
+                        {cartData?.length}
+                      </Typography>
+                    </TableRow>
+
+                    <TableRow className={styles.table_row}>
+                      <Typography variant='body1' fontWeight={'500'}>
+                        Total Price:
+                      </Typography>
+
+                      <Typography variant='body1' fontWeight={'500'}>
+                        {totalPrice} Tk
+                      </Typography>
+                    </TableRow>
+
+                    <TableRow className={styles.table_row}>
+                      <Typography variant='body1' fontWeight={'500'}>
+                        Shipping Cost:
+                      </Typography>
+
+                      <Typography variant='body1' fontWeight={'500'}>
+                        {shipping} Tk
+                      </Typography>
+                    </TableRow>
 
                     <hr />
 
                     <TableRow className={styles.table_row}>
                       <Typography variant='body1' fontWeight={'500'}>
-                        Total:
+                        Subtotal:
                       </Typography>
 
                       <Typography variant='body1' fontWeight={'500'}>
-                        5000 tk
+                        {totalPrice + shipping} Tk
                       </Typography>
                     </TableRow>
 
