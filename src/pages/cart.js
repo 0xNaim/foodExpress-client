@@ -8,7 +8,12 @@ import {
   Typography,
 } from '@mui/material';
 import Head from 'next/head';
-import CartItems from '../components/cart-items/CartItems';
+// <<<<<<< HEAD
+// import CartItems from '../components/cart-items/CartItems';
+// =======
+import Link from 'next/link';
+import CartItem from '../components/cart-item/CartItem';
+// >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d
 import Layout from '../components/layout';
 import styles from '../styles/Cart.module.scss';
 
@@ -46,7 +51,11 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
-                <CartItems showQuantity />
+{/* <<<<<<< HEAD
+                <CartItems showQuantity /> */}
+{/* ======= */}
+                <CartItem showQuantity />
+{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
               </Box>
             </Grid>
 
@@ -87,6 +96,7 @@ const Cart = () => {
                     </TableRow>
 
                     <TableRow className={''}>
+{/* <<<<<<< HEAD
                       <Button
                         variant='contained'
                         color='primary'
@@ -96,6 +106,21 @@ const Cart = () => {
                       >
                         Submit
                       </Button>
+======= */}
+                      <Link href='/checkout' passHref>
+                        <a>
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            fullWidth
+                            disableRipple
+                            sx={{ textTransform: 'capitalize' }}
+                          >
+                            Checkout
+                        </Button>
+                        </a>
+                      </Link>
+{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
                     </TableRow>
                   </TableBody>
                 </Table>

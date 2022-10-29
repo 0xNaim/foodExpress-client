@@ -8,6 +8,24 @@ const categoriesApi = apiSlice.injectEndpoints({
   }),
 });
 
+const productsApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getProducts: builder.query({
+      query: (slug) => `/sub-categories?filters[slug]=${slug}&populate=*`
+    }),
+  }),
+});
+
+const featureProductsApi = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getFeatureProducts: builder.query({
+      query: () => `/products?populate=*`
+    }),
+  }),
+});
+
 export const { useGetCategoriesQuery } = categoriesApi;
+export const { useGetProductsQuery } = productsApi;
+export const { useGetFeatureProductsQuery } = featureProductsApi;
 
 export default categoriesApi;
