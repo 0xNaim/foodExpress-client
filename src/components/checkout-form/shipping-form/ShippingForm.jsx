@@ -25,7 +25,6 @@ const ShippingForm = ({ nextStep }) => {
       postalCode: postalCodeRef.current.value,
     };
 
-    console.log('Shipping Form Data: ', data);
     nextStep();
   };
 
