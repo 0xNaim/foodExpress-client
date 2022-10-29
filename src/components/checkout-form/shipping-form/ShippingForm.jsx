@@ -1,29 +1,14 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
-import { useRef } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import CustomButton from '../../ui/Button/CustomButton';
-import CustomTextField from '../CustomTextField';
 import styles from './ShippingForm.module.scss';
 
 const ShippingForm = ({ nextStep }) => {
-  const firstNameRef = useRef('');
-  const lastNameRef = useRef('');
-  const emailRef = useRef('');
-  const phoneRef = useRef('');
-  const addressRef = useRef('');
-  const postalCodeRef = useRef('');
+  const { control, handleSubmit } = useForm();
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    const data = {
-      firstName: firstNameRef.current.value,
-      lastName: lastNameRef.current.value,
-      email: emailRef.current.value,
-      phone: phoneRef.current.value,
-      address: addressRef.current.value,
-      postalCode: postalCodeRef.current.value,
-    };
+    const { firstName, lastName, email, phone, address, postalCode } = e;
 
     nextStep();
   };
@@ -35,12 +20,119 @@ const ShippingForm = ({ nextStep }) => {
       </Typography>
 
       <Grid container spacing={3}>
-        <CustomTextField ref={firstNameRef} label={'First Name*'} />
-        <CustomTextField ref={lastNameRef} label={'Last Name*'} />
-        <CustomTextField ref={emailRef} label={'Email Address*'} />
-        <CustomTextField ref={phoneRef} label={'Phone Number*'} />
-        <CustomTextField ref={addressRef} label={'Address*'} />
-        <CustomTextField ref={postalCodeRef} label={'Postal Code*'} />
+        <Grid item xs={12} sm={6}>
+          <Controller
+            control={control}
+            name='firstName'
+            defaultValue={''}
+            rules={{ required: 'First Name Is Required' }}
+            render={({ field, formState: { errors } }) => (
+              <TextField
+                variant='standard'
+                label='First Name*'
+                fullWidth
+                {...field}
+                error={errors?.firstName?.message}
+                helperText={errors?.firstName?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            control={control}
+            name='lastName'
+            defaultValue={''}
+            rules={{ required: 'Last Name Is Required' }}
+            render={({ field, formState: { errors } }) => (
+              <TextField
+                variant='standard'
+                label='First Name*'
+                fullWidth
+                {...field}
+                error={errors?.lastName?.message}
+                helperText={errors?.lastName?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            control={control}
+            name='email'
+            defaultValue={''}
+            rules={{ required: 'Email Address Is Required' }}
+            render={({ field, formState: { errors } }) => (
+              <TextField
+                variant='standard'
+                label='Email Address*'
+                fullWidth
+                {...field}
+                error={errors?.email?.message}
+                helperText={errors?.email?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            control={control}
+            name='phone'
+            defaultValue={''}
+            rules={{ required: 'Phone Number Is Required' }}
+            render={({ field, formState: { errors } }) => (
+              <TextField
+                variant='standard'
+                label='Phone Number*'
+                fullWidth
+                {...field}
+                error={errors?.phone?.message}
+                helperText={errors?.phone?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            control={control}
+            name='address'
+            defaultValue={''}
+            rules={{ required: 'Address Is Required' }}
+            render={({ field, formState: { errors } }) => (
+              <TextField
+                variant='standard'
+                label='Address*'
+                fullWidth
+                {...field}
+                error={errors?.address?.message}
+                helperText={errors?.address?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            control={control}
+            name='postalCode'
+            defaultValue={''}
+            rules={{ required: 'Postal Code Is Required' }}
+            render={({ field, formState: { errors } }) => (
+              <TextField
+                variant='standard'
+                label='Postal Code*'
+                fullWidth
+                {...field}
+                error={errors?.postalCode?.message}
+                helperText={errors?.postalCode?.message}
+              />
+            )}
+          />
+        </Grid>
       </Grid>
 
       <Box className={styles['shipping-form__btn-group']} component='div'>
@@ -49,7 +141,10 @@ const ShippingForm = ({ nextStep }) => {
             <CustomButton label='Back To Cart' variant='outlined' />
           </a>
         </Link>
-        <CustomButton handleClick={handleFormSubmit} label='Next' />
+        <CustomButton
+          handleClick={handleSubmit(handleFormSubmit)}
+          label='Next'
+        />
       </Box>
     </Box>
   );
