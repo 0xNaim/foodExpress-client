@@ -3,14 +3,14 @@ import { useState } from 'react';
 const useMultiStepForm = (steps) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-  const next = () => {
+  const nextStep = () => {
     setCurrentStepIndex((index) => {
       if (index >= steps.length - 1) return index;
       return index + 1;
     });
   };
 
-  const back = () => {
+  const backStep = () => {
     setCurrentStepIndex((index) => {
       if (index <= 0) return index;
       return index - 1;
@@ -23,8 +23,8 @@ const useMultiStepForm = (steps) => {
     steps,
     isFirstStep: currentStepIndex === 0,
     isLastStep: currentStepIndex === steps.length - 1,
-    next,
-    back,
+    nextStep,
+    backStep,
   };
 };
 
