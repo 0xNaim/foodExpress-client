@@ -1,19 +1,33 @@
-import { Typography, Box } from '@mui/material';
+import React, { useRef } from 'react';
+import { Typography, Box, Button } from '@mui/material';
 import Head from 'next/head';
 import Layout from '../components/layout';
 import Product from '../components/product/Product';
 import { useGetFeatureProductsQuery } from '../services/categoriesApi';
 import Slider from "react-slick";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import DailyProducts from '../components/product/daily_products/DailyProducts';
+import MonthlyProducts from '../components/product/monthly_products/MonthlyProducts';
+import SafeFoods from '../components/product/safe_foods/SafeFoods';
 
 const Home = () => {
-  const { data, isLoading, isSuccess } = useGetFeatureProductsQuery();
-  let products =data && data.data;
+  const { data, isLoading, isSuccess } = useGetFeatureProductsQuery("daily");
+  let products = data && data.data;
+  const ref = useRef(null);
 
-  console.log(products);
+
+  const handleNextSlide = () => {
+    ref.current.slickNext();
+  };
+
+  const handlePrevSlide = () => {
+    ref.current.slickPrev();
+  };
 
   var settings = {
     dots: false,
@@ -50,6 +64,14 @@ const Home = () => {
     ]
   };
   // products = data && data.data.length > 0 && data.data[0].attributes.products.data;
+
+  const buttonSX = {
+    color:"white",
+    background:"black",
+    "&:hover": {
+      background: "black",
+    },
+  };
   return (
     <>
       <Head>
@@ -57,14 +79,12 @@ const Home = () => {
       </Head>
 
       <Layout>
-        <Box sx={{width:"100%"}}>
-        <h1>Home </h1>
-        <Slider style={{}} {...settings}>
-        {products && products.map((product, index) => (
-          <Product product={product.attributes} />
-        ))}
-      </Slider>
-        </Box>
+      
+      <DailyProducts/>
+      <hr style={{margin:"1rem", opacity:".3"}}/>
+      <MonthlyProducts/>
+      <hr style={{margin:"1rem", opacity:".3"}}/>
+      <SafeFoods/>
 
       </Layout>
     </>

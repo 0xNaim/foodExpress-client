@@ -19,7 +19,7 @@ const productsApi = apiSlice.injectEndpoints({
 const featureProductsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getFeatureProducts: builder.query({
-      query: () => `/products?populate=*`
+      query: (filter) => `/products?filters[variant][$eq]=${filter}&populate=*`
     }),
   }),
 });
