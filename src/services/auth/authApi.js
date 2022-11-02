@@ -23,7 +23,7 @@ const authApi = apiSlice.injectEndpoints({
 
           dispatch(
             userLoggedIn({
-              accessToken: result.data.accessToken,
+              accessToken: result.data.jwt,
               user: result.data.user,
             })
           );
