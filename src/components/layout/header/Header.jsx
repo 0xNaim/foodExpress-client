@@ -45,7 +45,7 @@ const Header = () => {
 
   const handleClick = (id) => setOpen({ [id]: !open[id] });
 
-  const { data, isLoading, isSuccess } = useGetCategoriesQuery();
+  const { data,  isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
 
