@@ -15,8 +15,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { cartData } from '../../../data/cartData';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
-import SignUp from '../../auth/Signin';
-import Signin from '../../auth/SignUp';
+import SignIn from '../../auth/SignIn';
+import SignUp from '../../auth/SignUp';
 import CartItem from '../../cart-item/CartItem';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
@@ -141,7 +141,7 @@ const Header = () => {
               {signUp ? (
                 <SignUp handleSignUp={handleSignUp} />
               ) : (
-                <Signin handleClose={handleClose} handleSignUp={handleSignUp} />
+                <SignIn handleClose={handleClose} handleSignUp={handleSignUp} />
               )}
             </Modal>
           </Box>

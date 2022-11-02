@@ -14,6 +14,8 @@ import { useForm } from 'react-hook-form';
 import { useUserRegisterMutation } from '../../services/auth/authApi';
 
 const SignUp = ({ handleSignUp }) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -46,6 +48,7 @@ const SignUp = ({ handleSignUp }) => {
   }
   const onSubmit = (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
+
     if (confirmPassword !== password) {
       setError('confirmPassword', {
         type: 'custom',
@@ -61,6 +64,8 @@ const SignUp = ({ handleSignUp }) => {
       });
     }
   };
+
+  const snackbarCloseHandler = () => setOpenSnackbar(false);
 
   //from style
   const style = {
@@ -104,7 +109,7 @@ const SignUp = ({ handleSignUp }) => {
 
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
             <TextField
-              label='Email'
+              label='Email*'
               type='email'
               multiline
               maxRows={2}
@@ -112,7 +117,7 @@ const SignUp = ({ handleSignUp }) => {
               onChange={handleChange}
               fullWidth
               name='email'
-              {...register('email*', {
+              {...register('email', {
                 required: 'Email is Required',
                 pattern: {
                   value:
@@ -124,8 +129,7 @@ const SignUp = ({ handleSignUp }) => {
                 errors.email?.message || responseError?.data?.error?.message
               }
               helperText={
-                errors.email?.message ||
-                (responseError?.data?.error?.message && 'Email already used')
+                errors.email?.message || responseError?.data?.error?.message
               }
             />
           </FormControl>
@@ -145,9 +149,9 @@ const SignUp = ({ handleSignUp }) => {
                   <InputAdornment position='end'>
                     <IconButton onClick={handleClickShowPassword} edge='end'>
                       {values?.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
                         <Visibility />
+                      ) : (
+                        <VisibilityOff />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -173,9 +177,9 @@ const SignUp = ({ handleSignUp }) => {
                   <InputAdornment position='end'>
                     <IconButton onClick={handleClickShowPassword} edge='end'>
                       {values?.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
                         <Visibility />
+                      ) : (
+                        <VisibilityOff />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -218,6 +222,15 @@ const SignUp = ({ handleSignUp }) => {
           </Grid>
         </FormGroup>
       </form>
+
+      {/* {isSuccess && (
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={snackbarCloseHandler}
+          message={'Registration Successful'}
+          severity='success'
+        />
+      )} */}
     </>
   );
 };

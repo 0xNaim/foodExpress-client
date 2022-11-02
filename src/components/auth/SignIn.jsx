@@ -10,12 +10,14 @@ import {
   InputAdornment,
   TextField,
 } from '@mui/material';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUserLoginMutation } from '../../services/auth/authApi';
 
-const Signin = ({ handleSignUp }) => {
+const SignIn = ({ handleSignUp }) => {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -30,6 +32,8 @@ const Signin = ({ handleSignUp }) => {
   const [values, setValues] = useState({
     showPassword: false,
   });
+
+  const router = useRouter();
 
   // form value get handle
   const handleChange = (e) => {
@@ -55,8 +59,10 @@ const Signin = ({ handleSignUp }) => {
 
   // Redirect user to dashboard
   if (isSuccess) {
-    Router.push('/dashboard');
+    router.push('/dashboard');
   }
+
+  const snackbarCloseHandler = () => setOpenSnackbar(false);
 
   //from style
   const style = {
@@ -104,9 +110,9 @@ const Signin = ({ handleSignUp }) => {
                   <InputAdornment position='end'>
                     <IconButton onClick={handleClickShowPassword} edge='end'>
                       {values?.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
                         <Visibility />
+                      ) : (
+                        <VisibilityOff />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -153,7 +159,16 @@ const Signin = ({ handleSignUp }) => {
           </Grid>
         </FormGroup>
       </form>
+
+      {/* {isSuccess && (
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={snackbarCloseHandler}
+          message={'Login Successful'}
+          severity='success'
+        />
+      )} */}
     </>
   );
 };
-export default Signin;
+export default SignIn;
