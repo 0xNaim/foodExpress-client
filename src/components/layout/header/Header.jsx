@@ -17,8 +17,9 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cartData } from '../../../data/cartData';
+import { userLoggedOut } from '../../../services/auth/authSlice';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
@@ -30,8 +31,9 @@ import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const { accessToken } = useSelector((state) => state.auth || {});
+  const { accessToken, user } = useSelector((state) => state.auth || {});
   const { data, isSuccess } = useGetCategoriesQuery();
+  const dispatch = useDispatch();
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
@@ -68,6 +70,11 @@ const Header = () => {
 
   // single category
   const handleClick = (id) => setOpen({ [id]: !open[id] });
+
+  // user logout
+  const handleUserLogout = () => {
+    dispatch(userLoggedOut());
+  };
 
   const categories = data?.data?.map((category) => category);
 
@@ -151,7 +158,7 @@ const Header = () => {
               <Box className={styles.profile} component='div'>
                 <Tooltip title='Open Settings'>
                   <IconButton onClick={handleOpenUserMenu} disableRipple>
-                    <Avatar>N</Avatar>
+                    <Avatar>{user?.username?.charAt(0).toUpperCase()}</Avatar>
                   </IconButton>
                 </Tooltip>
 
@@ -166,9 +173,13 @@ const Header = () => {
                   }}
                 >
                   <MenuItem disableRipple>
-                    <Typography textAlign='center'>Dashboard</Typography>
+                    <Link href='/dashboard'>
+                      <a className={styles.link}>
+                        <Typography textAlign='center'>Dashboard</Typography>
+                      </a>
+                    </Link>
                   </MenuItem>
-                  <MenuItem disableRipple>
+                  <MenuItem onClick={handleUserLogout} disableRipple>
                     <Typography textAlign='center'>Logout</Typography>
                   </MenuItem>
                 </Menu>
