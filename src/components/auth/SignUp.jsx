@@ -149,9 +149,9 @@ const SignUp = ({ handleSignUp }) => {
                   <InputAdornment position='end'>
                     <IconButton onClick={handleClickShowPassword} edge='end'>
                       {values?.showPassword ? (
-                        <Visibility />
-                      ) : (
                         <VisibilityOff />
+                      ) : (
+                        <Visibility />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -177,9 +177,9 @@ const SignUp = ({ handleSignUp }) => {
                   <InputAdornment position='end'>
                     <IconButton onClick={handleClickShowPassword} edge='end'>
                       {values?.showPassword ? (
-                        <Visibility />
-                      ) : (
                         <VisibilityOff />
+                      ) : (
+                        <Visibility />
                       )}
                     </IconButton>
                   </InputAdornment>
