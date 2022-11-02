@@ -12,13 +12,17 @@ import {
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { useLoginMutation } from '../../redux/features/auth/authApi';
 
 const Signin = ({ handleSignUp }) => {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const [login, { data, isLoading, error: responseError }] =useLoginMutation();
   // form value state
   const [values, setValues] = useState({
     showPassword: false,
   });
-
+ 
   // form value get handle
   const handleChange = (e) => {
     const newValue = { ...values };
@@ -32,12 +36,21 @@ const Signin = ({ handleSignUp }) => {
       showPassword: !values.showPassword,
     });
   };
+  //handle from submit
+  const onSubmit = data => {
+    const {email,password}=data;
+    login({
+      email,
+      password,
+  });
+  };
   //from style
   const style = {
     p: { xs: 2, md: 6 },
   };
   return (
     <>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormGroup sx={style}>
         <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
           <TextField
@@ -51,7 +64,10 @@ const Signin = ({ handleSignUp }) => {
             onChange={handleChange}
             fullWidth
             name='email'
+            {...register("email", { required: true,pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ })}
           />
+           {errors.email && <Alert severity="error">{errors.email?.message}</Alert>}
+          
         </FormControl>
         <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
           <InputLabel
@@ -67,6 +83,7 @@ const Signin = ({ handleSignUp }) => {
             value={values.password}
             onChange={handleChange}
             name='password'
+            {...register("password", { required: true })}
             endAdornment={
               <InputAdornment position='end'>
                 <IconButton
@@ -81,9 +98,11 @@ const Signin = ({ handleSignUp }) => {
             }
             label='Password'
           />
+          {errors.password && <Alert severity="error">{errors.email?.password}</Alert>}
         </FormControl>
         <FormControl sx={{ m: 1 }} variant='outlined'>
           <Button
+          type="submit"
             variant='contained'
             disableRipple
             style={{
@@ -113,6 +132,7 @@ const Signin = ({ handleSignUp }) => {
           </Grid>
         </Grid>
       </FormGroup>
+      </form>
     </>
   );
 };
