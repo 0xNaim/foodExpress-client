@@ -7,13 +7,11 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useUserRegisterMutation } from '../../redux/features/auth/authApi';
+import { useUserRegisterMutation } from '../../services/auth/authApi';
 
 const SignUp = ({ handleSignUp }) => {
   const {
@@ -23,14 +21,12 @@ const SignUp = ({ handleSignUp }) => {
     setError,
     formState: { errors },
   } = useForm();
-  const [userRegister, { data, isLoading, error: responseError }] =
+  const [userRegister, { data, isLoading, isSuccess, error: responseError }] =
     useUserRegisterMutation();
   // form value state
   const [values, setValues] = useState({
     showPassword: false,
   });
-
-console.log(responseError);
 
   // form value get handle
   const handleChange = (e) => {
@@ -45,6 +41,9 @@ console.log(responseError);
     });
   };
   //handle submit
+  if (isSuccess) {
+    handleSignUp();
+  }
   const onSubmit = (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
     if (confirmPassword !== password) {
@@ -73,7 +72,7 @@ console.log(responseError);
         <FormGroup sx={style}>
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
             <TextField
-              label='First Name'
+              label='First Name*'
               type='text'
               multiline
               maxRows={2}
@@ -85,13 +84,11 @@ console.log(responseError);
               error={errors.firstName?.message}
               helperText={errors.firstName?.message}
             />
-            {/* {errors.firstName && (
-              <Alert severity='error'>{errors.firstName?.message}</Alert>
-            )} */}
           </FormControl>
+
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
             <TextField
-              label='Last Name'
+              label='Last Name*'
               type='text'
               multiline
               maxRows={2}
@@ -103,10 +100,8 @@ console.log(responseError);
               error={errors.lastName?.message}
               helperText={errors.lastName?.message}
             />
-            {/* {errors.lastName && (
-              <Alert severity='error'>{errors.lastName?.message}</Alert>
-            )} */}
           </FormControl>
+
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Email'
@@ -117,56 +112,52 @@ console.log(responseError);
               onChange={handleChange}
               fullWidth
               name='email'
-              {...register('email', {
+              {...register('email*', {
                 required: 'Email is Required',
                 pattern: {
                   value:
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid email address'
+                  message: 'Invalid email address',
                 },
               })}
-              error={errors.email?.message}
-              helperText={errors.email?.message}
+              error={
+                errors.email?.message || responseError?.data?.error?.message
+              }
+              helperText={
+                errors.email?.message ||
+                (responseError?.data?.error?.message && 'Email already used')
+              }
             />
-            {/* {errors.email && (
-              <Alert severity='error'>{errors.email?.message}</Alert>
-            )} */}
           </FormControl>
+
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
-            <InputLabel htmlFor='outlined-required outlined-adornment-password'>
-              Password
-            </InputLabel>
-            <OutlinedInput
+            <TextField
+              label='Password*'
               type={values.showPassword ? 'text' : 'password'}
               value={values?.password}
               onChange={handleChange}
               name='password'
               {...register('password', { required: 'Password is required' })}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
-                    edge='end'
-                  >
-                    {values?.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label='Password'
               error={errors.password?.message}
               helperText={errors.password?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton onClick={handleClickShowPassword} edge='end'>
+                      {values?.showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-            {/* {errors.password && (
-              <Alert severity='error'>{errors.password?.message}</Alert>
-            )} */}
           </FormControl>
+
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
-            <InputLabel htmlFor='outlined-required outlined-adornment-password'>
-              ConfirmPassword*
-            </InputLabel>
-            <OutlinedInput
+            <TextField
               type={values.showPassword ? 'text' : 'password'}
               value={values?.password}
               onChange={handleChange}
@@ -174,31 +165,31 @@ console.log(responseError);
               {...register('confirmPassword', {
                 required: 'Confirm Password is Required',
               })}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
-                    edge='end'
-                  >
-                    {values?.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
               label='ConfirmPassword*'
               error={errors.confirmPassword?.message}
               helperText={errors.confirmPassword?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton onClick={handleClickShowPassword} edge='end'>
+                      {values?.showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-            {/* {errors.confirmPassword && (
-              <Alert severity='error'>{errors.confirmPassword?.message}</Alert>
-            )} */}
           </FormControl>
+
           <FormControl sx={{ m: 1 }} variant='outlined'>
             <Button
               type='submit'
               variant='contained'
               disableRipple
+              disabled={isLoading}
               style={{
                 marginTop: '40px',
                 borderRadius: '14px',
