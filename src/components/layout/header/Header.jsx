@@ -3,16 +3,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
   AppBar,
+  Avatar,
   Badge,
   Box,
   Button,
   Divider,
   IconButton,
+  Menu,
+  MenuItem,
   Toolbar,
-  Typography
+  Tooltip,
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { cartData } from '../../../data/cartData';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 import SignIn from '../../auth/SignIn';
@@ -25,27 +30,44 @@ import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
 const Header = () => {
+  const { accessToken } = useSelector((state) => state.auth || {});
+  const { data, isSuccess } = useGetCategoriesQuery();
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
   const [open, setOpen] = useState({});
   const [signUp, setSignUp] = useState(false);
   const [openModel, setOpenModel] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
+
+  // handle open user menu
+  const handleOpenUserMenu = () => {
+    setUserMenu(true);
+  };
+
+  // handle close user menu
+  const handleCloseUserMenu = () => {
+    setUserMenu(false);
+  };
+
   // handle signup
   const handleSignUp = () => {
     setSignUp(!signUp);
   };
+
   // modal close
   const handleClose = () => {
     setOpenModel(false);
   };
+
+  // toggle drawer
   const toggleDrawerHandler = () => setOpenDrawer((prev) => !prev);
 
   const toggleCategoryDrawerHandler = () =>
     setOpenCategoryDrawer((prev) => !prev);
 
+  // single category
   const handleClick = (id) => setOpen({ [id]: !open[id] });
-
-  const { data,  isSuccess } = useGetCategoriesQuery();
 
   const categories = data?.data?.map((category) => category);
 
@@ -125,18 +147,47 @@ const Header = () => {
               </Box>
             </Box>
 
-            <Box
-              className={styles.account}
-              component='div'
-              onClick={() => setOpenModel(true)}
-            >
-              <IconButton className={styles.account__iconBtn} disableRipple>
-                <AccountCircleIcon
-                  className={styles.account__icon}
-                  color='primary'
-                />
-              </IconButton>
-            </Box>
+            {accessToken ? (
+              <Box className={styles.profile} component='div'>
+                <Tooltip title='Open Settings'>
+                  <IconButton onClick={handleOpenUserMenu} disableRipple>
+                    <Avatar>N</Avatar>
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  className={styles.user_menu}
+                  open={userMenu}
+                  onClose={handleCloseUserMenu}
+                  keepMounted
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
+                  <MenuItem disableRipple>
+                    <Typography textAlign='center'>Dashboard</Typography>
+                  </MenuItem>
+                  <MenuItem disableRipple>
+                    <Typography textAlign='center'>Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            ) : (
+              <Box className={styles.account} component='div'>
+                <IconButton
+                  className={styles.account__iconBtn}
+                  onClick={() => setOpenModel(true)}
+                  disableRipple
+                >
+                  <AccountCircleIcon
+                    className={styles.account__icon}
+                    color='primary'
+                  />
+                </IconButton>
+              </Box>
+            )}
+
             <Modal openModel={openModel} handleClose={handleClose}>
               {signUp ? (
                 <SignUp handleSignUp={handleSignUp} />
