@@ -4,9 +4,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/layout';
 import Product from '../../components/product/Product';
-import { useGetProductsQuery } from '../../services/categoriesApi';
+import { useGetProductsQuery } from '../../services/products/productsApi';
 import MuiPagination from './pagination/MuiPagination';
-// import Pagination from './pagination/Pagination';
 
 const Category = () => {
   const { query } = useRouter();
@@ -15,7 +14,9 @@ const Category = () => {
   let products = [];
 
   products =
-    data && data.data.length > 0 && data.data[0].attributes.products.data;
+    data && data?.data?.length > 0 && data?.data[0]?.attributes?.products?.data;
+
+  console.log('Products', data, slug)
 
   const pageNumbers = [];
 
@@ -48,13 +49,10 @@ const Category = () => {
 
       <Layout>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {/* <Button onClick={handleOpen}>Open modal</Button> */}
           {currentPosts &&
             currentPosts.map((item, index) => (
               <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                {/* <Item>1</Item> */}
-
-                <Product product={item} handleOpen={handleOpen} />
+                <Product product={item} />
               </Grid>
             ))}
         </Grid>
@@ -67,12 +65,6 @@ const Category = () => {
             alignItems: 'center',
           }}
         >
-          {/* <Pagination
-            postsPerPage={postsPerPage}
-            totalPosts={products && products.length}
-            paginate={paginate}
-          /> */}
-
           <MuiPagination
             products={products}
             postsPerPage={postsPerPage}
