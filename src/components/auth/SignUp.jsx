@@ -2,6 +2,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Button,
+  CircularProgress,
   FormControl,
   FormGroup,
   Grid,
@@ -200,7 +201,7 @@ const SignUp = ({ handleSignUp }) => {
                 padding: '15px 20px',
               }}
             >
-              Sign Up
+              {isLoading ? <CircularProgress color='inherit' /> : 'Sign Up'}
             </Button>
           </FormControl>
           <Grid container spacing={2}>

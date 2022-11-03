@@ -3,6 +3,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Alert,
   Button,
+  CircularProgress,
   FormControl,
   FormGroup,
   Grid,
@@ -68,6 +69,7 @@ const SignIn = ({ handleSignUp }) => {
   const style = {
     p: { xs: 2, md: 6 },
   };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -137,7 +139,7 @@ const SignIn = ({ handleSignUp }) => {
                 padding: '15px 20px',
               }}
             >
-              Sign In
+              {isLoading ? <CircularProgress color='inherit' /> : 'Sign In'}
             </Button>
           </FormControl>
           <Grid container spacing={2}>
