@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useGetCategoriesQuery } from '../../../services/categoriesApi';
+import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 import CategorySkeleton from '../../ui/loading/CategorySkeleton';
 import ListItems from './list/List';
 import styles from './Sidebar.module.scss';

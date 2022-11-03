@@ -2,9 +2,9 @@ import { Add, Clear, Remove } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
 import { cartData } from '../../data/cartData';
-import styles from './CartItem.module.scss';
+import styles from './CartItems.module.scss';
 
-const CartItem = ({ showQuantity, showTotal }) => {
+const CartItems = ({ showQuantity, showTotal }) => {
   return (
     <>
       {cartData?.map((data, i) => {
@@ -71,4 +71,4 @@ const CartItem = ({ showQuantity, showTotal }) => {
   );
 };
 
-export default CartItem;
+export default CartItems;

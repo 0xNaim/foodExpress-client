@@ -4,11 +4,11 @@ import {
   Table,
   TableBody,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import Head from 'next/head';
 import Link from 'next/link';
-import CartItem from '../components/cart-item/CartItem';
+import CartItems from '../components/cart-items/CartItems';
 import Layout from '../components/layout';
 import CustomButton from '../components/ui/Button/CustomButton';
 import { cartData } from '../data/cartData';
@@ -56,7 +56,7 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
-                <CartItem showQuantity showTotal />
+                <CartItems showQuantity showTotal />
               </Box>
             </Grid>
 
@@ -72,18 +72,6 @@ const Cart = () => {
 
                 <Table>
                   <TableBody>
-                    {/* {cartDetailsData?.map((d) => (
-                      <TableRow key={d.title} className={styles.table_row}>
-                        <Typography variant='body1' fontWeight={'500'}>
-                          {d.title}:
-                        </Typography>
-
-                        <Typography variant='body1' fontWeight={'500'}>
-                          {d.amount}
-                        </Typography>
-                      </TableRow>
-                    ))} */}
-
                     <TableRow className={styles.table_row}>
                       <Typography variant='body1' fontWeight={'500'}>
                         Total Items:

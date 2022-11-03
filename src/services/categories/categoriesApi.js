@@ -1,4 +1,4 @@
-import apiSlice from '../redux/features/api/apiSlice';
+import apiSlice from '../../redux/features/api/apiSlice';
 
 const categoriesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,5 +9,3 @@ const categoriesApi = apiSlice.injectEndpoints({
 });
 
 export const { useGetCategoriesQuery } = categoriesApi;
-
-export default categoriesApi;
