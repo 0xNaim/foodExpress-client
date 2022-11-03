@@ -11,7 +11,7 @@ const categoriesApi = apiSlice.injectEndpoints({
 const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: (slug) => `/sub-categories?filters[slug]=${slug}&populate=*`
+      query: (slug) => `/products?filters[sub_category][slug][$eq]=${slug}&populate=*`
     }),
   }),
 });

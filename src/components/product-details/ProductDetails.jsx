@@ -3,7 +3,7 @@ import { Container } from '@mui/system';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import styles from './productDetails.module.css';
+import styles from './productDetails.module.scss';
 
 const data = [
   'Origin: Bangladesh',

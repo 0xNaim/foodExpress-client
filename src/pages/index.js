@@ -20,6 +20,7 @@ import SafeFoods from '../components/product/safe_foods/SafeFoods';
 
 const Home = () => {
   const { data, isLoading, isSuccess } = useGetFeatureProductsQuery("daily");
+  console.log(data)
   let products = data && data.data;
   const ref = useRef(null);
 

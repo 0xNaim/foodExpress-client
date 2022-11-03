@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/layout';
+import ProductDetails from '../../components/product-details/ProductDetails';
 import Product from '../../components/product/Product';
 import { useGetProductsQuery } from '../../services/categoriesApi';
 import MuiPagination from './pagination/MuiPagination';
@@ -19,7 +20,7 @@ const Category = () => {
 
   const pageNumbers = [];
 
-
+  console.log(data);
 
   // let products = [];
   // if (data) {
@@ -89,25 +90,6 @@ const Category = () => {
 
       </Layout>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        {/* <Box onClick={handleClose} component="div" sx={{width:"100%", height:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}> */}
-        <Box sx={{ alignSelf: "center", width: "50%", height: "50%", background: "white" }}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-        {/* </Box> */}
-
-      </Modal>
     </>
   );
 };
