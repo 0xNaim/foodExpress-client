@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import {
   Box,
@@ -6,27 +5,25 @@ import {
   Card,
   CardActions,
   CardContent,
+  Modal,
   Typography,
-  Modal
 } from '@mui/material';
 import Image from 'next/image';
+import { useState } from 'react';
+import ProductDetails from '../product-details/ProductDetails';
 import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
-import ProductDetails from '../product-details/ProductDetails';
 
-// <<<<<<< HEAD
-
-const Product = (props) => {
-  const { product } = props;
+const Product = ({ product }) => {
   const [modal, setModal] = useState(false);
 
-  const closeModal = ()=>{
-    setModal(false)
-  }
+  const closeModal = () => {
+    setModal(false);
+  };
 
-  const openModal = ()=>{
-    setModal(true)
-  }
+  const openModal = () => {
+    setModal(true);
+  };
 
   return (
     <>
@@ -34,8 +31,7 @@ const Product = (props) => {
         <Box component='div'>
           <Image
             layout='responsive'
-            src={product.image ? product.image.data.attributes.url : "/assets/anaros.jpg"}
-            // src={'/assets/anaros.jpg'}
+            src={product?.image?.data?.attributes?.url || '/assets/anaros.jpg'}
             width={100}
             height={100}
             alt={product.title || 'anaros'}
@@ -58,11 +54,11 @@ const Product = (props) => {
                   {product.weight || '1 pcs'}
                 </Box>
                 <Box className={styles.product__price} component='div'>
-                  {product.sellPrice || '80 tk'}
+                  {product.sellPrice || '80 tk'} tk
                 </Box>
                 {product.regularPrice && (
                   <Box className={styles.product__oldPrice} component='div'>
-                    {product.regularPrice}
+                    {product.regularPrice} tk
                   </Box>
                 )}
               </Box>
@@ -72,7 +68,11 @@ const Product = (props) => {
 
         <CardActions>
           <Box className={styles.product__btnGroup} component='div'>
-            <Button onClick={openModal} className={styles['product__details--btn']} disableRipple>
+            <Button
+              onClick={openModal}
+              className={styles['product__details--btn']}
+              disableRipple
+            >
               Details&nbsp;
               <ArrowRightAltIcon />
             </Button>
@@ -85,25 +85,28 @@ const Product = (props) => {
       <Modal
         open={modal}
         onClose={closeModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+        sx={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        {/* <Box onClick={handleClose} component="div" sx={{width:"100%", height:"100%", display:"flex", justifyContent:"center", alignItems:"center"}}> */}
-        <Box sx={{ alignSelf: "center", width: "50%", height: "max-content", background: "white" }}>
-          {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
+        <Box
+          sx={{
+            alignSelf: 'center',
+            width: '50%',
+            height: 'max-content',
+            background: 'white',
+          }}
+        >
           <ProductDetails />
         </Box>
-        {/* </Box> */}
-
       </Modal>
     </>
-
   );
 };
 

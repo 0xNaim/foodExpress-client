@@ -4,15 +4,11 @@ import {
   Table,
   TableBody,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import Head from 'next/head';
-// <<<<<<< HEAD
-// import CartItems from '../components/cart-items/CartItems';
-// =======
 import Link from 'next/link';
-import CartItem from '../components/cart-item/CartItem';
-// >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d
+import CartItems from '../components/cart-items/CartItems';
 import Layout from '../components/layout';
 import CustomButton from '../components/ui/Button/CustomButton';
 import { cartData } from '../data/cartData';
@@ -60,15 +56,7 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
-{/* <<<<<<< HEAD */}
-{/* <<<<<<< HEAD
-                <CartItems showQuantity /> */}
-{/* ======= */}
-                {/* <CartItem showQuantity /> */}
-{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
-{/* ======= */}
-                <CartItem showQuantity showTotal />
-{/* >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02 */}
+                <CartItems showQuantity showTotal />
               </Box>
             </Grid>
 
@@ -84,18 +72,6 @@ const Cart = () => {
 
                 <Table>
                   <TableBody>
-                    {/* {cartDetailsData?.map((d) => (
-                      <TableRow key={d.title} className={styles.table_row}>
-                        <Typography variant='body1' fontWeight={'500'}>
-                          {d.title}:
-                        </Typography>
-
-                        <Typography variant='body1' fontWeight={'500'}>
-                          {d.amount}
-                        </Typography>
-                      </TableRow>
-                    ))} */}
-
                     <TableRow className={styles.table_row}>
                       <Typography variant='body1' fontWeight={'500'}>
                         Total Items:
@@ -139,23 +115,11 @@ const Cart = () => {
                     </TableRow>
 
                     <TableRow className={''}>
-{/* <<<<<<< HEAD
-                      <Button
-                        variant='contained'
-                        color='primary'
-                        fullWidth
-                        disableRipple
-                        sx={{ borderRadius: '10px' }}
-                      >
-                        Submit
-                      </Button>
-======= */}
                       <Link href='/checkout' passHref>
                         <a className={styles.link}>
                           <CustomButton label='Checkout' fullWidth />
                         </a>
                       </Link>
-{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
                     </TableRow>
                   </TableBody>
                 </Table>

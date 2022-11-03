@@ -1,17 +1,18 @@
-import React, { useRef } from 'react';
-import { Typography, Box, Button } from '@mui/material';
-import Product from '../Product';
-import { useGetFeatureProductsQuery } from '../../../services/categoriesApi';
-import Slider from "react-slick";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Box, Button, Typography } from '@mui/material';
+import React, { useRef } from 'react';
+import Slider from "react-slick";
+import { useGetFeatureProductsQuery } from '../../../services/products/featureProductsApi';
+import Product from '../Product';
 
 // Import css files
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 const SafeFoods = () => {
-    const { data, isLoading, isSuccess } = useGetFeatureProductsQuery("daily");
+    const { data, isLoading, isSuccess } =
+      useGetFeatureProductsQuery('safeFood');
     let products = data && data.data;
     const ref = useRef(null);
 
@@ -58,7 +59,6 @@ const SafeFoods = () => {
             }
         ]
     };
-    // products = data && data.data.length > 0 && data.data[0].attributes.products.data;
 
     const buttonSX = {
         color: "white",
@@ -84,7 +84,7 @@ const SafeFoods = () => {
 
                 <Slider ref={ref} style={{}} {...settings}>
                     {products && products.map((product, index) => (
-                        <Product product={product.attributes} />
+                        <Product key={index} product={product.attributes} />
                     ))}
                 </Slider>
 

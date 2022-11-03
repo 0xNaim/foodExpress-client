@@ -1,18 +1,21 @@
 import React, { useRef } from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import Product from '../Product';
-import { useGetFeatureProductsQuery } from '../../../services/categoriesApi';
 import Slider from "react-slick";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useGetFeatureProductsQuery } from '../../../services/products/featureProductsApi';
 
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const DailyProducts = () => {
-    const { data, isLoading, isSuccess } = useGetFeatureProductsQuery("daily");
+    const { data, isLoading, isSuccess } = useGetFeatureProductsQuery('daily');
+
     let products = data && data.data;
+    
+
     const ref = useRef(null);
 
 
@@ -58,7 +61,6 @@ const DailyProducts = () => {
             }
         ]
     };
-    // products = data && data.data.length > 0 && data.data[0].attributes.products.data;
 
     const buttonSX = {
         color: "white",
@@ -84,7 +86,7 @@ const DailyProducts = () => {
 
             <Slider ref={ref} style={{}} {...settings}>
                 {products && products.map((product, index) => (
-                    <Product product={product.attributes} />
+                    <Product key={index} product={product.attributes} />
                 ))}
             </Slider>
 

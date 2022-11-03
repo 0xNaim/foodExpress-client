@@ -13,8 +13,6 @@ const MuiPagination = (props) => {
         pageNumbers.push(i);
     }
 
-    console.log("PAGE NUMBER IS : ", pageNumbers);
-
     const nextPage = ()=>{
         setCurrentPage(currentPage + 1)
     }

@@ -20,11 +20,11 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartData } from '../../../data/cartData';
 import { userLoggedOut } from '../../../services/auth/authSlice';
-import { useGetCategoriesQuery } from '../../../services/categoriesApi';
+import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
-import CartItem from '../../cart-item/CartItem';
+import CartItems from '../../cart-items/CartItems';
 
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
@@ -224,11 +224,7 @@ const Header = () => {
           <Divider />
 
           <Box className={styles['sidebar-cart__content']} component='div'>
-{/* <<<<<<< HEAD
-            <CartItems /> */}
-{/* ======= */}
-            <CartItem />
-{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
+            <CartItems />
           </Box>
 
           <Divider className={styles.separator} />
