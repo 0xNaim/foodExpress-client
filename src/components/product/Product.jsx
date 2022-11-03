@@ -28,9 +28,6 @@ const Product = (props) => {
     setModal(true)
   }
 
-  // =======
-  // const Product = ({ image, title, weight, regularPrice, sellPrice }) => {
-  // >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02
   return (
     <>
       <Card className={styles.product__wrapper}>

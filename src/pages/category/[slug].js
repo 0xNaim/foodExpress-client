@@ -12,7 +12,6 @@ import MuiPagination from './pagination/MuiPagination';
 const Category = () => {
   const { query } = useRouter();
   const { slug } = query;
-  const [open, setOpen] = useState(false);
   const { data, isLoading, isSuccess } = useGetProductsQuery(slug);
   let products = [];
 
@@ -38,15 +37,7 @@ const Category = () => {
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
-
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
+  
   const handleChange = (e,p)=>{
     console.log(e);
     console.log(p);

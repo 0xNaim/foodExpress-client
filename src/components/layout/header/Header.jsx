@@ -22,15 +22,10 @@ import { cartData } from '../../../data/cartData';
 import { userLoggedOut } from '../../../services/auth/authSlice';
 import { useGetCategoriesQuery } from '../../../services/categoriesApi';
 
-// <<<<<<< HEAD
-// import CartItems from '../../cart-items/CartItems'; 
-// =======
-// =======
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
-// >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02
 import CartItem from '../../cart-item/CartItem';
-// >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d
+
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
