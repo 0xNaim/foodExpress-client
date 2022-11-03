@@ -7,8 +7,12 @@ import {
   Typography,
 } from '@mui/material';
 import Head from 'next/head';
+// <<<<<<< HEAD
+// import CartItems from '../components/cart-items/CartItems';
+// =======
 import Link from 'next/link';
 import CartItem from '../components/cart-item/CartItem';
+// >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d
 import Layout from '../components/layout';
 import CustomButton from '../components/ui/Button/CustomButton';
 import { cartData } from '../data/cartData';
@@ -56,7 +60,15 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
+{/* <<<<<<< HEAD */}
+{/* <<<<<<< HEAD
+                <CartItems showQuantity /> */}
+{/* ======= */}
+                {/* <CartItem showQuantity /> */}
+{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
+{/* ======= */}
                 <CartItem showQuantity showTotal />
+{/* >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02 */}
               </Box>
             </Grid>
 
@@ -127,11 +139,23 @@ const Cart = () => {
                     </TableRow>
 
                     <TableRow className={''}>
+{/* <<<<<<< HEAD
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        fullWidth
+                        disableRipple
+                        sx={{ borderRadius: '10px' }}
+                      >
+                        Submit
+                      </Button>
+======= */}
                       <Link href='/checkout' passHref>
                         <a className={styles.link}>
                           <CustomButton label='Checkout' fullWidth />
                         </a>
                       </Link>
+{/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
                     </TableRow>
                   </TableBody>
                 </Table>
