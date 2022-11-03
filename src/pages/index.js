@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import Head from 'next/head';
 import Layout from '../components/layout';
+// <<<<<<< HEAD
 import Product from '../components/product/Product';
 import { useGetFeatureProductsQuery } from '../services/categoriesApi';
 import Slider from "react-slick";
@@ -14,6 +15,8 @@ import "slick-carousel/slick/slick-theme.css";
 import DailyProducts from '../components/product/daily_products/DailyProducts';
 import MonthlyProducts from '../components/product/monthly_products/MonthlyProducts';
 import SafeFoods from '../components/product/safe_foods/SafeFoods';
+// =======
+// >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02
 
 const Home = () => {
   const { data, isLoading, isSuccess } = useGetFeatureProductsQuery("daily");

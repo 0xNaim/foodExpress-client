@@ -1,6 +1,7 @@
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
+  Alert,
   Button,
   FormControl,
   FormGroup,
@@ -9,32 +10,37 @@ import {
   InputAdornment,
   TextField,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useUserRegisterMutation } from '../../services/auth/authApi';
+import { useUserLoginMutation } from '../../services/auth/authApi';
 
-const SignUp = ({ handleSignUp }) => {
+const SignIn = ({ handleSignUp }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const {
     register,
     handleSubmit,
     watch,
-    setError,
     formState: { errors },
   } = useForm();
-  const [userRegister, { data, isLoading, isSuccess, error: responseError }] =
-    useUserRegisterMutation();
+  const [
+    userLogin,
+    { data, isLoading, isSuccess, isError, error: responseError },
+  ] = useUserLoginMutation();
   // form value state
   const [values, setValues] = useState({
     showPassword: false,
   });
+
+  const router = useRouter();
 
   // form value get handle
   const handleChange = (e) => {
     const newValue = { ...values };
     (newValue[e.target.name] = e.target.value), setValues(newValue);
   };
+
   // password show and hide handle
   const handleClickShowPassword = () => {
     setValues({
@@ -42,28 +48,19 @@ const SignUp = ({ handleSignUp }) => {
       showPassword: !values.showPassword,
     });
   };
-  //handle submit
-  if (isSuccess) {
-    handleSignUp();
-  }
+  //handle from submit
   const onSubmit = (data) => {
-    const { firstName, lastName, email, password, confirmPassword } = data;
-
-    if (confirmPassword !== password) {
-      setError('confirmPassword', {
-        type: 'custom',
-        message: 'password and confirm password not match',
-      });
-    } else {
-      userRegister({
-        username: firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-      });
-    }
+    const { email, password } = data;
+    userLogin({
+      identifier: email,
+      password,
+    });
   };
+
+  // Redirect user to dashboard
+  if (isSuccess) {
+    router.push('/dashboard');
+  }
 
   const snackbarCloseHandler = () => setOpenSnackbar(false);
 
@@ -77,38 +74,7 @@ const SignUp = ({ handleSignUp }) => {
         <FormGroup sx={style}>
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
             <TextField
-              label='First Name*'
-              type='text'
-              multiline
-              maxRows={2}
-              value={values?.firstName}
-              onChange={handleChange}
-              fullWidth
-              name='firstName'
-              {...register('firstName', { required: 'First Name is Required' })}
-              error={errors.firstName?.message}
-              helperText={errors.firstName?.message}
-            />
-          </FormControl>
-
-          <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='Last Name*'
-              type='text'
-              multiline
-              maxRows={2}
-              value={values?.lastName}
-              onChange={handleChange}
-              fullWidth
-              name='lastName'
-              {...register('lastName', { required: 'Last Name is Required' })}
-              error={errors.lastName?.message}
-              helperText={errors.lastName?.message}
-            />
-          </FormControl>
-
-          <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
-            <TextField
+              id='outlined-required'
               label='Email*'
               type='email'
               multiline
@@ -117,23 +83,18 @@ const SignUp = ({ handleSignUp }) => {
               onChange={handleChange}
               fullWidth
               name='email'
+              error={errors.email?.message}
+              helperText={errors.email?.message}
               {...register('email', {
-                required: 'Email is Required',
+                required: 'Email is required',
                 pattern: {
                   value:
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                   message: 'Invalid email address',
                 },
               })}
-              error={
-                errors.email?.message || responseError?.data?.error?.message
-              }
-              helperText={
-                errors.email?.message || responseError?.data?.error?.message
-              }
             />
           </FormControl>
-
           <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Password*'
@@ -160,33 +121,9 @@ const SignUp = ({ handleSignUp }) => {
             />
           </FormControl>
 
-          <FormControl sx={{ m: 1 }} fullWidth variant='outlined'>
-            <TextField
-              type={values.showPassword ? 'text' : 'password'}
-              value={values?.password}
-              onChange={handleChange}
-              name='confirmPassword'
-              {...register('confirmPassword', {
-                required: 'Confirm Password is Required',
-              })}
-              label='ConfirmPassword*'
-              error={errors.confirmPassword?.message}
-              helperText={errors.confirmPassword?.message}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleClickShowPassword} edge='end'>
-                      {values?.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
-                        <Visibility />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+          {isError ? (
+            <Alert severity='error'>Invalid email address or password!</Alert>
+          ) : null}
 
           <FormControl sx={{ m: 1 }} variant='outlined'>
             <Button
@@ -200,13 +137,13 @@ const SignUp = ({ handleSignUp }) => {
                 padding: '15px 20px',
               }}
             >
-              Sign Up
+              Sign In
             </Button>
           </FormControl>
           <Grid container spacing={2}>
             <Grid item xs={12} display='flex' justifyContent='center'>
               <p>
-                Already Have An Account?{' '}
+                Don&apos;t Have An Account?{' '}
                 <Button
                   disableRipple
                   onClick={handleSignUp}
@@ -215,7 +152,7 @@ const SignUp = ({ handleSignUp }) => {
                     '&:hover': { background: 'none' },
                   }}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
               </p>
             </Grid>
@@ -227,11 +164,11 @@ const SignUp = ({ handleSignUp }) => {
         <Notify
           openSnackbar={openSnackbar}
           closeSnackbar={snackbarCloseHandler}
-          message={'Registration Successful'}
+          message={'Login Successful'}
           severity='success'
         />
       )} */}
     </>
   );
 };
-export default SignUp;
+export default SignIn;

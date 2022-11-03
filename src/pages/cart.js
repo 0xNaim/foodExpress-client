@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Grid,
   Table,
   TableBody,
@@ -15,6 +14,8 @@ import Link from 'next/link';
 import CartItem from '../components/cart-item/CartItem';
 // >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d
 import Layout from '../components/layout';
+import CustomButton from '../components/ui/Button/CustomButton';
+import { cartData } from '../data/cartData';
 import styles from '../styles/Cart.module.scss';
 
 const cartDetailsData = [
@@ -33,6 +34,14 @@ const cartDetailsData = [
 ];
 
 const Cart = () => {
+  const shipping = 30;
+
+  let totalPrice = 0;
+  totalPrice = cartData.reduce(
+    (accu, curr) => accu + curr.price.split(' ')[0] * curr.quantity,
+    0
+  );
+
   return (
     <>
       <Head>
@@ -51,11 +60,15 @@ const Cart = () => {
                 >
                   Shopping Cart
                 </Typography>
+{/* <<<<<<< HEAD */}
 {/* <<<<<<< HEAD
                 <CartItems showQuantity /> */}
 {/* ======= */}
-                <CartItem showQuantity />
+                {/* <CartItem showQuantity /> */}
 {/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}
+{/* ======= */}
+                <CartItem showQuantity showTotal />
+{/* >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02 */}
               </Box>
             </Grid>
 
@@ -71,7 +84,7 @@ const Cart = () => {
 
                 <Table>
                   <TableBody>
-                    {cartDetailsData?.map((d) => (
+                    {/* {cartDetailsData?.map((d) => (
                       <TableRow key={d.title} className={styles.table_row}>
                         <Typography variant='body1' fontWeight={'500'}>
                           {d.title}:
@@ -81,17 +94,47 @@ const Cart = () => {
                           {d.amount}
                         </Typography>
                       </TableRow>
-                    ))}
+                    ))} */}
+
+                    <TableRow className={styles.table_row}>
+                      <Typography variant='body1' fontWeight={'500'}>
+                        Total Items:
+                      </Typography>
+
+                      <Typography variant='body1' fontWeight={'500'}>
+                        {cartData?.length}
+                      </Typography>
+                    </TableRow>
+
+                    <TableRow className={styles.table_row}>
+                      <Typography variant='body1' fontWeight={'500'}>
+                        Total Price:
+                      </Typography>
+
+                      <Typography variant='body1' fontWeight={'500'}>
+                        {totalPrice} Tk
+                      </Typography>
+                    </TableRow>
+
+                    <TableRow className={styles.table_row}>
+                      <Typography variant='body1' fontWeight={'500'}>
+                        Shipping Cost:
+                      </Typography>
+
+                      <Typography variant='body1' fontWeight={'500'}>
+                        {shipping} Tk
+                      </Typography>
+                    </TableRow>
 
                     <hr />
 
                     <TableRow className={styles.table_row}>
                       <Typography variant='body1' fontWeight={'500'}>
-                        Total:
+                        Subtotal:
                       </Typography>
 
                       <Typography variant='body1' fontWeight={'500'}>
-                        5000 tk
+                        {totalPrice + shipping} Tk
                       </Typography>
                     </TableRow>
 
@@ -108,16 +151,8 @@ const Cart = () => {
                       </Button>
 ======= */}
                       <Link href='/checkout' passHref>
-                        <a>
-                          <Button
-                            variant='contained'
-                            color='primary'
-                            fullWidth
-                            disableRipple
-                            sx={{ textTransform: 'capitalize' }}
-                          >
-                            Checkout
-                        </Button>
+                        <a className={styles.link}>
+                          <CustomButton label='Checkout' fullWidth />
                         </a>
                       </Link>
 {/* >>>>>>> a9ed3e939e7c0ed235984935f744729434fbac4d */}

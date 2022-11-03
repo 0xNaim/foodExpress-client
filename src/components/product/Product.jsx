@@ -8,12 +8,16 @@ import {
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
-import CartBtn from '../ui/Button/CartBtn';
+import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
 
+// <<<<<<< HEAD
 
 const Product = (props) => {
   const { product,handleOpen} = props;
+// =======
+// const Product = ({ image, title, weight, regularPrice, sellPrice }) => {
+// >>>>>>> 1b56157d9a75f2dc0547535476251fe0504ccd02
   return (
     <Card className={styles.product__wrapper}>
       <Box component='div'>
@@ -61,7 +65,7 @@ const Product = (props) => {
             <ArrowRightAltIcon />
           </Button>
           <Box className={styles['product__cart--btn']} component={'div'}>
-            <CartBtn showCartIcon />
+            <CustomButton label='Add To Cart' showCartIcon fullWidth />
           </Box>
         </Box>
       </CardActions>
