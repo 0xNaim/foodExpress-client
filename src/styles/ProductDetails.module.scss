@@ -1,0 +1,48 @@
+.product__details__wrapper {
+  padding: 1rem 0;
+
+  .image__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    img {
+      z-index: -1;
+    }
+  }
+
+  .details__wrapper {
+    .product__weight {
+      color: var(--clr-grey);
+    }
+  }
+
+  .price__wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0.75rem 0;
+
+    .sell__price {
+      color: var(--clr-primary);
+      margin-right: 0.75rem;
+    }
+
+    .regularPrice {
+      color: red;
+      text-decoration: line-through;
+    }
+  }
+
+  .quantity__wrapper {
+    display: flex;
+    align-items: center;
+
+    .quantity {
+      margin: 0 1.5rem;
+    }
+  }
+
+  .descriptions__wrapper {
+    margin-top: 2.75rem;
+  }
+}
