@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import PaymentForm from '../components/checkout-form/payment-form/PaymentForm';
 import ShippingForm from '../components/checkout-form/shipping-form/ShippingForm';
-import Layout from '../components/layout';
 import useMultiStepForm from '../hooks/useMultiStepForm';
 import styles from '../styles/Checkout.module.scss';
 
@@ -35,31 +34,29 @@ const Checkout = () => {
         <title>Checkout || FoodExpress</title>
       </Head>
 
-      <Layout>
-        <Box
-          className={styles.checkout__wrapper}
-          component='main'
-          maxWidth={'md'}
-        >
-          <Paper className={styles.checkout__paper}>
-            <Typography variant='h4' align='center'>
-              Checkout
-            </Typography>
-            <Stepper className={styles.stepper} activeStep={currentStepIndex}>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            {isFirstStep ? (
-              <ShippingForm nextStep={nextStep} />
-            ) : (
-              <PaymentForm nextStep={nextStep} backStep={backStep} />
-            )}
-          </Paper>
-        </Box>
-      </Layout>
+      <Box
+        className={styles.checkout__wrapper}
+        component='main'
+        maxWidth={'md'}
+      >
+        <Paper className={styles.checkout__paper}>
+          <Typography variant='h4' align='center'>
+            Checkout
+          </Typography>
+          <Stepper className={styles.stepper} activeStep={currentStepIndex}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          {isFirstStep ? (
+            <ShippingForm nextStep={nextStep} />
+          ) : (
+            <PaymentForm nextStep={nextStep} backStep={backStep} />
+          )}
+        </Paper>
+      </Box>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import Footer from './footer/Footer';
 import Header from './header/Header';
 import styles from './Layout.module.scss';
@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
             <Sidebar />
           </Grid>
           <Grid item xs={12} md={10} className={styles.children__wrapper}>
-            {children}
+            <Box component='main'>{children}</Box>
           </Grid>
         </Grid>
       </Container>

@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React, { useRef } from 'react';
-import Layout from '../components/layout';
 
 // Import css files
 import 'slick-carousel/slick/slick-theme.css';
@@ -69,13 +68,11 @@ const Home = () => {
         <title>Home || FoodExpress</title>
       </Head>
 
-      <Layout>
-        <DailyProducts />
-        <hr style={{ margin: '1rem', opacity: '.3' }} />
-        <MonthlyProducts />
-        <hr style={{ margin: '1rem', opacity: '.3' }} />
-        <SafeFoods />
-      </Layout>
+      <DailyProducts />
+      <hr style={{ margin: '1rem', opacity: '.3' }} />
+      <MonthlyProducts />
+      <hr style={{ margin: '1rem', opacity: '.3' }} />
+      <SafeFoods />
     </>
   );
 };

@@ -5,17 +5,18 @@ import {
   Card,
   CardActions,
   CardContent,
-  Modal,
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
-import ProductDetails from '../product-details/ProductDetails';
 import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
 
 const Product = ({ product }) => {
   const [modal, setModal] = useState(false);
+
+  console.log(product);
 
   const closeModal = () => {
     setModal(false);
@@ -68,44 +69,22 @@ const Product = ({ product }) => {
 
         <CardActions>
           <Box className={styles.product__btnGroup} component='div'>
-            <Button
-              onClick={openModal}
-              className={styles['product__details--btn']}
-              disableRipple
-            >
-              Details&nbsp;
-              <ArrowRightAltIcon />
-            </Button>
+            <Link href={`/products/${product.slug}`}>
+              <Button
+                onClick={openModal}
+                className={styles['product__details--btn']}
+                disableRipple
+              >
+                Details&nbsp;
+                <ArrowRightAltIcon />
+              </Button>
+            </Link>
             <Box className={styles['product__cart--btn']} component={'div'}>
               <CustomButton label='Add To Cart' showCartIcon fullWidth />
             </Box>
           </Box>
         </CardActions>
       </Card>
-      <Modal
-        open={modal}
-        onClose={closeModal}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            alignSelf: 'center',
-            width: '50%',
-            height: 'max-content',
-            background: 'white',
-          }}
-        >
-          <ProductDetails />
-        </Box>
-      </Modal>
     </>
   );
 };
