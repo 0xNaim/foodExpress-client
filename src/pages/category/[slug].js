@@ -1,43 +1,23 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Pagination, Typography } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Product from '../../components/product/Product';
 import ProductSkeleton from '../../components/ui/loading/ProductSkeleton';
 import { useGetProductsQuery } from '../../services/products/productsApi';
 import styles from '../../styles/CategoryProduct.module.scss';
 
 const Category = () => {
+  const [page, setPage] = useState(1);
   const { query } = useRouter();
   const { slug } = query;
-  const { data: products, isLoading, isSuccess } = useGetProductsQuery(slug);
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+  } = useGetProductsQuery({ slug, page });
 
-  // let products = [];
-
-  // products =
-  //   data && data?.data?.length > 0 && data?.data[0]?.attributes?.products?.data;
-
-  const pageNumbers = [];
-
-  // let products = [];
-  // if (data) {
-  //   products = data && data.data[0].attributes.products.data;
-  // }
-
-  // const [postsPerPage] = useState(5);
-  // const [currentPage, setCurrentPage] = useState(1);
-
-  // Get current posts
-  // const indexOfLastPost = currentPage * postsPerPage;
-  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  // const currentPosts =
-  //   products && products.slice(indexOfFirstPost, indexOfLastPost);
-
-  // Change page
-  // const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // const handleChange = (e, p) => {
-  //   setCurrentPage(p);
-  // };
+  const { pagination } = products?.meta || {};
 
   return (
     <>
@@ -58,6 +38,12 @@ const Category = () => {
         </Box>
       )}
 
+      {products?.data?.length === 0 && (
+        <Box className={styles['product__not-found']} component='div'>
+          <Typography variant='h6'>There are no products</Typography>
+        </Box>
+      )}
+
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {products?.data?.map((singleProduct) => (
           <Grid
@@ -72,6 +58,17 @@ const Category = () => {
           </Grid>
         ))}
       </Grid>
+
+      {!isLoading && isSuccess && products?.data?.length > 0 && (
+        <Box className={styles.pagination__wrapper} component='div'>
+          <Pagination
+            count={pagination?.pageCount}
+            onChange={(e, value) => setPage(value)}
+            shape='rounded'
+            color='primary'
+          />
+        </Box>
+      )}
     </>
   );
 };
