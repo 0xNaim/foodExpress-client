@@ -17,6 +17,8 @@ import styles from './Product.module.scss';
 const Product = ({ product }) => {
   const [modal, setModal] = useState(false);
 
+  console.log(product)
+
   const closeModal = () => {
     setModal(false);
   };
@@ -82,7 +84,7 @@ const Product = ({ product }) => {
           </Box>
         </CardActions>
       </Card>
-      <Modal
+      {/* <Modal
         open={modal}
         onClose={closeModal}
         aria-labelledby='modal-modal-title'
@@ -105,7 +107,7 @@ const Product = ({ product }) => {
         >
           <ProductDetails />
         </Box>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
