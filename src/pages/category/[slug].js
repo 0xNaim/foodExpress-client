@@ -44,15 +44,14 @@ const Category = () => {
         </Box>
       )}
 
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid container spacing={2}>
         {products?.data?.map((singleProduct) => (
           <Grid
             key={singleProduct?.attributes?.slug}
             item
             xs={12}
             sm={6}
-            md={4}
-            lg={3}
+            md={3}
           >
             <Product product={singleProduct?.attributes} />
           </Grid>
