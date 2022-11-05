@@ -3,7 +3,7 @@ import { Box, Button, Grid, Skeleton, Typography } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useGetProductQuery } from '../../services/products/productApi';
+import { useGetProductQuery } from '../../services/products/productsApi';
 import styles from '../../styles/ProductDetails.module.scss';
 
 const ProductDetails = () => {
