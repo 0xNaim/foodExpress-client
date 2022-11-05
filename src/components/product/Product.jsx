@@ -33,7 +33,7 @@ const Product = ({ product }) => {
               variant='body1'
               gutterBottom
             >
-              {(product.title || 'Anaros').substring(0, 20)}
+              {(product.title || 'Anaros').substring(0, 28)}
             </Typography>
 
             <Box className={styles.product__details__wrapper} component='div'>
