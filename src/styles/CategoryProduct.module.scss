@@ -3,3 +3,16 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
 }
+
+.product__not-found {
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  height: 70vh;
+}
+
+.pagination__wrapper {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}

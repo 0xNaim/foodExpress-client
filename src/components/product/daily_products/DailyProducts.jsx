@@ -9,6 +9,7 @@ import Product from '../Product';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { useGetFeatureProductsQuery } from '../../../services/products/productsApi';
+import ProductSkeleton from '../../ui/loading/ProductSkeleton';
 
 const DailyProducts = () => {
   const { data, isLoading, isSuccess } = useGetFeatureProductsQuery('daily');
@@ -69,39 +70,60 @@ const DailyProducts = () => {
   };
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      {isLoading && (
         <Box
+          component='div'
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '1rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           }}
         >
-          <Typography sx={{ fontSize: '2rem' }}>Daily Food </Typography>
-          <Box>
-            <Button onClick={handlePrevSlide} disableRipple>
-              <ArrowBackIosIcon />
-            </Button>
-            <Button onClick={handleNextSlide} disableRipple>
-              <ArrowForwardIosIcon />
-            </Button>
+          <ProductSkeleton />
+          <ProductSkeleton />
+          <ProductSkeleton />
+          <ProductSkeleton />
+        </Box>
+      )}
+
+      {!isLoading && isSuccess && (
+        <Box sx={{ width: '100%' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '1rem',
+            }}
+          >
+            <Typography sx={{ fontSize: '2rem' }}>Daily Food </Typography>
+            <Box>
+              <Button onClick={handlePrevSlide} disableRipple>
+                <ArrowBackIosIcon />
+              </Button>
+              <Button onClick={handleNextSlide} disableRipple>
+                <ArrowForwardIosIcon />
+              </Button>
+            </Box>
+          </Box>
+
+          <Slider ref={ref} style={{}} {...settings}>
+            {products &&
+              products.map((product, index) => (
+                <Product key={index} product={product.attributes} />
+              ))}
+          </Slider>
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2rem',
+            }}
+          >
+            <Button sx={buttonSX}>View All</Button>
           </Box>
         </Box>
-
-        <Slider ref={ref} style={{}} {...settings}>
-          {products &&
-            products.map((product, index) => (
-              <Product key={index} product={product.attributes} />
-            ))}
-        </Slider>
-
-        <Box
-          sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}
-        >
-          <Button sx={buttonSX}>View All</Button>
-        </Box>
-      </Box>
+      )}
     </>
   );
 };
