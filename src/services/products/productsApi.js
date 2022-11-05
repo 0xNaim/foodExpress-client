@@ -1,12 +1,23 @@
 import apiSlice from '../../redux/features/api/apiSlice';
 
-const productsApi = apiSlice.injectEndpoints({
+export const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getFeatureProducts: builder.query({
+      query: (filter) => `/products?filters[variant][$eq]=${filter}&populate=*`,
+    }),
     getProducts: builder.query({
-      query: (slug) =>
-        `/products?filters[sub_category][slug][$eq]=${slug}&populate=*`,
+      query: (slug, page = 1) =>
+        `/products?filters[sub_category][slug][$eq]=${slug}&pagination[page]=${page}&pagination[pageSize]=2&populate=*`,
+    }),
+    getProduct: builder.query({
+      query: (slug) => `/products?filters[slug][$eq]=${slug}&populate=*`,
     }),
   }),
+  overrideExisting: true,
 });
 
-export const { useGetProductsQuery } = productsApi;
+export const {
+  useGetFeatureProductsQuery,
+  useGetProductsQuery,
+  useGetProductQuery,
+} = productsApi;

@@ -9,23 +9,10 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
 
 const Product = ({ product }) => {
-  const [modal, setModal] = useState(false);
-
-  console.log(product);
-
-  const closeModal = () => {
-    setModal(false);
-  };
-
-  const openModal = () => {
-    setModal(true);
-  };
-
   return (
     <>
       <Card className={styles.product__wrapper}>
@@ -70,11 +57,7 @@ const Product = ({ product }) => {
         <CardActions>
           <Box className={styles.product__btnGroup} component='div'>
             <Link href={`/products/${product.slug}`}>
-              <Button
-                onClick={openModal}
-                className={styles['product__details--btn']}
-                disableRipple
-              >
+              <Button className={styles['product__details--btn']} disableRipple>
                 Details&nbsp;
                 <ArrowRightAltIcon />
               </Button>

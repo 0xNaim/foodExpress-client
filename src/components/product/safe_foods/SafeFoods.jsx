@@ -3,12 +3,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Box, Button, Typography } from '@mui/material';
 import React, { useRef } from 'react';
 import Slider from 'react-slick';
-import { useGetFeatureProductsQuery } from '../../../services/products/featureProductsApi';
 import Product from '../Product';
 
 // Import css files
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
+import { useGetFeatureProductsQuery } from '../../../services/products/productsApi';
 
 const SafeFoods = () => {
   const { data, isLoading, isSuccess } = useGetFeatureProductsQuery('safeFood');
