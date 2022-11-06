@@ -39,6 +39,7 @@ import styles from './Header.module.scss';
 const Header = () => {
   const { data, isSuccess } = useGetCategoriesQuery();
   const { cart, message } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const isLoggedIn = useAuth();
 
