@@ -12,7 +12,7 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       // Find product that already exist in the cart
       const product = state.cart.find(
-        (product) => product.slug === action.payload.slug
+        (item) => item.slug === action.payload.slug
       );
 
       if (product) {
@@ -25,8 +25,13 @@ const cartSlice = createSlice({
         state.message = 'Product Added To Cart';
       }
     },
+    removeFromCart: (state, action) => {
+      // Return new array
+      state.cart = state.cart.filter((item) => item.slug !== action.payload.slug);
+      state.message ='Product Removed From The Cart'
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;

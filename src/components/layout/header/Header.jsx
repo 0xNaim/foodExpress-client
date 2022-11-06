@@ -17,9 +17,10 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cartData } from '../../../data/cartData';
 import useAuth from '../../../hooks/useAuth';
+import { removeFromCart } from '../../../redux/features/cart/cartSlice';
 import { userLoggedOut } from '../../../services/auth/authSlice';
 import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
@@ -30,11 +31,13 @@ import CartItems from '../../cart-items/CartItems';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
+import Notify from '../../ui/notify/Notify';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
 const Header = () => {
   const { data, isSuccess } = useGetCategoriesQuery();
+  const { message } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const isLoggedIn = useAuth();
 
@@ -44,6 +47,17 @@ const Header = () => {
   const [signUp, setSignUp] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  // Notify handler
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  // Item remove from the cart
+  const handleRemoveFromCart = (payload) => {
+    dispatch(removeFromCart(payload));
+    handleOpenSnackbar();
+  };
 
   // handle open user menu
   const handleOpenUserMenu = () => {
@@ -225,7 +239,7 @@ const Header = () => {
           <Divider />
 
           <Box className={styles['sidebar-cart__content']} component='div'>
-            <CartItems />
+            <CartItems handleRemoveFromCart={handleRemoveFromCart} />
           </Box>
 
           <Divider className={styles.separator} />
@@ -306,6 +320,13 @@ const Header = () => {
           />
         )}
       </MyDrawer>
+
+      <Notify
+        openSnackbar={openSnackbar}
+        closeSnackbar={handleCloseSnackbar}
+        message={message}
+        severity='error'
+      />
     </>
   );
 };

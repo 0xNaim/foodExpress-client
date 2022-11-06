@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import styles from './CartItems.module.scss';
 
-const CartItems = ({ showQuantity, showTotal }) => {
+const CartItems = ({ showQuantity, showTotal, handleRemoveFromCart }) => {
   const { cart } = useSelector((state) => state.cart);
 
   return (
@@ -13,7 +13,11 @@ const CartItems = ({ showQuantity, showTotal }) => {
         const totalPrice = item.price * item.quantity;
 
         return (
-          <Box className={styles.cartItems__wrapper} key={item.slug} component='div'>
+          <Box
+            className={styles.cartItems__wrapper}
+            key={item.slug}
+            component='div'
+          >
             <Box
               component={'div'}
               className={styles.cartItems__description__wrapper}
@@ -62,7 +66,11 @@ const CartItems = ({ showQuantity, showTotal }) => {
             )}
 
             <Box className={styles.clear__btn} component='div'>
-              <IconButton color='error' disableRipple>
+              <IconButton
+                onClick={() => handleRemoveFromCart({ slug: item.slug })}
+                color='error'
+                disableRipple
+              >
                 <Clear />
               </IconButton>
             </Box>

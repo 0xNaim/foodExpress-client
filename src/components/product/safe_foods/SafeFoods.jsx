@@ -24,6 +24,7 @@ const SafeFoods = () => {
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
+  // Product add to cart
   const handleAddToCart = (payload) => {
     dispatch(addToCart(payload));
     handleOpenSnackbar();

@@ -8,12 +8,30 @@ import {
 } from '@mui/material';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import CartItems from '../components/cart-items/CartItems';
 import CustomButton from '../components/ui/Button/CustomButton';
+import Notify from '../components/ui/notify/Notify';
 import { cartData } from '../data/cartData';
+import { removeFromCart } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
 
 const Cart = () => {
+  const { message } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  // Item remove from the cart
+  const handleRemoveFromCart = (payload) => {
+    dispatch(removeFromCart(payload));
+    handleOpenSnackbar();
+  };
+
   const shipping = 30;
 
   let totalPrice = 0;
@@ -42,6 +60,7 @@ const Cart = () => {
               <CartItems
                 showQuantity
                 showTotal
+                handleRemoveFromCart={handleRemoveFromCart}
               />
             </Box>
           </Grid>
@@ -113,6 +132,13 @@ const Cart = () => {
           </Grid>
         </Grid>
       </Box>
+
+      <Notify
+        openSnackbar={openSnackbar}
+        closeSnackbar={handleCloseSnackbar}
+        message={message}
+        severity='error'
+      />
     </>
   );
 };
