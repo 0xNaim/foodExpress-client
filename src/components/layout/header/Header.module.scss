@@ -156,6 +156,14 @@
 }
 
 .sidebar-cart__wrapper {
+  .empty__cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+  }
+
   .sidebar-cart__title {
     padding: 0.25em 0;
     font-weight: var(--fw-title);
