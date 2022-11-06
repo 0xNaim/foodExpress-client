@@ -9,22 +9,22 @@ import {
 } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
 import PaymentForm from '../components/checkout-form/payment-form/PaymentForm';
 import ShippingForm from '../components/checkout-form/shipping-form/ShippingForm';
+import useAuth from '../hooks/useAuth';
 import useMultiStepForm from '../hooks/useMultiStepForm';
 import styles from '../styles/Checkout.module.scss';
 
 const steps = ['Shipping address', 'Payment details'];
 
 const Checkout = () => {
-  const { accessToken } = useSelector((state) => state.auth || {});
+  const router = useRouter();
+  const isLoggedIn = useAuth();
+
   const { currentStepIndex, nextStep, backStep, isFirstStep } =
     useMultiStepForm([<ShippingForm />, <PaymentForm />]);
 
-  const router = useRouter();
-
-  if (!accessToken) {
+  if (!isLoggedIn) {
     router.push('/');
   }
 
