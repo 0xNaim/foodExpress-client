@@ -35,8 +35,7 @@ const Cart = () => {
 
   const shipping = 30;
 
-  let totalPrice = 0;
-  totalPrice = cart.reduce(
+  let totalPrice = cart.reduce(
     (accu, curr) => accu + curr.price * curr.quantity,
     0
   );

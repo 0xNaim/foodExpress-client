@@ -168,7 +168,7 @@ const Header = () => {
                   Your Cart
                 </Typography>
                 <Typography className={styles.cart__total} variant='body1'>
-                  $100.00
+                  {totalPrice}.00 Tk
                 </Typography>
               </Box>
             </Box>
