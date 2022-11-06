@@ -18,7 +18,9 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartData } from '../../../data/cartData';
+import EmptyCart from '../../../../public/assets/empty.png';
+import useAuth from '../../../hooks/useAuth';
+import { removeFromCart } from '../../../redux/features/cart/cartSlice';
 import { userLoggedOut } from '../../../services/auth/authSlice';
 import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
@@ -26,16 +28,19 @@ import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
 import CartItems from '../../cart-items/CartItems';
 
+import Image from 'next/image';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
+import Notify from '../../ui/notify/Notify';
 import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const { accessToken, user } = useSelector((state) => state.auth || {});
   const { data, isSuccess } = useGetCategoriesQuery();
+  const { cart, message } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const isLoggedIn = useAuth();
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
@@ -43,6 +48,17 @@ const Header = () => {
   const [signUp, setSignUp] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  // Notify handler
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  // Item remove from the cart
+  const handleRemoveFromCart = (payload) => {
+    dispatch(removeFromCart(payload));
+    handleOpenSnackbar();
+  };
 
   // handle open user menu
   const handleOpenUserMenu = () => {
@@ -81,8 +97,8 @@ const Header = () => {
   const categories = data?.data?.map((category) => category);
 
   const shippingCost = 30;
-  const totalPrice = cartData.reduce(
-    (accu, curr) => accu + curr.price.split(' ')[0] * curr.quantity,
+  const totalPrice = cart.reduce(
+    (accu, curr) => accu + curr.price * curr.quantity,
     0
   );
 
@@ -141,7 +157,7 @@ const Header = () => {
               className={styles.cart__wrapper}
             >
               <IconButton disableRipple>
-                <Badge badgeContent={5} color='error' max={10}>
+                <Badge badgeContent={cart?.length} color='error' max={10}>
                   <ShoppingCartIcon className={styles['cart--icon']} />
                 </Badge>
               </IconButton>
@@ -156,7 +172,7 @@ const Header = () => {
               </Box>
             </Box>
 
-            {accessToken ? (
+            {isLoggedIn ? (
               <Box className={styles.profile} component='div'>
                 <Tooltip title='Open Settings'>
                   <IconButton onClick={handleOpenUserMenu} disableRipple>
@@ -224,54 +240,74 @@ const Header = () => {
           <Divider />
 
           <Box className={styles['sidebar-cart__content']} component='div'>
-            <CartItems />
+            <CartItems handleRemoveFromCart={handleRemoveFromCart} />
           </Box>
 
-          <Divider className={styles.separator} />
-
-          <Box className={styles['sidebar-cart__btnGroup']} component='div'>
-            <Box
-              className={styles['sidebar-cart__price__wrapper']}
-              component='div'
-            >
-              <Typography
-                className={styles['sidebar-cart__subtotal']}
-                variant='body1'
-              >
-                Total + Shipping:
-              </Typography>
-              <Typography
-                className={styles['sidebar-cart__price']}
-                variant='body1'
-              >
-                {totalPrice + shippingCost} Tk
-              </Typography>
+          {cart?.length === 0 && (
+            <Box className={styles.empty__cart} component='div'>
+              <Image
+                src={EmptyCart}
+                width={150}
+                height={150}
+                alt='Empty Cart'
+              />
+              <Typography variant='subtitle1'>Your cart is empty!</Typography>
             </Box>
+          )}
 
-            <Box
-              className={styles['sidebar-cart__btn__wrapper']}
-              component='div'
-            >
-              <Link href='/cart' passHref>
-                <a className={styles['sidebar-cart__link']}>
-                  <Box className={styles['sidebar-cart__btn']} component='div'>
-                    <CustomButton
-                      label='View Cart'
-                      variant='outlined'
-                      fullWidth
-                    />
-                  </Box>
-                </a>
-              </Link>
-              <Link href='/checkout' passHref>
-                <a className={styles['sidebar-cart__link']}>
-                  <Box className={styles['sidebar-cart__btn']} component='div'>
-                    <CustomButton label='Checkout' fullWidth />
-                  </Box>
-                </a>
-              </Link>
+          {cart?.length > 0 && <Divider className={styles.separator} />}
+
+          {cart?.length > 0 && (
+            <Box className={styles['sidebar-cart__btnGroup']} component='div'>
+              <Box
+                className={styles['sidebar-cart__price__wrapper']}
+                component='div'
+              >
+                <Typography
+                  className={styles['sidebar-cart__subtotal']}
+                  variant='body1'
+                >
+                  Total + Shipping:
+                </Typography>
+                <Typography
+                  className={styles['sidebar-cart__price']}
+                  variant='body1'
+                >
+                  {totalPrice + shippingCost} Tk
+                </Typography>
+              </Box>
+
+              <Box
+                className={styles['sidebar-cart__btn__wrapper']}
+                component='div'
+              >
+                <Link href='/cart' passHref>
+                  <a className={styles['sidebar-cart__link']}>
+                    <Box
+                      className={styles['sidebar-cart__btn']}
+                      component='div'
+                    >
+                      <CustomButton
+                        label='View Cart'
+                        variant='outlined'
+                        fullWidth
+                      />
+                    </Box>
+                  </a>
+                </Link>
+                <Link href='/checkout' passHref>
+                  <a className={styles['sidebar-cart__link']}>
+                    <Box
+                      className={styles['sidebar-cart__btn']}
+                      component='div'
+                    >
+                      <CustomButton label='Checkout' fullWidth />
+                    </Box>
+                  </a>
+                </Link>
+              </Box>
             </Box>
-          </Box>
+          )}
         </Box>
       </MyDrawer>
 
@@ -305,6 +341,13 @@ const Header = () => {
           />
         )}
       </MyDrawer>
+
+      <Notify
+        openSnackbar={openSnackbar}
+        closeSnackbar={handleCloseSnackbar}
+        message={message}
+        severity='error'
+      />
     </>
   );
 };

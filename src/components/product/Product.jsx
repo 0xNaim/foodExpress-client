@@ -12,7 +12,15 @@ import Link from 'next/link';
 import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
 
-const Product = ({ product }) => {
+const Product = ({ product, handleAddToCart }) => {
+  const payload = {
+    slug: product?.slug,
+    title: product?.title,
+    image: product?.image?.data?.attributes?.url,
+    price: product?.sellPrice,
+    quantity: 1,
+  };
+
   return (
     <>
       <Card className={styles.product__wrapper}>
@@ -63,7 +71,12 @@ const Product = ({ product }) => {
               </Button>
             </Link>
             <Box className={styles['product__cart--btn']} component={'div'}>
-              <CustomButton label='Add To Cart' showCartIcon fullWidth />
+              <CustomButton
+                handleClick={() => handleAddToCart(payload)}
+                label='Add To Cart'
+                showCartIcon
+                fullWidth
+              />
             </Box>
           </Box>
         </CardActions>
