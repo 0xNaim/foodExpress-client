@@ -1,14 +1,13 @@
 import { Typography } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import useAuth from '../hooks/useAuth';
 
 const Dashboard = () => {
-  const { accessToken } = useSelector((state) => state.auth || {});
-
   const router = useRouter();
+  const isLoggedIn = useAuth();
 
-  if (!accessToken) {
+  if (!isLoggedIn) {
     router.push('/');
   }
 
