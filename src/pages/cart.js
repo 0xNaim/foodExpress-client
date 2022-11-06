@@ -13,21 +13,6 @@ import CustomButton from '../components/ui/Button/CustomButton';
 import { cartData } from '../data/cartData';
 import styles from '../styles/Cart.module.scss';
 
-const cartDetailsData = [
-  {
-    title: 'Total Items',
-    amount: 5,
-  },
-  {
-    title: 'Total Price',
-    amount: '5 tk',
-  },
-  {
-    title: 'Shipping Price',
-    amount: '50 tk',
-  },
-];
-
 const Cart = () => {
   const shipping = 30;
 
@@ -54,7 +39,10 @@ const Cart = () => {
               >
                 Shopping Cart
               </Typography>
-              <CartItems showQuantity showTotal />
+              <CartItems
+                showQuantity
+                showTotal
+              />
             </Box>
           </Grid>
 

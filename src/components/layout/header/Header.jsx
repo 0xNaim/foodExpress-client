@@ -17,8 +17,9 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { cartData } from '../../../data/cartData';
+import useAuth from '../../../hooks/useAuth';
 import { userLoggedOut } from '../../../services/auth/authSlice';
 import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
@@ -33,9 +34,9 @@ import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const { accessToken, user } = useSelector((state) => state.auth || {});
   const { data, isSuccess } = useGetCategoriesQuery();
   const dispatch = useDispatch();
+  const isLoggedIn = useAuth();
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
@@ -156,7 +157,7 @@ const Header = () => {
               </Box>
             </Box>
 
-            {accessToken ? (
+            {isLoggedIn ? (
               <Box className={styles.profile} component='div'>
                 <Tooltip title='Open Settings'>
                   <IconButton onClick={handleOpenUserMenu} disableRipple>

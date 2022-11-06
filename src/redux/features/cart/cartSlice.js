@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   cart: [],
+  message: '',
 };
 
 const cartSlice = createSlice({
@@ -17,9 +18,11 @@ const cartSlice = createSlice({
       if (product) {
         // If product already exist then update the product quantity
         product.quantity += 1;
+        state.message = 'Product Quantity Updated';
       } else {
         // Otherwise, push the product into the cart
         state.cart.push(action.payload);
+        state.message = 'Product Added To Cart';
       }
     },
   },

@@ -2,22 +2,38 @@ import { Box, Grid, Pagination, Typography } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Product from '../../components/product/Product';
 import ProductSkeleton from '../../components/ui/loading/ProductSkeleton';
+import Notify from '../../components/ui/notify/Notify';
+import { addToCart } from '../../redux/features/cart/cartSlice';
 import { useGetProductsQuery } from '../../services/products/productsApi';
 import styles from '../../styles/CategoryProduct.module.scss';
 
 const Category = () => {
-  const [page, setPage] = useState(1);
+  const { message } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const { query } = useRouter();
   const { slug } = query;
+  const [page, setPage] = useState(1);
+
   const {
     data: products,
     isLoading,
     isSuccess,
   } = useGetProductsQuery({ slug, page });
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const { pagination } = products?.meta || {};
+
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  const handleAddToCart = (payload) => {
+    dispatch(addToCart(payload));
+    handleOpenSnackbar();
+  };
 
   return (
     <>
@@ -54,7 +70,10 @@ const Category = () => {
             md={4}
             lg={3}
           >
-            <Product product={singleProduct?.attributes} />
+            <Product
+              product={singleProduct?.attributes}
+              handleAddToCart={handleAddToCart}
+            />
           </Grid>
         ))}
       </Grid>
@@ -69,6 +88,13 @@ const Category = () => {
           />
         </Box>
       )}
+
+      <Notify
+        openSnackbar={openSnackbar}
+        closeSnackbar={handleCloseSnackbar}
+        message={message}
+        severity={'success'}
+      />
     </>
   );
 };

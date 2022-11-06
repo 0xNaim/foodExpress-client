@@ -9,29 +9,17 @@ import {
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/features/cart/cartSlice';
 import CustomButton from '../ui/Button/CustomButton';
 import styles from './Product.module.scss';
 
-const Product = ({ product }) => {
-  const dispatch = useDispatch();
-
-  // console.log('Product -> ', product);
-
-  const data = {
+const Product = ({ product, handleAddToCart }) => {
+  const payload = {
     slug: product?.slug,
     title: product?.title,
     image: product?.image?.data?.attributes?.url,
     price: product?.sellPrice,
     quantity: 1,
   };
-
-  const addToCartHandler = () => {
-    dispatch(addToCart(data));
-  };
-
-  // console.log(data);
 
   return (
     <>
@@ -84,7 +72,7 @@ const Product = ({ product }) => {
             </Link>
             <Box className={styles['product__cart--btn']} component={'div'}>
               <CustomButton
-                handleClick={addToCartHandler}
+                handleClick={() => handleAddToCart(payload)}
                 label='Add To Cart'
                 showCartIcon
                 fullWidth

@@ -1,39 +1,41 @@
 import { Add, Clear, Remove } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
-import { cartData } from '../../data/cartData';
+import { useSelector } from 'react-redux';
 import styles from './CartItems.module.scss';
 
 const CartItems = ({ showQuantity, showTotal }) => {
+  const { cart } = useSelector((state) => state.cart);
+
   return (
     <>
-      {cartData?.map((data, i) => {
-        const totalPrice = data.price.split(' ')[0] * data.quantity;
+      {cart?.map((item) => {
+        const totalPrice = item.price * item.quantity;
 
         return (
-          <Box className={styles.cartItems__wrapper} key={i} component='div'>
+          <Box className={styles.cartItems__wrapper} key={item.slug} component='div'>
             <Box
               component={'div'}
               className={styles.cartItems__description__wrapper}
             >
               <Image
                 className={styles.cartItems__thumbnail}
-                src={data.image}
+                src={item.image}
                 width={100}
                 height={60}
-                alt={data.title}
+                alt={item.title}
               />
 
               <Box className={styles.cartItems__description} component='div'>
-                <Typography variant='body1'>{data.title}</Typography>
-                <Typography variant='body2'>{data.weight}</Typography>
+                <Typography variant='body1'>{item.title}</Typography>
+                <Typography variant='body2'>{item.weight}</Typography>
                 <Typography
                   className={styles.cartItems__price__wrapper}
                   variant='body2'
                 >
-                  {data.quantity} x{' '}
+                  {item.quantity} x{' '}
                   <Box className={styles.cartItems__price} component='span'>
-                    &nbsp;{data.price}
+                    &nbsp;{item.price} tk
                   </Box>{' '}
                 </Typography>
               </Box>
@@ -44,7 +46,7 @@ const CartItems = ({ showQuantity, showTotal }) => {
                 <IconButton disableRipple>
                   <Remove />
                 </IconButton>
-                <Typography variant='body1'>{data.quantity}</Typography>
+                <Typography variant='body1'>{item.quantity}</Typography>
                 <IconButton disableRipple>
                   <Add />
                 </IconButton>
