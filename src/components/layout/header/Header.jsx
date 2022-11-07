@@ -7,6 +7,7 @@ import {
   Badge,
   Box,
   Button,
+  Container,
   Divider,
   IconButton,
   Menu,
@@ -105,8 +106,8 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position='static' className={styles.appBar__container}>
-        <Toolbar>
+      <AppBar position='static' className={styles.appBar__wrapper}>
+        <Container className={styles.container} maxWidth='xl'>
           <Box component='div' className={styles.appBar__menuIcon}>
             <MenuIcon color='primary' onClick={toggleCategoryDrawerHandler} />
           </Box>
@@ -226,7 +227,7 @@ const Header = () => {
               )}
             </Modal>
           </Box>
-        </Toolbar>
+        </Container>
       </AppBar>
 
       <MyDrawer open={openDrawer} onClose={toggleDrawerHandler} anchor='right'>
