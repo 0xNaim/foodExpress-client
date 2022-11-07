@@ -4,7 +4,12 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import styles from './CartItems.module.scss';
 
-const CartItems = ({ showQuantity, showTotal, handleRemoveFromCart }) => {
+const CartItems = ({
+  showQuantity,
+  showTotal,
+  handleRemoveFromCart,
+  handleIncreaseItemQuantity,
+}) => {
   const { cart } = useSelector((state) => state.cart);
 
   return (
@@ -51,7 +56,12 @@ const CartItems = ({ showQuantity, showTotal, handleRemoveFromCart }) => {
                   <Remove />
                 </IconButton>
                 <Typography variant='body1'>{item.quantity}</Typography>
-                <IconButton disableRipple>
+                <IconButton
+                  onClick={() =>
+                    handleIncreaseItemQuantity({ slug: item.slug })
+                  }
+                  disableRipple
+                >
                   <Add />
                 </IconButton>
               </Box>

@@ -1,13 +1,12 @@
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
-import { cartData } from '../../data/cartData';
+import { useSelector } from 'react-redux';
 
 const ReviewItems = () => {
+  const { cart } = useSelector((state) => state.cart);
+
   const shippingCost = 30;
   let subTotal = 0;
-  subTotal = cartData.reduce(
-    (accu, curr) => accu + curr.price.split(' ')[0] * curr.quantity,
-    0
-  );
+  subTotal = cart.reduce((accu, curr) => accu + curr.price * curr.quantity, 0);
 
   return (
     <Box component={'div'}>
@@ -16,13 +15,13 @@ const ReviewItems = () => {
       </Typography>
 
       <List disablePadding>
-        {cartData?.map((product, index) => {
-          const totalPrice = product.price.split(' ')[0] * product.quantity;
+        {cart?.map((product, index) => {
+          const totalPrice = product.price * product.quantity;
           return (
             <ListItem key={index}>
               <ListItemText
                 primary={product.title}
-                secondary={`${product.quantity} x ${product.price}`}
+                secondary={`${product.quantity} x ${product.price} Tk`}
               />
               <Typography variant='body2'>{totalPrice} Tk</Typography>
             </ListItem>

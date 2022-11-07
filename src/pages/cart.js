@@ -15,7 +15,7 @@ import EmptyCart from '../../public/assets/empty.png';
 import CartItems from '../components/cart-items/CartItems';
 import CustomButton from '../components/ui/Button/CustomButton';
 import Notify from '../components/ui/notify/Notify';
-import { removeFromCart } from '../redux/features/cart/cartSlice';
+import { addToCart, removeFromCart } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
 
 const Cart = () => {
@@ -23,13 +23,22 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [severity, setSeverity] = useState('');
 
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
-  // Item remove from the cart
+  // Remove item from the cart
   const handleRemoveFromCart = (payload) => {
     dispatch(removeFromCart(payload));
+    setSeverity('error');
+    handleOpenSnackbar();
+  };
+
+  // Increase cart item quantity
+  const handleIncreaseItemQuantity = (payload) => {
+    dispatch(addToCart(payload));
+    setSeverity('success');
     handleOpenSnackbar();
   };
 
@@ -75,6 +84,7 @@ const Cart = () => {
                   showQuantity
                   showTotal
                   handleRemoveFromCart={handleRemoveFromCart}
+                  handleIncreaseItemQuantity={handleIncreaseItemQuantity}
                 />
               )}
             </Box>
@@ -154,7 +164,7 @@ const Cart = () => {
         openSnackbar={openSnackbar}
         closeSnackbar={handleCloseSnackbar}
         message={message}
-        severity='error'
+        severity={severity}
       />
     </>
   );

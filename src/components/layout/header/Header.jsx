@@ -12,7 +12,6 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Toolbar,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -56,7 +55,7 @@ const Header = () => {
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
-  // Item remove from the cart
+  // Remove item from the cart
   const handleRemoveFromCart = (payload) => {
     dispatch(removeFromCart(payload));
     handleOpenSnackbar();
