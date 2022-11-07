@@ -3,6 +3,10 @@ import { Box, Button, Grid, Skeleton, Typography } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Notify from '../../components/ui/notify/Notify';
+import { addToCart } from '../../redux/features/cart/cartSlice';
 import { useGetProductQuery } from '../../services/products/productsApi';
 import styles from '../../styles/ProductDetails.module.scss';
 
@@ -10,11 +14,34 @@ const ProductDetails = () => {
   const { query } = useRouter();
   const { slug } = query;
 
+  const { cart, message } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const { data, isLoading, isSuccess, isError, error } =
     useGetProductQuery(slug);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const product = data?.data[0]?.attributes;
   const { image } = product || {};
+
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  // Find product if already exist in cart
+  const cartProduct = cart?.find((item) => item.slug === slug);
+
+  // Product add to cart
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        slug: product?.slug,
+        title: product?.title,
+        image: product?.image?.data?.attributes?.url,
+        price: product?.sellPrice,
+        quantity: 1,
+      })
+    );
+    handleOpenSnackbar();
+  };
 
   return (
     <>
@@ -86,9 +113,13 @@ const ProductDetails = () => {
                       <Remove />
                     </Button>
                     <Typography className={styles.quantity} variant='h4'>
-                      5
+                      {cartProduct ? cartProduct?.quantity : 1}
                     </Typography>
-                    <Button variant='contained' disableRipple>
+                    <Button
+                      onClick={handleAddToCart}
+                      variant='contained'
+                      disableRipple
+                    >
                       <Add />
                     </Button>
                   </Box>
@@ -104,6 +135,15 @@ const ProductDetails = () => {
           </Box>
         </Grid>
       </Grid>
+
+      {
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={handleCloseSnackbar}
+          message={message}
+          severity='success'
+        />
+      }
     </>
   );
 };
