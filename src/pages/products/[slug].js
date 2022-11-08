@@ -6,7 +6,10 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Notify from '../../components/ui/notify/Notify';
-import { addToCart } from '../../redux/features/cart/cartSlice';
+import {
+  addToCart,
+  decreaseProductQuantity,
+} from '../../redux/features/cart/cartSlice';
 import { useGetProductQuery } from '../../services/products/productsApi';
 import styles from '../../styles/ProductDetails.module.scss';
 
@@ -19,6 +22,7 @@ const ProductDetails = () => {
   const { data, isLoading, isSuccess, isError, error } =
     useGetProductQuery(slug);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [severity, setSeverity] = useState('');
 
   const product = data?.data[0]?.attributes;
   const { image } = product || {};
@@ -40,6 +44,14 @@ const ProductDetails = () => {
         quantity: 1,
       })
     );
+    setSeverity('success');
+    handleOpenSnackbar();
+  };
+
+  // Decrease cart item quantity
+  const handleDecreaseItemQuantity = () => {
+    dispatch(decreaseProductQuantity({ slug: product?.slug }));
+    setSeverity('error');
     handleOpenSnackbar();
   };
 
@@ -109,7 +121,12 @@ const ProductDetails = () => {
               <>
                 {isSuccess && (
                   <Box className={styles.quantity__wrapper}>
-                    <Button variant='contained' disableRipple>
+                    <Button
+                      onClick={handleDecreaseItemQuantity}
+                      variant='contained'
+                      disableRipple
+                      disabled={cartProduct ? false : true}
+                    >
                       <Remove />
                     </Button>
                     <Typography className={styles.quantity} variant='h4'>
@@ -141,7 +158,7 @@ const ProductDetails = () => {
           openSnackbar={openSnackbar}
           closeSnackbar={handleCloseSnackbar}
           message={message}
-          severity='success'
+          severity={severity}
         />
       }
     </>

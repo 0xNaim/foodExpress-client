@@ -9,6 +9,7 @@ const CartItems = ({
   showTotal,
   handleRemoveFromCart,
   handleIncreaseItemQuantity,
+  handleDecreaseItemQuantity,
 }) => {
   const { cart } = useSelector((state) => state.cart);
 
@@ -52,7 +53,12 @@ const CartItems = ({
 
             {showQuantity && (
               <Box className={styles.cartItems__btn} component='div'>
-                <IconButton disableRipple>
+                <IconButton
+                  onClick={() =>
+                    handleDecreaseItemQuantity({ slug: item.slug })
+                  }
+                  disableRipple
+                >
                   <Remove />
                 </IconButton>
                 <Typography variant='body1'>{item.quantity}</Typography>

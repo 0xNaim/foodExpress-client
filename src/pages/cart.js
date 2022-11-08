@@ -15,7 +15,11 @@ import EmptyCart from '../../public/assets/empty.png';
 import CartItems from '../components/cart-items/CartItems';
 import CustomButton from '../components/ui/Button/CustomButton';
 import Notify from '../components/ui/notify/Notify';
-import { addToCart, removeFromCart } from '../redux/features/cart/cartSlice';
+import {
+  addToCart,
+  decreaseProductQuantity,
+  removeFromCart,
+} from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
 
 const Cart = () => {
@@ -39,6 +43,13 @@ const Cart = () => {
   const handleIncreaseItemQuantity = (payload) => {
     dispatch(addToCart(payload));
     setSeverity('success');
+    handleOpenSnackbar();
+  };
+
+  // Decrease cart item quantity
+  const handleDecreaseItemQuantity = (payload) => {
+    dispatch(decreaseProductQuantity(payload));
+    setSeverity('error');
     handleOpenSnackbar();
   };
 
@@ -85,6 +96,7 @@ const Cart = () => {
                   showTotal
                   handleRemoveFromCart={handleRemoveFromCart}
                   handleIncreaseItemQuantity={handleIncreaseItemQuantity}
+                  handleDecreaseItemQuantity={handleDecreaseItemQuantity}
                 />
               )}
             </Box>
