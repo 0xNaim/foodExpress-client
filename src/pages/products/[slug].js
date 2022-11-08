@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import FilterSection from '../../components/filter/FilterSection';
 import Notify from '../../components/ui/notify/Notify';
 import {
   addToCart,
@@ -57,6 +58,7 @@ const ProductDetails = () => {
 
   return (
     <>
+
       <Head>
         <title>Product Details || FoodExpress</title>
       </Head>
