@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUserLoginMutation } from '../../services/auth/authApi';
 
-const SignIn = ({ handleSignUp }) => {
+const SignIn = ({ handleSignUp, handleClose }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const {
@@ -25,10 +25,9 @@ const SignIn = ({ handleSignUp }) => {
     watch,
     formState: { errors },
   } = useForm();
-  const [
-    userLogin,
-    { data, isLoading, isSuccess, isError, error: responseError },
-  ] = useUserLoginMutation();
+  const [userLogin, { data, isLoading, isSuccess, isError }] =
+    useUserLoginMutation();
+  
   // form value state
   const [values, setValues] = useState({
     showPassword: false,
@@ -49,6 +48,7 @@ const SignIn = ({ handleSignUp }) => {
       showPassword: !values.showPassword,
     });
   };
+  
   //handle from submit
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -60,6 +60,8 @@ const SignIn = ({ handleSignUp }) => {
 
   // Redirect user to dashboard
   if (isSuccess) {
+    handleClose();
+    // setOpenSnackbar(true);
     router.push('/dashboard');
   }
 
