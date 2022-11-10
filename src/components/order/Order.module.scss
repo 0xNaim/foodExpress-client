@@ -1,0 +1,22 @@
+.container {
+    padding-bottom: 10px;
+    .head{
+        font-weight: 700;
+        font-size: 30px;
+    }
+.common{
+    display:flex;
+    justify-content:space-between;
+    padding-top: 5px;  
+}
+}
+.totalAmount{
+    display:flex;
+    justify-content:space-between;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+.payment{
+    font-weight: 700;
+    font-size: 30px;
+}
