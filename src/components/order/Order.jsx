@@ -1,25 +1,18 @@
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Button,
   FormControl,
   FormGroup,
-  IconButton,
-  InputAdornment,
-  TextField,
-  TextareaAutosize, 
-  InputLabel,
-  Select,
+  Grid,
   MenuItem,
-  Grid
+  Select,
+  TextareaAutosize,
+  TextField,
 } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './Order.module.scss';
 
 const Order = () => {
-  
-
   const {
     register,
     handleSubmit,
@@ -46,12 +39,11 @@ const Order = () => {
     });
   };
   //handle submit
- 
-  const onSubmit = (data) => {
-    const { firstName, lastName, email, password,address } = data;
-     console.log(data);
-  };
 
+  const onSubmit = (data) => {
+    const { firstName, lastName, email, password, address } = data;
+    console.log(data);
+  };
 
   //from style
   const style = {
@@ -59,31 +51,30 @@ const Order = () => {
   };
   return (
     <>
-     
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup sx={style}>
-        <div className={styles.container} >
-        <h2 className={styles.head} >Order Details</h2>
-        <div className={styles.common} >
-            <p>Total Items</p>
-            <p>5</p>
-        </div>
-        <div className={styles.common} >
-            <p>Total Price</p>
-            <p>5600 tk</p>
-        </div>
-        <div className={styles.common} >
-            <p>Shipping Price</p>
-            <p>35 tk</p>
-        </div>
-        </div>
-        <hr style={{ margin:1, opacity: '.3' }} />
-        <div className={styles.totalAmount} >
+          <div className={styles.container}>
+            <h2 className={styles.head}>Order Details</h2>
+            <div className={styles.common}>
+              <p>Total Items</p>
+              <p>5</p>
+            </div>
+            <div className={styles.common}>
+              <p>Total Price</p>
+              <p>5600 tk</p>
+            </div>
+            <div className={styles.common}>
+              <p>Shipping Price</p>
+              <p>35 tk</p>
+            </div>
+          </div>
+          <hr style={{ margin: 1, opacity: '.3' }} />
+          <div className={styles.totalAmount}>
             <p>Total Amount</p>
             <p>599 tk</p>
-        </div>
-        <h3 className={styles.payment} >Payment</h3>
-          <FormControl sx={{ mt: 1,mb:1  }} fullWidth variant='outlined'>
+          </div>
+          <h3 className={styles.payment}>Payment</h3>
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Name*'
               type='text'
@@ -98,8 +89,7 @@ const Order = () => {
               helperText={errors.firstName?.message}
             />
           </FormControl>
-          <FormControl sx={{ mt: 1,mb:1  }}  fullWidth variant='outlined'>
-          
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Email*'
               type='email'
@@ -117,18 +107,14 @@ const Order = () => {
                   message: 'Invalid email address',
                 },
               })}
-              error={
-                errors.email?.message 
-              }
-              
+              error={errors.email?.message}
             />
           </FormControl>
 
-          <FormControl sx={{ mt: 1,mb:1 }}  fullWidth variant='outlined'>
-         
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextareaAutosize
-             minRows={5}
-             placeholder="write your address"
+              minRows={5}
+              placeholder='write your address'
               type='text'
               multiline
               value={values?.address}
@@ -141,37 +127,37 @@ const Order = () => {
             />
           </FormControl>
 
-          <Grid container >
-            <Grid item md="4" sx={{m:'auto',mt:1}}>
-            <FormControl fullWidth>
-            
-            <Select
-             {...register('paymentMethod', { required: 'paymentMethod is Required' })}
-                id="demo-simple-select"
-                value={values?.paymentMethod}
-                onChange={handleChange}
-                name="paymentMethod"
-            >
-                <MenuItem value="card">Card</MenuItem>
-            </Select>
-            </FormControl>
+          <Grid container>
+            <Grid item md='4' sx={{ m: 'auto', mt: 1 }}>
+              <FormControl fullWidth>
+                <Select
+                  {...register('paymentMethod', {
+                    required: 'paymentMethod is Required',
+                  })}
+                  id='demo-simple-select'
+                  value={values?.paymentMethod}
+                  onChange={handleChange}
+                  name='paymentMethod'
+                >
+                  <MenuItem value='card'>Card</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
-          <Grid container >
-            <Grid item md="6" sx={{m:'auto',mt:1}}>
-          <FormControl fullWidth>
-          <Button
-               variant='contained'
-                color='primary'
-                 type='submit'
-                 sx={{ borderRadius: '9px',
-                    padding: '10px 20px',mt:3}}
+          <Grid container>
+            <Grid item md='6' sx={{ m: 'auto', mt: 1 }}>
+              <FormControl fullWidth>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  type='submit'
+                  sx={{ borderRadius: '9px', padding: '10px 20px', mt: 3 }}
                 >
                   Update
                 </Button>
-          </FormControl>
-          </Grid>
+              </FormControl>
             </Grid>
+          </Grid>
         </FormGroup>
       </form>
     </>

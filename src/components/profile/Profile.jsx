@@ -6,16 +6,14 @@ import {
   FormGroup,
   IconButton,
   InputAdornment,
+  TextareaAutosize,
   TextField,
-  TextareaAutosize 
 } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './Profile.module.scss';
 
 const Profile = () => {
-  
-
   const {
     register,
     handleSubmit,
@@ -42,12 +40,11 @@ const Profile = () => {
     });
   };
   //handle submit
- 
-  const onSubmit = (data) => {
-    const { firstName, lastName, email, password,address } = data;
-     console.log(data);
-  };
 
+  const onSubmit = (data) => {
+    const { firstName, lastName, email, password, address } = data;
+    console.log(data);
+  };
 
   //from style
   const style = {
@@ -55,39 +52,38 @@ const Profile = () => {
   };
   return (
     <>
-     
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup sx={style}>
-        <div className={styles.container} >
-        <h2 className={styles.head} >Your <span color="primary">Profile</span></h2>
-             <div>
-             <Button
-                  variant='contained'
-                  color='primary'
-                  
-                  sx={{
-                    mr:3,
-                    borderRadius: '9px',
-                    padding: '10px 20px',
-                  }}
-
-                >
-                  My Order
-                </Button>
-             <Button
-               variant='contained'
+          <div className={styles.container}>
+            <h2 className={styles.head}>
+              Your <span color='primary'>Profile</span>
+            </h2>
+            <div>
+              <Button
+                variant='contained'
                 color='primary'
-                 type='submit'
-                 sx={{ borderRadius: '9px',
-                    padding: '10px 20px',}}
-                >
-                  Update
-                </Button>
-             </div>
-        </div>
-        <h3>Personal Information</h3>
-          <FormControl sx={{ mt: 1,mb:1  }} fullWidth variant='outlined'>
-           
+                disableRipple
+                type='submit'
+                sx={{
+                  mr: 3,
+                  borderRadius: '9px',
+                  padding: '10px 20px',
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                variant='contained'
+                color='primary'
+                disableRipple
+                sx={{ borderRadius: '9px', padding: '10px 20px' }}
+              >
+                My Order
+              </Button>
+            </div>
+          </div>
+          <h3>Personal Information</h3>
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='First Name*'
               type='text'
@@ -103,7 +99,7 @@ const Profile = () => {
             />
           </FormControl>
 
-          <FormControl sx={{ mt: 1,mb:1  }}  fullWidth variant='outlined'>
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Last Name*'
               type='text'
@@ -119,8 +115,7 @@ const Profile = () => {
             />
           </FormControl>
           <h3>Email Address</h3>
-          <FormControl sx={{ mt: 1,mb:1  }}  fullWidth variant='outlined'>
-          
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Email*'
               type='email'
@@ -138,18 +133,14 @@ const Profile = () => {
                   message: 'Invalid email address',
                 },
               })}
-              error={
-                errors.email?.message 
-              }
-              
+              error={errors.email?.message}
             />
           </FormControl>
           <h3>Address</h3>
-          <FormControl sx={{ mt: 1,mb:1 }}  fullWidth variant='outlined'>
-         
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextareaAutosize
-             minRows={5}
-             placeholder="write your address"
+              minRows={5}
+              placeholder='write your address'
               type='text'
               multiline
               value={values?.address}
@@ -162,8 +153,7 @@ const Profile = () => {
             />
           </FormControl>
           <h3>Password</h3>
-          <FormControl sx={{ mt: 1 }}  fullWidth variant='outlined'>
-          
+          <FormControl sx={{ mt: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Password*'
               type={values.showPassword ? 'text' : 'password'}
@@ -188,8 +178,6 @@ const Profile = () => {
               }}
             />
           </FormControl>
-
-             
         </FormGroup>
       </form>
     </>
