@@ -13,15 +13,15 @@ import {
   Menu,
   MenuItem,
   Tooltip,
-  Typography,
+  Typography
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from '../../../../public/assets/empty.png';
 import useAuth from '../../../hooks/useAuth';
+import { userLoggedOut } from '../../../redux/features/auth/authSlice';
 import { removeFromCart } from '../../../redux/features/cart/cartSlice';
-import { userLoggedOut } from '../../../services/auth/authSlice';
 import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
 import SignIn from '../../auth/SignIn';
@@ -29,6 +29,7 @@ import SignUp from '../../auth/SignUp';
 import CartItems from '../../cart-items/CartItems';
 
 import Image from 'next/image';
+import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
@@ -93,6 +94,7 @@ const Header = () => {
   // user logout
   const handleUserLogout = () => {
     dispatch(userLoggedOut());
+    dispatch(resetForm());
   };
 
   const categories = data?.data?.map((category) => category);

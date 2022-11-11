@@ -1,14 +1,24 @@
 import { Box, Grid, TextField, Typography } from '@mui/material';
 import Link from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAddress } from '../../../redux/features/checkout/checkoutSlice';
 import CustomButton from '../../ui/Button/CustomButton';
 import styles from './ShippingForm.module.scss';
 
 const ShippingForm = ({ nextStep }) => {
+  const dispatch = useDispatch();
+  const {shippingAddress} = useSelector(state => state.checkout || {})
   const { control, handleSubmit } = useForm();
+
+  console.log(shippingAddress)
 
   const handleFormSubmit = (e) => {
     const { firstName, lastName, email, phone, address, postalCode } = e;
+
+    dispatch(
+      setAddress({ firstName, lastName, email, phone, address, postalCode })
+    );
 
     nextStep();
   };
@@ -24,7 +34,7 @@ const ShippingForm = ({ nextStep }) => {
           <Controller
             control={control}
             name='firstName'
-            defaultValue={''}
+            defaultValue={shippingAddress?.firstName}
             rules={{ required: 'First Name Is Required' }}
             render={({ field, formState: { errors } }) => (
               <TextField
@@ -43,7 +53,7 @@ const ShippingForm = ({ nextStep }) => {
           <Controller
             control={control}
             name='lastName'
-            defaultValue={''}
+            defaultValue={shippingAddress?.lastName}
             rules={{ required: 'Last Name Is Required' }}
             render={({ field, formState: { errors } }) => (
               <TextField
@@ -62,7 +72,7 @@ const ShippingForm = ({ nextStep }) => {
           <Controller
             control={control}
             name='email'
-            defaultValue={''}
+            defaultValue={shippingAddress?.email}
             rules={{ required: 'Email Address Is Required' }}
             render={({ field, formState: { errors } }) => (
               <TextField
@@ -81,7 +91,7 @@ const ShippingForm = ({ nextStep }) => {
           <Controller
             control={control}
             name='phone'
-            defaultValue={''}
+            defaultValue={shippingAddress?.phone}
             rules={{ required: 'Phone Number Is Required' }}
             render={({ field, formState: { errors } }) => (
               <TextField
@@ -100,7 +110,7 @@ const ShippingForm = ({ nextStep }) => {
           <Controller
             control={control}
             name='address'
-            defaultValue={''}
+            defaultValue={shippingAddress?.address}
             rules={{ required: 'Address Is Required' }}
             render={({ field, formState: { errors } }) => (
               <TextField
@@ -119,7 +129,7 @@ const ShippingForm = ({ nextStep }) => {
           <Controller
             control={control}
             name='postalCode'
-            defaultValue={''}
+            defaultValue={shippingAddress?.postalCode}
             rules={{ required: 'Postal Code Is Required' }}
             render={({ field, formState: { errors } }) => (
               <TextField

@@ -49,14 +49,6 @@ const cartSlice = createSlice({
         );
         state.message = 'Product Removed From The Cart';
       }
-
-      // if (product?.quantity === 1) {
-      //   // Remove product from the cart
-      //   state.cart = state.cart.filter(
-      //     (item) => item.slug !== action.payload.slug
-      //   );
-      //   state.message = 'Product Removed From The Cart';
-      // }
     },
   },
 });
