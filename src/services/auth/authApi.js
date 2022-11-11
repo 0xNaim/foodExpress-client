@@ -1,5 +1,5 @@
 import apiSlice from '../../redux/features/api/apiSlice';
-import { userLoggedIn } from './authSlice';
+import { userLoggedIn } from '../../redux/features/auth/authSlice';
 
 const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -33,6 +33,7 @@ const authApi = apiSlice.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: true,
 });
 
 export const { useUserRegisterMutation, useUserLoginMutation } = authApi;

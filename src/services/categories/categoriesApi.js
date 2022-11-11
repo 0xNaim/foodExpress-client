@@ -6,6 +6,7 @@ const categoriesApi = apiSlice.injectEndpoints({
       query: () => '/categories?populate=sub_categories',
     }),
   }),
+  overrideExisting: true,
 });
 
 export const { useGetCategoriesQuery } = categoriesApi;
