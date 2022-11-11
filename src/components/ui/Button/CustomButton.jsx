@@ -7,6 +7,7 @@ const CustomButton = ({
   handleClick,
   showCartIcon,
   fullWidth,
+  disabled,
   variant = 'contained',
 }) => {
   return (
@@ -15,6 +16,7 @@ const CustomButton = ({
       onClick={handleClick}
       variant={variant}
       fullWidth={fullWidth}
+      disabled={disabled}
       disableRipple
     >
       {showCartIcon && <ShoppingCartIcon className={styles.button__icon} />}{' '}
