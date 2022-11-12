@@ -50,9 +50,10 @@ const cartSlice = createSlice({
         state.message = 'Product Removed From The Cart';
       }
     },
+    resetCart: () => initialState,
   },
 });
 
-export const { addToCart, removeFromCart, decreaseProductQuantity } =
+export const { addToCart, removeFromCart, decreaseProductQuantity, resetCart } =
   cartSlice.actions;
 export default cartSlice.reducer;
