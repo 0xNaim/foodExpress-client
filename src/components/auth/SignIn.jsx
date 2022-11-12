@@ -11,29 +11,23 @@ import {
   InputAdornment,
   TextField,
 } from '@mui/material';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUserLoginMutation } from '../../services/auth/authApi';
 
 const SignIn = ({ handleSignUp, handleClose }) => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
-  const [userLogin, { data, isLoading, isSuccess, isError }] =
-    useUserLoginMutation();
-  
+  const [userLogin, { isLoading, isSuccess, isError }] = useUserLoginMutation();
+
   // form value state
   const [values, setValues] = useState({
     showPassword: false,
   });
-
-  const router = useRouter();
 
   // form value get handle
   const handleChange = (e) => {
@@ -48,7 +42,7 @@ const SignIn = ({ handleSignUp, handleClose }) => {
       showPassword: !values.showPassword,
     });
   };
-  
+
   //handle from submit
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -58,14 +52,9 @@ const SignIn = ({ handleSignUp, handleClose }) => {
     });
   };
 
-  // Redirect user to dashboard
   if (isSuccess) {
     handleClose();
-    // setOpenSnackbar(true);
-    router.push('/dashboard');
   }
-
-  const snackbarCloseHandler = () => setOpenSnackbar(false);
 
   //from style
   const style = {
@@ -163,15 +152,6 @@ const SignIn = ({ handleSignUp, handleClose }) => {
           </Grid>
         </FormGroup>
       </form>
-
-      {/* {isSuccess && (
-        <Notify
-          openSnackbar={openSnackbar}
-          closeSnackbar={snackbarCloseHandler}
-          message={'Login Successful'}
-          severity='success'
-        />
-      )} */}
     </>
   );
 };

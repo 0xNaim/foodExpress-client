@@ -15,17 +15,15 @@ import { useForm } from 'react-hook-form';
 import { useUserRegisterMutation } from '../../services/auth/authApi';
 
 const SignUp = ({ handleSignUp }) => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-
   const {
     register,
     handleSubmit,
-    watch,
     setError,
     formState: { errors },
   } = useForm();
-  const [userRegister, { data, isLoading, isSuccess, error: responseError }] =
+  const [userRegister, { isLoading, isSuccess, error: responseError }] =
     useUserRegisterMutation();
+
   // form value state
   const [values, setValues] = useState({
     showPassword: false,
@@ -65,8 +63,6 @@ const SignUp = ({ handleSignUp }) => {
       });
     }
   };
-
-  const snackbarCloseHandler = () => setOpenSnackbar(false);
 
   //from style
   const style = {
@@ -223,15 +219,6 @@ const SignUp = ({ handleSignUp }) => {
           </Grid>
         </FormGroup>
       </form>
-
-      {/* {isSuccess && (
-        <Notify
-          openSnackbar={openSnackbar}
-          closeSnackbar={snackbarCloseHandler}
-          message={'Registration Successful'}
-          severity='success'
-        />
-      )} */}
     </>
   );
 };
