@@ -11,7 +11,7 @@ import '../styles/reset.scss';
 import theme from '../theme/theme';
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_BASE_URL_PUBLISHABLE_KEY
+  `${process.env.NEXT_PUBLIC_BASE_URL_PUBLISHABLE_KEY}`
 );
 
 function MyApp({ Component, pageProps }) {
