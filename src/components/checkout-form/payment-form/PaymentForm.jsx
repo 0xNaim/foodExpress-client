@@ -22,7 +22,6 @@ const PaymentForm = ({ backStep }) => {
   const dispatch = useDispatch();
 
   const [payDisable, setPayDisable] = useState(true);
-  // const [openSnackbar, setOpenSnackbar] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState('');
   const [error, setError] = useState(false);
@@ -31,6 +30,9 @@ const PaymentForm = ({ backStep }) => {
 
   const stripe = useStripe();
   const elements = useElements();
+
+  // Alert handler
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
 
   // Handle payment
   const handlePayment = async (e) => {
@@ -63,25 +65,14 @@ const PaymentForm = ({ backStep }) => {
     createOrder(data);
   };
 
-  // Alert handler
-  // const handleOpenSnackbar = () => setOpenSnackbar(true);
-  // const handleCloseSnackbar = () => setOpenSnackbar(false);
-
   if (isError) {
-    // setMessage('Order failed!');
-    // setSeverity('error');
-    // handleOpenSnackbar();
     alert('Order failed!');
   }
 
   if (!isError && isSuccess) {
-    // setMessage('Order confirmed, thank you!');
-    // setSeverity('success');
-    // setOpenSnackbar(true);
-    alert('Order confirmed, thank you!');
     dispatch(resetCart());
     dispatch(resetForm());
-    router.push('/');
+    router.push('/success');
   }
 
   return (
@@ -118,18 +109,9 @@ const PaymentForm = ({ backStep }) => {
         </Box>
       </Box>
 
-      {/* {isSuccess && (
-        <Notify
-          openSnackbar={handleOpenSnackbar}
-          closeSnackbar={handleCloseSnackbar}
-          message={message}
-          severity={severity}
-        />
-      )} */}
-
       {error && (
         <Notify
-          openSnackbar={handleOpenSnackbar}
+          openSnackbar={error}
           closeSnackbar={handleCloseSnackbar}
           message={message}
           severity={severity}

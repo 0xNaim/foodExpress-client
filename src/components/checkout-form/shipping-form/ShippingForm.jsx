@@ -8,7 +8,7 @@ import styles from './ShippingForm.module.scss';
 
 const ShippingForm = ({ nextStep }) => {
   const dispatch = useDispatch();
-  const {shippingAddress} = useSelector(state => state.checkout || {})
+  const { shippingAddress } = useSelector((state) => state.checkout || {});
   const { control, handleSubmit } = useForm();
 
   const handleFormSubmit = (e) => {
@@ -71,7 +71,14 @@ const ShippingForm = ({ nextStep }) => {
             control={control}
             name='email'
             defaultValue={shippingAddress?.email}
-            rules={{ required: 'Email Address Is Required' }}
+            rules={{
+              required: 'Email Address Is Required',
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: 'Invalid email address',
+              },
+            }}
             render={({ field, formState: { errors } }) => (
               <TextField
                 variant='standard'
