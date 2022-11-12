@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   shippingAddress: {},
+  shippingCost: 30,
 };
 
 const checkoutSlice = createSlice({

@@ -21,9 +21,11 @@ import {
   removeFromCart,
 } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
+import getTotalPrice from '../utils/getTotalPrice';
 
 const Cart = () => {
   const { cart, message } = useSelector((state) => state.cart);
+  const { shippingCost } = useSelector((state) => state.checkout);
   const dispatch = useDispatch();
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -52,13 +54,6 @@ const Cart = () => {
     setSeverity('error');
     handleOpenSnackbar();
   };
-
-  const shipping = 30;
-
-  let totalPrice = cart.reduce(
-    (accu, curr) => accu + curr.price * curr.quantity,
-    0
-  );
 
   return (
     <>
@@ -131,7 +126,7 @@ const Cart = () => {
                       </Typography>
 
                       <Typography variant='body1' fontWeight={'500'}>
-                        {totalPrice} Tk
+                        {getTotalPrice(cart)} Tk
                       </Typography>
                     </TableRow>
 
@@ -141,7 +136,7 @@ const Cart = () => {
                       </Typography>
 
                       <Typography variant='body1' fontWeight={'500'}>
-                        {shipping} Tk
+                        {shippingCost} Tk
                       </Typography>
                     </TableRow>
 
@@ -153,7 +148,7 @@ const Cart = () => {
                       </Typography>
 
                       <Typography variant='body1' fontWeight={'500'}>
-                        {totalPrice + shipping} Tk
+                        {getTotalPrice(cart) + shippingCost} Tk
                       </Typography>
                     </TableRow>
 

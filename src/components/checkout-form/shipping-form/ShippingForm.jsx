@@ -11,8 +11,6 @@ const ShippingForm = ({ nextStep }) => {
   const {shippingAddress} = useSelector(state => state.checkout || {})
   const { control, handleSubmit } = useForm();
 
-  console.log(shippingAddress)
-
   const handleFormSubmit = (e) => {
     const { firstName, lastName, email, phone, address, postalCode } = e;
 
