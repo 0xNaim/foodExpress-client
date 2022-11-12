@@ -2,6 +2,7 @@ import { Box, Divider } from '@mui/material';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useCreateOrderMutation } from '../../../services/order/orderApi';
 import getTotalPrice from '../../../utils/getTotalPrice';
 import CustomButton from '../../ui/Button/CustomButton';
 import ReviewItems from '../ReviewItems';
@@ -12,6 +13,8 @@ const PaymentForm = ({ backStep }) => {
   const { shippingAddress, shippingCost } = useSelector(
     (state) => state.checkout
   );
+  const [createOrder, { data, isLoading, isError, isSuccess }] =
+    useCreateOrderMutation();
   const [payDisable, setPayDisable] = useState(true);
 
   const stripe = useStripe();
@@ -34,11 +37,12 @@ const PaymentForm = ({ backStep }) => {
 
     const data = {
       items: cart,
-      amount: totalPrice + shipping,
+      amount: getTotalPrice(cart) + shippingCost,
+      shippingAddress,
       token: payload?.token?.id,
     };
 
-    console.log(data);
+    createOrder(data);
   };
 
   return (

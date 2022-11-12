@@ -7,7 +7,6 @@ export const productsApi = apiSlice.injectEndpoints({
     }),
     getProducts: builder.query({
       query: ({ slug, page, filterPrice }) =>
-        // `/products?filters[sub_category][slug][$eq]=${slug}&filters[sellPrice][$lt]=${filterPrice}&pagination[page]=${page}&pagination[pageSize]=8&populate=*`,
         `/products?filters[sub_category][slug][$eq]=${slug}&filters[sellPrice][$lte]=${filterPrice}&pagination[page]=${page}&pagination[pageSize]=8&populate=*`,
     }),
     getProduct: builder.query({

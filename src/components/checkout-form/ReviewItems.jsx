@@ -14,13 +14,14 @@ const ReviewItems = () => {
 
       <List disablePadding>
         {cart?.map((product, index) => {
+          const totalPrice = product.quantity * product.price
           return (
             <ListItem key={index}>
               <ListItemText
                 primary={product.title}
                 secondary={`${product.quantity} x ${product.price} Tk`}
               />
-              <Typography variant='body2'>{getTotalPrice(cart)} Tk</Typography>
+              <Typography variant='body2'>{totalPrice} Tk</Typography>
             </ListItem>
           );
         })}
