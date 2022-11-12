@@ -13,7 +13,7 @@ import {
   Menu,
   MenuItem,
   Tooltip,
-  Typography
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -30,6 +30,7 @@ import CartItems from '../../cart-items/CartItems';
 
 import Image from 'next/image';
 import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
+import getTotalPrice from '../../../utils/getTotalPrice';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
@@ -41,6 +42,7 @@ const Header = () => {
   const { data, isSuccess } = useGetCategoriesQuery();
   const { cart, message } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
+  const { shippingCost } = useSelector((state) => state.checkout);
   const dispatch = useDispatch();
   const isLoggedIn = useAuth();
 
@@ -98,12 +100,6 @@ const Header = () => {
   };
 
   const categories = data?.data?.map((category) => category);
-
-  const shippingCost = 30;
-  const totalPrice = cart.reduce(
-    (accu, curr) => accu + curr.price * curr.quantity,
-    0
-  );
 
   return (
     <>
@@ -170,7 +166,7 @@ const Header = () => {
                   Your Cart
                 </Typography>
                 <Typography className={styles.cart__total} variant='body1'>
-                  {totalPrice}.00 Tk
+                  {getTotalPrice(cart)}.00 Tk
                 </Typography>
               </Box>
             </Box>
@@ -276,7 +272,7 @@ const Header = () => {
                   className={styles['sidebar-cart__price']}
                   variant='body1'
                 >
-                  {totalPrice + shippingCost} Tk
+                  {getTotalPrice(cart) + shippingCost} Tk
                 </Typography>
               </Box>
 
