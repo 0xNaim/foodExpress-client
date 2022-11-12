@@ -2,24 +2,20 @@ import { Box, Divider } from '@mui/material';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import getTotalPrice from '../../../utils/getTotalPrice';
 import CustomButton from '../../ui/Button/CustomButton';
 import ReviewItems from '../ReviewItems';
 import styles from './PaymentForm.module.scss';
 
 const PaymentForm = ({ backStep }) => {
   const { cart } = useSelector((state) => state.cart);
-  const { shippingAddress } = useSelector((state) => state.checkout);
+  const { shippingAddress, shippingCost } = useSelector(
+    (state) => state.checkout
+  );
   const [payDisable, setPayDisable] = useState(true);
 
   const stripe = useStripe();
   const elements = useElements();
-
-  const shipping = 30;
-
-  let totalPrice = cart.reduce(
-    (accu, curr) => accu + curr.price * curr.quantity,
-    0
-  );
 
   // Handle payment
   const handlePayment = async (e) => {
@@ -67,7 +63,7 @@ const PaymentForm = ({ backStep }) => {
           variant='outlined'
         />
         <CustomButton
-          label={`Pay $${totalPrice + shipping}`}
+          label={`Pay $${getTotalPrice(cart) + shippingCost}`}
           handleClick={handlePayment}
           disabled={!stripe || !elements || payDisable}
         />
