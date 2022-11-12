@@ -43,7 +43,6 @@ const Profile = () => {
 
   const onSubmit = (data) => {
     const { firstName, lastName, email, password, address } = data;
-    console.log(data);
   };
 
   //from style
