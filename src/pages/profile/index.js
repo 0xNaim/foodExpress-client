@@ -1,18 +1,29 @@
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Button,
   FormControl,
   FormGroup,
-  Grid,
-  MenuItem,
-  Select,
+  IconButton,
+  InputAdornment,
   TextareaAutosize,
   TextField,
 } from '@mui/material';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './Order.module.scss';
+import useAuth from '../../hooks/useAuth';
+import styles from '../../styles/Profile.module.scss';
 
-const Order = () => {
+const Profile = () => {
+  const router = useRouter();
+  const isLoggedIn = useAuth();
+
+  if (!isLoggedIn) {
+    router.push('/');
+  }
+
   const {
     register,
     handleSubmit,
@@ -48,34 +59,47 @@ const Order = () => {
   const style = {
     p: { xs: 2, md: 6 },
   };
+
   return (
     <>
+      <Head>
+        <title>Dashboard || FoodExpress</title>
+      </Head>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup sx={style}>
           <div className={styles.container}>
-            <h2 className={styles.head}>Order Details</h2>
-            <div className={styles.common}>
-              <p>Total Items</p>
-              <p>5</p>
-            </div>
-            <div className={styles.common}>
-              <p>Total Price</p>
-              <p>5600 tk</p>
-            </div>
-            <div className={styles.common}>
-              <p>Shipping Price</p>
-              <p>35 tk</p>
+            <h2 className={styles.head}>
+              Your <span color='primary'>Profile</span>
+            </h2>
+            <div>
+              <Button
+                variant='contained'
+                color='primary'
+                disableRipple
+                type='submit'
+                sx={{
+                  mr: 3,
+                  borderRadius: '9px',
+                  padding: '10px 20px',
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                variant='contained'
+                color='primary'
+                disableRipple
+                sx={{ borderRadius: '9px', padding: '10px 20px' }}
+              >
+                My Order
+              </Button>
             </div>
           </div>
-          <hr style={{ margin: 1, opacity: '.3' }} />
-          <div className={styles.totalAmount}>
-            <p>Total Amount</p>
-            <p>599 tk</p>
-          </div>
-          <h3 className={styles.payment}>Payment</h3>
+          <h3>Personal Information</h3>
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
-              label='Name*'
+              label='First Name*'
               type='text'
               multiline
               maxRows={2}
@@ -88,6 +112,23 @@ const Order = () => {
               helperText={errors.firstName?.message}
             />
           </FormControl>
+
+          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+            <TextField
+              label='Last Name*'
+              type='text'
+              multiline
+              maxRows={2}
+              value={values?.lastName}
+              onChange={handleChange}
+              fullWidth
+              name='lastName'
+              {...register('lastName', { required: 'Last Name is Required' })}
+              error={errors.lastName?.message}
+              helperText={errors.lastName?.message}
+            />
+          </FormControl>
+          <h3>Email Address</h3>
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Email*'
@@ -109,7 +150,7 @@ const Order = () => {
               error={errors.email?.message}
             />
           </FormControl>
-
+          <h3>Address</h3>
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextareaAutosize
               minRows={5}
@@ -125,41 +166,36 @@ const Order = () => {
               helperText={errors.address?.message}
             />
           </FormControl>
-
-          <Grid container>
-            <Grid item md='4' sx={{ m: 'auto', mt: 1 }}>
-              <FormControl fullWidth>
-                <Select
-                  {...register('paymentMethod', {
-                    required: 'paymentMethod is Required',
-                  })}
-                  id='demo-simple-select'
-                  value={values?.paymentMethod}
-                  onChange={handleChange}
-                  name='paymentMethod'
-                >
-                  <MenuItem value='card'>Card</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item md='6' sx={{ m: 'auto', mt: 1 }}>
-              <FormControl fullWidth>
-                <Button
-                  variant='contained'
-                  color='primary'
-                  type='submit'
-                  sx={{ borderRadius: '9px', padding: '10px 20px', mt: 3 }}
-                >
-                  Update
-                </Button>
-              </FormControl>
-            </Grid>
-          </Grid>
+          <h3>Password</h3>
+          <FormControl sx={{ mt: 1 }} fullWidth variant='outlined'>
+            <TextField
+              label='Password*'
+              type={values.showPassword ? 'text' : 'password'}
+              value={values?.password}
+              onChange={handleChange}
+              name='password'
+              {...register('password', { required: 'Password is required' })}
+              error={errors.password?.message}
+              helperText={errors.password?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton onClick={handleClickShowPassword} edge='end'>
+                      {values?.showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </FormControl>
         </FormGroup>
       </form>
     </>
   );
 };
-export default Order;
+
+export default Profile;

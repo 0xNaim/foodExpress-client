@@ -1,19 +1,18 @@
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Button,
   FormControl,
   FormGroup,
-  IconButton,
-  InputAdornment,
+  Grid,
+  MenuItem,
+  Select,
   TextareaAutosize,
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './Profile.module.scss';
+import styles from '../../styles/Order.module.scss';
 
-const Profile = () => {
+const Order = () => {
   const {
     register,
     handleSubmit,
@@ -54,37 +53,29 @@ const Profile = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup sx={style}>
           <div className={styles.container}>
-            <h2 className={styles.head}>
-              Your <span color='primary'>Profile</span>
-            </h2>
-            <div>
-              <Button
-                variant='contained'
-                color='primary'
-                disableRipple
-                type='submit'
-                sx={{
-                  mr: 3,
-                  borderRadius: '9px',
-                  padding: '10px 20px',
-                }}
-              >
-                Update
-              </Button>
-              <Button
-                variant='contained'
-                color='primary'
-                disableRipple
-                sx={{ borderRadius: '9px', padding: '10px 20px' }}
-              >
-                My Order
-              </Button>
+            <h2 className={styles.head}>Order Details</h2>
+            <div className={styles.common}>
+              <p>Total Items</p>
+              <p>5</p>
+            </div>
+            <div className={styles.common}>
+              <p>Total Price</p>
+              <p>5600 tk</p>
+            </div>
+            <div className={styles.common}>
+              <p>Shipping Price</p>
+              <p>35 tk</p>
             </div>
           </div>
-          <h3>Personal Information</h3>
+          <hr style={{ margin: 1, opacity: '.3' }} />
+          <div className={styles.totalAmount}>
+            <p>Total Amount</p>
+            <p>599 tk</p>
+          </div>
+          <h3 className={styles.payment}>Payment</h3>
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
-              label='First Name*'
+              label='Name*'
               type='text'
               multiline
               maxRows={2}
@@ -97,23 +88,6 @@ const Profile = () => {
               helperText={errors.firstName?.message}
             />
           </FormControl>
-
-          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='Last Name*'
-              type='text'
-              multiline
-              maxRows={2}
-              value={values?.lastName}
-              onChange={handleChange}
-              fullWidth
-              name='lastName'
-              {...register('lastName', { required: 'Last Name is Required' })}
-              error={errors.lastName?.message}
-              helperText={errors.lastName?.message}
-            />
-          </FormControl>
-          <h3>Email Address</h3>
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextField
               label='Email*'
@@ -135,7 +109,7 @@ const Profile = () => {
               error={errors.email?.message}
             />
           </FormControl>
-          <h3>Address</h3>
+
           <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
             <TextareaAutosize
               minRows={5}
@@ -151,35 +125,41 @@ const Profile = () => {
               helperText={errors.address?.message}
             />
           </FormControl>
-          <h3>Password</h3>
-          <FormControl sx={{ mt: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='Password*'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values?.password}
-              onChange={handleChange}
-              name='password'
-              {...register('password', { required: 'Password is required' })}
-              error={errors.password?.message}
-              helperText={errors.password?.message}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleClickShowPassword} edge='end'>
-                      {values?.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
-                        <Visibility />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+
+          <Grid container>
+            <Grid item md='4' sx={{ m: 'auto', mt: 1 }}>
+              <FormControl fullWidth>
+                <Select
+                  {...register('paymentMethod', {
+                    required: 'paymentMethod is Required',
+                  })}
+                  id='demo-simple-select'
+                  value={values?.paymentMethod}
+                  onChange={handleChange}
+                  name='paymentMethod'
+                >
+                  <MenuItem value='card'>Card</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item md='6' sx={{ m: 'auto', mt: 1 }}>
+              <FormControl fullWidth>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  type='submit'
+                  sx={{ borderRadius: '9px', padding: '10px 20px', mt: 3 }}
+                >
+                  Update
+                </Button>
+              </FormControl>
+            </Grid>
+          </Grid>
         </FormGroup>
       </form>
     </>
   );
 };
-export default Profile;
+export default Order;
