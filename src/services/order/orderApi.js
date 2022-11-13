@@ -8,10 +8,24 @@ const orderApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Order'],
+    }),
+    getOrders: builder.query({
+      query: () => '/users/me?populate=orders',
+      providesTags: ['Order'],
+    }),
+    getOrderByOrderId: builder.query({
+      query: (orderId) =>
+        `/orders?filters[order_id][$eq]=${orderId}&populate=*`,
     }),
   }),
+
   overrideExisting: true,
 });
 
-export const { useCreateOrderMutation } = orderApi;
+export const {
+  useCreateOrderMutation,
+  useGetOrdersQuery,
+  useGetOrderByOrderIdQuery,
+} = orderApi;
 export default orderApi;

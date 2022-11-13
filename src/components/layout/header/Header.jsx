@@ -35,8 +35,8 @@ import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
 import Notify from '../../ui/notify/Notify';
-import ListItems from '../sidebar/list/List';
 import styles from './Header.module.scss';
+import ListItems from '../sidebar/list-items/ListItems';
 
 const Header = () => {
   const { data, isSuccess } = useGetCategoriesQuery();
@@ -46,8 +46,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useAuth();
 
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [openCategoryDrawer, setOpenCategoryDrawer] = useState(false);
+  const [cartDrawer, setCartDrawer] = useState(false);
+  const [categoryDrawer, setCategoryDrawer] = useState(false);
   const [open, setOpen] = useState({});
   const [signUp, setSignUp] = useState(false);
   const [openModel, setOpenModel] = useState(false);
@@ -84,11 +84,11 @@ const Header = () => {
     setOpenModel(false);
   };
 
-  // toggle drawer
-  const toggleDrawerHandler = () => setOpenDrawer((prev) => !prev);
+  // toggle cart drawer
+  const toggleCartDrawer = () => setCartDrawer((prev) => !prev);
 
-  const toggleCategoryDrawerHandler = () =>
-    setOpenCategoryDrawer((prev) => !prev);
+  // toggle category drawer
+  const toggleCategoryDrawer = () => setCategoryDrawer((prev) => !prev);
 
   // single category
   const handleClick = (id) => setOpen({ [id]: !open[id] });
@@ -106,7 +106,7 @@ const Header = () => {
       <AppBar position='static' className={styles.appBar__wrapper}>
         <Container className={styles.container} maxWidth='xl'>
           <Box component='div' className={styles.appBar__menuIcon}>
-            <MenuIcon color='primary' onClick={toggleCategoryDrawerHandler} />
+            <MenuIcon color='primary' onClick={toggleCategoryDrawer} />
           </Box>
 
           <Box component={'div'} className={styles.brand__wrapper}>
@@ -151,7 +151,7 @@ const Header = () => {
             </Box>
 
             <Box
-              onClick={toggleDrawerHandler}
+              onClick={toggleCartDrawer}
               component='div'
               className={styles.cart__wrapper}
             >
@@ -189,20 +189,20 @@ const Header = () => {
                     horizontal: 'right',
                   }}
                 >
-                  <MenuItem disableRipple>
-                    <Link href='/profile'>
-                      <a className={styles.link}>
+                  <Link href='/profile'>
+                    <a className={styles.link}>
+                      <MenuItem disableRipple onClick={handleCloseUserMenu}>
                         <Typography textAlign='center'>Profile</Typography>
-                      </a>
-                    </Link>
-                  </MenuItem>
-                  <MenuItem disableRipple>
-                    <Link href='/profile/order'>
-                      <a className={styles.link}>
+                      </MenuItem>
+                    </a>
+                  </Link>
+                  <Link href='/profile/order'>
+                    <a className={styles.link}>
+                      <MenuItem disableRipple onClick={handleCloseUserMenu}>
                         <Typography textAlign='center'>Order</Typography>
-                      </a>
-                    </Link>
-                  </MenuItem>
+                      </MenuItem>
+                    </a>
+                  </Link>
                   <MenuItem onClick={handleUserLogout} disableRipple>
                     <Typography textAlign='center'>Logout</Typography>
                   </MenuItem>
@@ -234,7 +234,7 @@ const Header = () => {
         </Container>
       </AppBar>
 
-      <MyDrawer open={openDrawer} onClose={toggleDrawerHandler} anchor='right'>
+      <MyDrawer open={cartDrawer} onClose={toggleCartDrawer} anchor='right'>
         <Box className={styles['sidebar-cart__wrapper']} component='div'>
           <Typography
             className={styles['sidebar-cart__title']}
@@ -296,6 +296,7 @@ const Header = () => {
                       <CustomButton
                         label='View Cart'
                         variant='outlined'
+                        handleClick={toggleCartDrawer}
                         fullWidth
                       />
                     </Box>
@@ -307,7 +308,11 @@ const Header = () => {
                       className={styles['sidebar-cart__btn']}
                       component='div'
                     >
-                      <CustomButton label='Checkout' fullWidth />
+                      <CustomButton
+                        label='Checkout'
+                        handleClick={toggleCartDrawer}
+                        fullWidth
+                      />
                     </Box>
                   </a>
                 </Link>
@@ -318,8 +323,8 @@ const Header = () => {
       </MyDrawer>
 
       <MyDrawer
-        open={openCategoryDrawer}
-        onClose={toggleCategoryDrawerHandler}
+        open={categoryDrawer}
+        onClose={toggleCategoryDrawer}
         anchor='left'
       >
         <Box component='div'>
@@ -343,6 +348,7 @@ const Header = () => {
           <ListItems
             categories={categories}
             handleClick={handleClick}
+            toggleCategoryDrawer={toggleCategoryDrawer}
             open={open}
           />
         )}

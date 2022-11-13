@@ -8,9 +8,9 @@ import {
   ListItemText,
 } from '@mui/material';
 import Link from 'next/link';
-import styles from './List.module.scss';
+import styles from './ListItems.module.scss';
 
-const ListItems = ({ open, handleClick, categories }) => {
+const ListItems = ({ open, handleClick, toggleCategoryDrawer, categories }) => {
   return (
     <List>
       {categories?.map((category) => {
@@ -36,7 +36,11 @@ const ListItems = ({ open, handleClick, categories }) => {
                     key={subCategory?.attributes?.slug}
                   >
                     <a className={styles.link}>
-                      <ListItemButton disableRipple sx={{ pl: 4 }}>
+                      <ListItemButton
+                        onClick={toggleCategoryDrawer}
+                        disableRipple
+                        sx={{ pl: 4 }}
+                      >
                         <ListItemText
                           primary={subCategory?.attributes?.subCategoryName}
                         />

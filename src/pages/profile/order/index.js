@@ -8,9 +8,11 @@ import {
   TextareaAutosize,
   TextField,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from '../../styles/Order.module.scss';
+import useAuth from '../../../hooks/useAuth';
+import styles from '../../../styles/Order.module.scss';
 
 const Order = () => {
   const {
@@ -20,6 +22,11 @@ const Order = () => {
     setError,
     formState: { errors },
   } = useForm();
+  const isLoggedIn = useAuth();
+  const router = useRouter();
+
+  // Check authentication
+  if (!isLoggedIn) router.push('/');
 
   // form value state
   const [values, setValues] = useState({

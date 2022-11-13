@@ -2,7 +2,7 @@ import { Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 import CategorySkeleton from '../../ui/loading/CategorySkeleton';
-import ListItems from './list/List';
+import ListItems from './list-items/ListItems';
 import styles from './Sidebar.module.scss';
 
 const Sidebar = () => {
