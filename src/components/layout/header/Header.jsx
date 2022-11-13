@@ -190,9 +190,16 @@ const Header = () => {
                   }}
                 >
                   <MenuItem disableRipple>
-                    <Link href='/dashboard'>
+                    <Link href='/profile'>
                       <a className={styles.link}>
-                        <Typography textAlign='center'>Dashboard</Typography>
+                        <Typography textAlign='center'>Profile</Typography>
+                      </a>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem disableRipple>
+                    <Link href='/profile/order'>
+                      <a className={styles.link}>
+                        <Typography textAlign='center'>Order</Typography>
                       </a>
                     </Link>
                   </MenuItem>

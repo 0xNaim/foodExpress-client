@@ -72,7 +72,7 @@ const PaymentForm = ({ backStep }) => {
   if (!isError && isSuccess) {
     dispatch(resetCart());
     dispatch(resetForm());
-    router.push('/success');
+    router.push('/checkout/success');
   }
 
   return (
