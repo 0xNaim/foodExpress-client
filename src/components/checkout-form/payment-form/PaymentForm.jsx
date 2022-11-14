@@ -37,6 +37,7 @@ const PaymentForm = ({ backStep }) => {
   // Handle payment
   const handlePayment = async (e) => {
     e.preventDefault();
+    setPayDisable(true);
 
     if (elements == null) return;
 
@@ -99,7 +100,7 @@ const PaymentForm = ({ backStep }) => {
           />
           <CustomButton
             label={
-              isLoading
+              isLoading && payDisable
                 ? 'Processing...'
                 : `Pay ${getTotalPrice(cart) + shippingCost}/-`
             }

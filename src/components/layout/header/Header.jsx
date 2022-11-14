@@ -196,7 +196,7 @@ const Header = () => {
                       </MenuItem>
                     </a>
                   </Link>
-                  <Link href='/profile/order'>
+                  <Link href='/profile/orders'>
                     <a className={styles.link}>
                       <MenuItem disableRipple onClick={handleCloseUserMenu}>
                         <Typography textAlign='center'>Order</Typography>

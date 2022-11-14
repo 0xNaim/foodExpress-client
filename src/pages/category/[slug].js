@@ -1,15 +1,15 @@
-import { Box, Grid, Pagination, Typography } from "@mui/material";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import FilterSection from "../../components/filter/FilterSection";
-import Product from "../../components/product/Product";
-import ProductSkeleton from "../../components/ui/loading/ProductSkeleton";
-import Notify from "../../components/ui/notify/Notify";
-import { addToCart } from "../../redux/features/cart/cartSlice";
-import { useGetProductsQuery } from "../../services/products/productsApi";
-import styles from "../../styles/CategoryProduct.module.scss";
+import { Box, Grid, Pagination, Typography } from '@mui/material';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import FilterSection from '../../components/filter/FilterSection';
+import Product from '../../components/product/Product';
+import ProductSkeleton from '../../components/ui/loading/ProductSkeleton';
+import Notify from '../../components/ui/notify/Notify';
+import { addToCart } from '../../redux/features/cart/cartSlice';
+import { useGetProductsQuery } from '../../services/products/productsApi';
+import styles from '../../styles/CategoryProduct.module.scss';
 
 const Category = () => {
   const { message } = useSelector((state) => state.cart);
@@ -20,14 +20,14 @@ const Category = () => {
   const [filterIndex, setFilterIndex] = useState(0);
 
   // const filterPrice = [""]
-  const allFilterPrices = [ 5000, 200, 500, 1000];
-  const filterPrice =allFilterPrices[filterIndex];
+  const allFilterPrices = [5000, 200, 500, 1000];
+  const filterPrice = allFilterPrices[filterIndex];
 
   const {
     data: products,
     isLoading,
     isSuccess,
-  } = useGetProductsQuery({ slug, page,filterPrice});
+  } = useGetProductsQuery({ slug, page, filterPrice });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -44,14 +44,17 @@ const Category = () => {
 
   return (
     <>
-      <FilterSection  filterIndex={filterIndex} setFilterIndex={setFilterIndex}/>
-      <hr style={{ margin: "1rem 0rem", opacity:".3" }}></hr>
+      <FilterSection
+        filterIndex={filterIndex}
+        setFilterIndex={setFilterIndex}
+      />
+      <hr style={{ margin: '1rem 0rem', opacity: '.3' }}></hr>
       <Head>
         <title>Product || FoodExpress</title>
       </Head>
 
       {isLoading && (
-        <Box className={styles.skeleton__wrapper} component="div">
+        <Box className={styles.skeleton__wrapper} component='div'>
           <ProductSkeleton />
           <ProductSkeleton />
           <ProductSkeleton />
@@ -64,8 +67,8 @@ const Category = () => {
       )}
 
       {products?.data?.length === 0 && (
-        <Box className={styles["product__not-found"]} component="div">
-          <Typography variant="h6">There are no products</Typography>
+        <Box className={styles['product__not-found']} component='div'>
+          <Typography variant='h6'>There are no products</Typography>
         </Box>
       )}
 
@@ -88,12 +91,12 @@ const Category = () => {
       </Grid>
 
       {!isLoading && isSuccess && products?.data?.length > 0 && (
-        <Box className={styles.pagination__wrapper} component="div">
+        <Box className={styles.pagination__wrapper} component='div'>
           <Pagination
             count={pagination?.pageCount}
-            onChange={(e, value) => setPage(value)}
-            shape="rounded"
-            color="primary"
+            onChange={(value) => setPage(value)}
+            shape='rounded'
+            color='primary'
           />
         </Box>
       )}
@@ -102,7 +105,7 @@ const Category = () => {
         openSnackbar={openSnackbar}
         closeSnackbar={handleCloseSnackbar}
         message={message}
-        severity={"success"}
+        severity={'success'}
       />
     </>
   );
