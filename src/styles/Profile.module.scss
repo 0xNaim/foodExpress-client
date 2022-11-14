@@ -1,13 +1,17 @@
-.container {
-  display: flex !important;
-  justify-content: space-between !important;
-  padding: 10px 0;
-  .head {
-    font-weight: 700;
-    font-size: 30px;
-    span {
-      color: #078852 !important;
-      padding-left: 5px;
+.profile__wrapper {
+  margin-bottom: 2rem;
+
+  .header {
+    display: flex !important;
+    justify-content: space-between !important;
+    margin-bottom: 10px;
+    .head {
+      font-weight: 700;
+      font-size: 30px;
+      span {
+        color: #078852 !important;
+        padding-left: 5px;
+      }
     }
   }
 }

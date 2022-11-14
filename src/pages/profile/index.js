@@ -14,8 +14,12 @@ import {
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
-import { useGetProfileQuery } from '../../services/profile/profileApi';
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from '../../services/profile/profileApi';
 import styles from '../../styles/Profile.module.scss';
 
 const Profile = () => {
@@ -28,8 +32,20 @@ const Profile = () => {
 
   // get user
   const { data: user, isLoading, isSuccess } = useGetProfileQuery();
+  const [
+    updateProfile,
+    { isError: updateError, error: responseError, isSuccess: updateSuccess },
+  ] = useUpdateProfileMutation();
 
   const [editMode, setEditMode] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm();
 
   // form value state
   const [values, setValues] = useState({
@@ -53,8 +69,19 @@ const Profile = () => {
   const handleEditMode = () => setEditMode(true);
 
   //handle submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleFormSubmit = (data) => {
+    const { password } = data;
+    const id = user?.id;
+
+    const payload = {
+      username: values?.firstName || user?.username,
+      lastName: values?.lastName || user?.lastName,
+      phone: values?.phone,
+      address: values?.address,
+      password,
+    };
+
+    updateProfile({ id, payload });
     setEditMode(false);
   };
 
@@ -67,9 +94,9 @@ const Profile = () => {
       {isLoading && <Typography variant='body2'>Loading...</Typography>}
 
       {!isLoading && isSuccess && (
-        <form>
+        <form className={styles.profile__wrapper}>
           <FormGroup>
-            <Box className={styles.container}>
+            <Box className={styles.header}>
               <Typography className={styles.head} variant='h3'>
                 My{' '}
                 <Box component='span' color='primary'>
@@ -80,7 +107,7 @@ const Profile = () => {
                 {editMode ? (
                   <Button
                     variant='contained'
-                    onClick={handleSubmit}
+                    onClick={handleSubmit(handleFormSubmit)}
                     color='primary'
                     disableRipple
                     size='small'
@@ -121,7 +148,7 @@ const Profile = () => {
                 multiline
                 maxRows={2}
                 defaultValue={user?.username}
-                value={values?.firstName}
+                value={values.firstName}
                 onChange={handleChange}
                 placeholder='First Name'
                 fullWidth
@@ -137,37 +164,55 @@ const Profile = () => {
                 multiline
                 maxRows={2}
                 defaultValue={user?.lastName}
-                value={values?.lastName}
+                value={values.lastName}
                 onChange={handleChange}
                 fullWidth
                 name='lastName'
                 disabled={!editMode}
               />
             </FormControl>
+
             <Typography variant='body1'>Email Address</Typography>
             <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
               <TextField
                 type='email'
-                defaultValue={user?.email}
+                value={user?.email}
                 multiline
                 maxRows={2}
-                value={values?.email}
                 onChange={handleChange}
                 fullWidth
                 name='email'
                 disabled
               />
             </FormControl>
+
+            <Typography variant='body1'>Phone</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+              <TextField
+                type='text'
+                multiline
+                maxRows={2}
+                defaultValue={user?.phone}
+                value={values.phone}
+                onChange={handleChange}
+                placeholder='Phone Number'
+                fullWidth
+                name='phone'
+                disabled={!editMode}
+              />
+            </FormControl>
+
             <Typography variant='body1'>Address</Typography>
             <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
               <TextareaAutosize
                 minRows={5}
                 placeholder='write your address'
                 type='text'
-                multiline
-                value={values?.address}
+                multiline='true'
+                defaultValue={user?.address}
+                value={values.address}
                 onChange={handleChange}
-                fullWidth
+                fullwidth='true'
                 name='address'
                 disabled={!editMode}
               />
@@ -177,9 +222,13 @@ const Profile = () => {
               <TextField
                 label='Password'
                 type={values.showPassword ? 'text' : 'password'}
-                value={values?.password}
-                onChange={handleChange}
                 name='password'
+                {...register('password', {
+                  minLength: 6,
+                })}
+                defaultValue=''
+                error={errors?.password}
+                helperText={errors?.password && 'Password must be 6 characters'}
                 disabled={!editMode}
                 InputProps={{
                   endAdornment: (
