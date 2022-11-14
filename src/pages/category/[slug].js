@@ -94,7 +94,7 @@ const Category = () => {
         <Box className={styles.pagination__wrapper} component='div'>
           <Pagination
             count={pagination?.pageCount}
-            onChange={(value) => setPage(value)}
+            onChange={(e, value) => setPage(value)}
             shape='rounded'
             color='primary'
           />

@@ -107,7 +107,7 @@ const Orders = () => {
 
           <Box className={styles.pagination__wrapper}>
             <Pagination
-              onChange={(value) => setPage(value)}
+              onChange={(e, value) => setPage(value)}
               count={pagination?.pageCount}
               color='primary'
               shape='rounded'
