@@ -42,6 +42,8 @@ const OrderDetails = () => {
         <title>Order Details || FoodExpress</title>
       </Head>
 
+      {isLoading && <Typography variant='body2'>Loading...</Typography>}
+
       {isError && !isSuccess && (
         <Typography>Order details not found!</Typography>
       )}

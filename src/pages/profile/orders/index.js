@@ -45,6 +45,8 @@ const Orders = () => {
         <title>Orders || FoodExpress</title>
       </Head>
 
+      {isLoading && <Typography variant='body2'>Loading...</Typography>}
+
       {orders?.length === 0 && <Typography>There are no orders</Typography>}
 
       {isSuccess && orders?.length > 0 && (

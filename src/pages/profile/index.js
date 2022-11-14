@@ -1,6 +1,7 @@
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
+  Box,
   Button,
   FormControl,
   FormGroup,
@@ -8,12 +9,13 @@ import {
   InputAdornment,
   TextareaAutosize,
   TextField,
+  Typography,
 } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
+import { useGetProfileQuery } from '../../services/profile/profileApi';
 import styles from '../../styles/Profile.module.scss';
 
 const Profile = () => {
@@ -24,13 +26,10 @@ const Profile = () => {
     router.push('/');
   }
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setError,
-    formState: { errors },
-  } = useForm();
+  // get user
+  const { data: user, isLoading, isSuccess } = useGetProfileQuery();
+
+  const [editMode, setEditMode] = useState(false);
 
   // form value state
   const [values, setValues] = useState({
@@ -49,15 +48,14 @@ const Profile = () => {
       showPassword: !values.showPassword,
     });
   };
+
+  // handle edit mode
+  const handleEditMode = () => setEditMode(true);
+
   //handle submit
-
-  const onSubmit = (data) => {
-    const { firstName, lastName, email, password, address } = data;
-  };
-
-  //from style
-  const style = {
-    p: { xs: 2, md: 6 },
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEditMode(false);
   };
 
   return (
@@ -66,134 +64,141 @@ const Profile = () => {
         <title>Profile || FoodExpress</title>
       </Head>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormGroup sx={style}>
-          <div className={styles.container}>
-            <h2 className={styles.head}>
-              Your <span color='primary'>Profile</span>
-            </h2>
-            <div>
-              <Button
-                variant='contained'
-                color='primary'
-                disableRipple
-                type='submit'
-                sx={{
-                  mr: 3,
-                  borderRadius: '9px',
-                  padding: '10px 20px',
-                }}
-              >
-                Update
-              </Button>
-              <Button
-                variant='contained'
-                color='primary'
-                disableRipple
-                sx={{ borderRadius: '9px', padding: '10px 20px' }}
-              >
-                My Order
-              </Button>
-            </div>
-          </div>
-          <h3>Personal Information</h3>
-          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='First Name*'
-              type='text'
-              multiline
-              maxRows={2}
-              value={values?.firstName}
-              onChange={handleChange}
-              fullWidth
-              name='firstName'
-              {...register('firstName', { required: 'First Name is Required' })}
-              error={errors.firstName?.message}
-              helperText={errors.firstName?.message}
-            />
-          </FormControl>
+      {isLoading && <Typography variant='body2'>Loading...</Typography>}
 
-          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='Last Name*'
-              type='text'
-              multiline
-              maxRows={2}
-              value={values?.lastName}
-              onChange={handleChange}
-              fullWidth
-              name='lastName'
-              {...register('lastName', { required: 'Last Name is Required' })}
-              error={errors.lastName?.message}
-              helperText={errors.lastName?.message}
-            />
-          </FormControl>
-          <h3>Email Address</h3>
-          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='Email*'
-              type='email'
-              multiline
-              maxRows={2}
-              value={values?.email}
-              onChange={handleChange}
-              fullWidth
-              name='email'
-              {...register('email', {
-                required: 'Email is Required',
-                pattern: {
-                  value:
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'Invalid email address',
-                },
-              })}
-              error={errors.email?.message}
-            />
-          </FormControl>
-          <h3>Address</h3>
-          <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
-            <TextareaAutosize
-              minRows={5}
-              placeholder='write your address'
-              type='text'
-              multiline
-              value={values?.address}
-              onChange={handleChange}
-              fullWidth
-              name='address'
-              {...register('address', { required: 'address is Required' })}
-              error={errors.address?.message}
-              helperText={errors.address?.message}
-            />
-          </FormControl>
-          <h3>Password</h3>
-          <FormControl sx={{ mt: 1 }} fullWidth variant='outlined'>
-            <TextField
-              label='Password*'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values?.password}
-              onChange={handleChange}
-              name='password'
-              {...register('password', { required: 'Password is required' })}
-              error={errors.password?.message}
-              helperText={errors.password?.message}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton onClick={handleClickShowPassword} edge='end'>
-                      {values?.showPassword ? (
-                        <VisibilityOff />
-                      ) : (
-                        <Visibility />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
-        </FormGroup>
-      </form>
+      {!isLoading && isSuccess && (
+        <form>
+          <FormGroup>
+            <Box className={styles.container}>
+              <Typography className={styles.head} variant='h3'>
+                My{' '}
+                <Box component='span' color='primary'>
+                  Profile
+                </Box>
+              </Typography>
+              <Box>
+                {editMode ? (
+                  <Button
+                    variant='contained'
+                    onClick={handleSubmit}
+                    color='primary'
+                    disableRipple
+                    size='small'
+                    sx={{
+                      mr: 3,
+                    }}
+                  >
+                    Update
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={handleEditMode}
+                    variant='contained'
+                    size='small'
+                    sx={{
+                      mr: 3,
+                    }}
+                  >
+                    Edit
+                  </Button>
+                )}
+
+                <Button
+                  variant='contained'
+                  color='primary'
+                  size='small'
+                  disableRipple
+                  onClick={() => router.push('/profile/orders')}
+                >
+                  My Orders
+                </Button>
+              </Box>
+            </Box>
+            <Typography variant='body1'>Personal Information</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+              <TextField
+                type='text'
+                multiline
+                maxRows={2}
+                defaultValue={user?.username}
+                value={values?.firstName}
+                onChange={handleChange}
+                placeholder='First Name'
+                fullWidth
+                name='firstName'
+                disabled={!editMode}
+              />
+            </FormControl>
+
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+              <TextField
+                placeholder='Last Name'
+                type='text'
+                multiline
+                maxRows={2}
+                defaultValue={user?.lastName}
+                value={values?.lastName}
+                onChange={handleChange}
+                fullWidth
+                name='lastName'
+                disabled={!editMode}
+              />
+            </FormControl>
+            <Typography variant='body1'>Email Address</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+              <TextField
+                type='email'
+                defaultValue={user?.email}
+                multiline
+                maxRows={2}
+                value={values?.email}
+                onChange={handleChange}
+                fullWidth
+                name='email'
+                disabled
+              />
+            </FormControl>
+            <Typography variant='body1'>Address</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+              <TextareaAutosize
+                minRows={5}
+                placeholder='write your address'
+                type='text'
+                multiline
+                value={values?.address}
+                onChange={handleChange}
+                fullWidth
+                name='address'
+                disabled={!editMode}
+              />
+            </FormControl>
+            <Typography variant='body1'>Password</Typography>
+            <FormControl sx={{ mt: 1 }} fullWidth variant='outlined'>
+              <TextField
+                label='Password'
+                type={values.showPassword ? 'text' : 'password'}
+                value={values?.password}
+                onChange={handleChange}
+                name='password'
+                disabled={!editMode}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton onClick={handleClickShowPassword} edge='end'>
+                        {values?.showPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+          </FormGroup>
+        </form>
+      )}
     </>
   );
 };
