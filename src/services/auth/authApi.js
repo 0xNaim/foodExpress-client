@@ -16,7 +16,6 @@ const authApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
@@ -31,6 +30,7 @@ const authApi = apiSlice.injectEndpoints({
           // do nothing
         }
       },
+      invalidatesTags: ['Profile'],
     }),
   }),
   overrideExisting: true,
