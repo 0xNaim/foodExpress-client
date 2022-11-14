@@ -47,7 +47,7 @@ const Orders = () => {
 
       {isLoading && <Typography variant='body2'>Loading...</Typography>}
 
-      {orders?.length === 0 && <Typography>There are no orders</Typography>}
+      {!isLoading && orders?.length === 0 && <Typography>There are no orders</Typography>}
 
       {isSuccess && orders?.length > 0 && (
         <Box className={styles.order__wrapper} component='section'>
