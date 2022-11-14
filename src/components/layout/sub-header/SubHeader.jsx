@@ -15,7 +15,7 @@ const SubHeader = () => {
           </Grid>
           <Grid item md={10}>
             <Box component='div' className={styles['sub-header']}>
-              <Link href='/shop' passHref>
+              <Link href='/' passHref>
                 <a className={styles['sub-header--link']}>
                   <Typography
                     className={styles['sub-header__special']}
@@ -23,7 +23,7 @@ const SubHeader = () => {
                   >
                     <LocalOfferIcon
                       className={styles['sub-header__special__icon']}
-                    />{' '}
+                    />
                     Special Prices
                   </Typography>
                 </a>
