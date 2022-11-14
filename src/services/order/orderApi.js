@@ -11,7 +11,8 @@ const orderApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Order'],
     }),
     getOrders: builder.query({
-      query: () => '/users/me?populate=orders',
+      query: ({ email, page }) =>
+        `/orders?filters[user_email][$eq]=${email}&pagination[page]=${page}&pagination[pageSize]=5`,
       providesTags: ['Order'],
     }),
     getOrderByOrderId: builder.query({

@@ -1,0 +1,44 @@
+.order-details__wrapper {
+  margin-bottom: 2rem;
+
+  @media only screen and (max-width: 900px) {
+    margin-bottom: 1rem;
+
+    .heading {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+
+  .divider {
+    margin-bottom: 1rem;
+  }
+
+  .button {
+    text-transform: capitalize;
+    margin-bottom: 0.75rem;
+
+    .icon {
+      transform: rotate(-180deg);
+      margin-right: 5px;
+    }
+  }
+
+  .table {
+    .table__head {
+      background: #f5f5f5;
+    }
+
+    .table__row:nth-child(2n) {
+      background: #f5f5f5;
+    }
+
+    .total__price {
+      background: var(--clr-grey);
+
+      tr > th {
+        color: #fff;
+      }
+    }
+  }
+}

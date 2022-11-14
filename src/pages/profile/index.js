@@ -63,7 +63,7 @@ const Profile = () => {
   return (
     <>
       <Head>
-        <title>Dashboard || FoodExpress</title>
+        <title>Profile || FoodExpress</title>
       </Head>
 
       <form onSubmit={handleSubmit(onSubmit)}>

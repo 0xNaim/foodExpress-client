@@ -1,6 +1,6 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
 import Product from '../Product';
@@ -107,7 +107,6 @@ const SafeFoods = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              padding: '1rem',
             }}
           >
             <Typography sx={{ fontSize: '2rem' }}>Safe Foods </Typography>
@@ -120,6 +119,7 @@ const SafeFoods = () => {
               </Button>
             </Box>
           </Box>
+          <Divider sx={{ mb: 1.5 }} />
 
           <Slider ref={ref} style={{}} {...settings}>
             {products &&
@@ -132,7 +132,7 @@ const SafeFoods = () => {
               ))}
           </Slider>
 
-          <Box
+          {/* <Box
             sx={{
               display: 'flex',
               justifyContent: 'center',
@@ -140,7 +140,7 @@ const SafeFoods = () => {
             }}
           >
             <Button sx={buttonSX}>View All</Button>
-          </Box>
+          </Box> */}
         </Box>
       )}
 
