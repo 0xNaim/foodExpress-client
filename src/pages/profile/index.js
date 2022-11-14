@@ -29,8 +29,6 @@ const Profile = () => {
   // get user
   const { data: user, isLoading, isSuccess } = useGetProfileQuery();
 
-  console.log(user)
-
   const [editMode, setEditMode] = useState(false);
 
   // form value state
