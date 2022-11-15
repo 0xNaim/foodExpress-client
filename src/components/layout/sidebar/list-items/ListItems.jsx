@@ -8,9 +8,14 @@ import {
   ListItemText,
 } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styles from './ListItems.module.scss';
 
 const ListItems = ({ open, handleClick, toggleCategoryDrawer, categories }) => {
+  const router = useRouter()
+  const { slug } = router.query;
+
+
   return (
     <List>
       {categories?.map((category) => {
@@ -37,6 +42,7 @@ const ListItems = ({ open, handleClick, toggleCategoryDrawer, categories }) => {
                   >
                     <a className={styles.link}>
                       <ListItemButton
+                        className={slug === subCategory?.attributes?.slug && `${styles.active}`}
                         onClick={toggleCategoryDrawer}
                         disableRipple
                         sx={{ pl: 4 }}
