@@ -35,8 +35,8 @@ import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
 import CustomButton from '../../ui/Button/CustomButton';
 import Notify from '../../ui/notify/Notify';
-import styles from './Header.module.scss';
 import ListItems from '../sidebar/list-items/ListItems';
+import styles from './Header.module.scss';
 
 const Header = () => {
   const { data, isSuccess } = useGetCategoriesQuery();
@@ -302,20 +302,27 @@ const Header = () => {
                     </Box>
                   </a>
                 </Link>
-                <Link href='/checkout' passHref>
-                  <a className={styles['sidebar-cart__link']}>
-                    <Box
-                      className={styles['sidebar-cart__btn']}
-                      component='div'
-                    >
-                      <CustomButton
-                        label='Checkout'
-                        handleClick={toggleCartDrawer}
-                        fullWidth
-                      />
-                    </Box>
-                  </a>
-                </Link>
+
+                {isLoggedIn ? (
+                  <Link href='/checkout' passHref>
+                    <a className={styles['sidebar-cart__link']}>
+                      <Box
+                        className={styles['sidebar-cart__btn']}
+                        component='div'
+                      >
+                        <CustomButton
+                          label='Checkout'
+                          handleClick={toggleCartDrawer}
+                          fullWidth
+                        />
+                      </Box>
+                    </a>
+                  </Link>
+                ) : (
+                  <Typography color='error' variant='body2' textAlign='center'>
+                    Please login before checkout
+                  </Typography>
+                )}
               </Box>
             </Box>
           )}
