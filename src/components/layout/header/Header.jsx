@@ -90,7 +90,8 @@ const Header = () => {
   };
 
   // handle search term
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     if (search) {
       dispatch(searched(search));
     }
@@ -143,7 +144,7 @@ const Header = () => {
             </Link>
           </Box>
 
-          <Box component='div' className={styles.search__wrapper}>
+          <Box component='form' className={styles.search__wrapper}>
             <input
               className={styles.search__input}
               type='text'
@@ -152,9 +153,10 @@ const Header = () => {
             />
             <Button
               className={styles.search__btn}
-              onClick={handleSearch}
+              onClick={(e) => handleSearch(e)}
               variant='contained'
               disableRipple
+              type='submit'
             >
               Search
             </Button>
