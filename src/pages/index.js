@@ -69,9 +69,9 @@ const Home = () => {
       </Head>
 
       <DailyProducts />
-      <hr style={{ margin: '1rem', opacity: '.3' }} />
+      <br />
       <MonthlyProducts />
-      <hr style={{ margin: '1rem', opacity: '.3' }} />
+      <br />
       <SafeFoods />
     </>
   );

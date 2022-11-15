@@ -7,26 +7,22 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const options = [
-  'Filter by price',
-  'Price < 200',
-  'Price < 500',
-  'Price < 1000',
-];
-
-export default function FilterSection(props) {
-  const { filterIndex, setFilterIndex } = props;
+export default function FilterSection({ options, setIndex }) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
-    setFilterIndex(index);
+    setIndex(index);
     setOpen(false);
   };
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, []);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
