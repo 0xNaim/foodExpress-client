@@ -1,7 +1,7 @@
-import { Box, Grid, Pagination, Typography } from '@mui/material';
+import { Box, Divider, Grid, Pagination, Typography } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterSection from '../../components/filter/FilterSection';
 import Product from '../../components/product/Product';
@@ -18,16 +18,35 @@ const Category = () => {
   const { slug } = query;
   const [page, setPage] = useState(1);
   const [filterIndex, setFilterIndex] = useState(0);
+  const [sortIndex, setSortIndex] = useState(0);
 
-  // const filterPrice = [""]
+  // filter prices
   const allFilterPrices = [5000, 200, 500, 1000];
   const filterPrice = allFilterPrices[filterIndex];
+
+  // sort values
+  const sortValues = ['asc', 'asc', 'desc'];
+  const sortOrder = sortValues[sortIndex];
+
+  const filterOptions = [
+    'Filter by price',
+    'Price < 200',
+    'Price < 500',
+    'Price < 1000',
+  ];
+
+  const sortOptions = ['Short', 'Price (Low > High)', 'Price (High > Low)'];
+
+  useEffect(() => {
+    setFilterIndex(0);
+    setSortIndex(0);
+  }, []);
 
   const {
     data: products,
     isLoading,
     isSuccess,
-  } = useGetProductsQuery({ slug, page, filterPrice });
+  } = useGetProductsQuery({ slug, page, filterPrice, sortOrder });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -44,11 +63,6 @@ const Category = () => {
 
   return (
     <>
-      <FilterSection
-        filterIndex={filterIndex}
-        setFilterIndex={setFilterIndex}
-      />
-      <hr style={{ margin: '1rem 0rem', opacity: '.3' }}></hr>
       <Head>
         <title>Product || FoodExpress</title>
       </Head>
@@ -71,6 +85,12 @@ const Category = () => {
           <Typography variant='h6'>There are no products</Typography>
         </Box>
       )}
+
+      <Box className={styles.filter__wrapper}>
+        <FilterSection options={filterOptions} setIndex={setFilterIndex} />
+        <FilterSection options={sortOptions} setIndex={setSortIndex} />
+      </Box>
+      <Divider className={styles.divider} />
 
       <Grid container spacing={2}>
         {products?.data?.map((singleProduct) => (
