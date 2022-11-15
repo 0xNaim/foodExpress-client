@@ -13,6 +13,7 @@ import styles from '../../styles/CategoryProduct.module.scss';
 
 const Category = () => {
   const { message } = useSelector((state) => state.cart);
+   const { searchTerm } = useSelector((state) => state.search);
   const dispatch = useDispatch();
   const { query } = useRouter();
   const { slug } = query;
@@ -46,7 +47,7 @@ const Category = () => {
     data: products,
     isLoading,
     isSuccess,
-  } = useGetProductsQuery({ slug, page, filterPrice, sortOrder });
+  } = useGetProductsQuery({ slug, page, filterPrice, sortOrder, searchTerm });
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 

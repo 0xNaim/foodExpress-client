@@ -30,6 +30,10 @@ import CartItems from '../../cart-items/CartItems';
 
 import Image from 'next/image';
 import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
+import {
+  clearSearchTerm,
+  searched,
+} from '../../../redux/features/search/searchSlice';
 import getTotalPrice from '../../../utils/getTotalPrice';
 import MyDrawer from '../../drawer/Drawer';
 import Modal from '../../modal/Modal';
@@ -53,6 +57,7 @@ const Header = () => {
   const [openModel, setOpenModel] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [search, setSearch] = useState('');
 
   // Notify handler
   const handleOpenSnackbar = () => setOpenSnackbar(true);
@@ -82,6 +87,19 @@ const Header = () => {
   // modal close
   const handleClose = () => {
     setOpenModel(false);
+  };
+
+  // handle search term
+  const handleSearch = () => {
+    if (search) {
+      dispatch(searched(search));
+    }
+  };
+
+  // handle search input
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    dispatch(clearSearchTerm());
   };
 
   // toggle cart drawer
@@ -130,9 +148,11 @@ const Header = () => {
               className={styles.search__input}
               type='text'
               placeholder='Search any product'
+              onChange={handleSearchChange}
             />
             <Button
               className={styles.search__btn}
+              onClick={handleSearch}
               variant='contained'
               disableRipple
             >
