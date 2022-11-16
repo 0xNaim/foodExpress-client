@@ -9,11 +9,11 @@ import {
 } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import PaymentForm from '../../components/checkout-form/payment-form/PaymentForm';
-import ShippingForm from '../../components/checkout-form/shipping-form/ShippingForm';
-import useMultiStepForm from '../../hooks/useMultiStepForm';
-import styles from '../../styles/Checkout.module.scss';
-import useAuth from '../../hooks/useAuth'
+import styles from '../styles/Checkout.module.scss';
+import PaymentForm from '../components/checkout-form/payment-form/PaymentForm';
+import ShippingForm from '../components/checkout-form/shipping-form/ShippingForm';
+import useAuth from '../hooks/useAuth';
+import useMultiStepForm from '../hooks/useMultiStepForm';
 
 const steps = ['Shipping address', 'Payment details'];
 
