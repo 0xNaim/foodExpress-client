@@ -15,6 +15,7 @@ import EmptyCart from '../../public/assets/empty.png';
 import CartItems from '../components/cart-items/CartItems';
 import CustomButton from '../components/ui/Button/CustomButton';
 import Notify from '../components/ui/notify/Notify';
+import useAuth from '../hooks/useAuth';
 import {
   addToCart,
   decreaseProductQuantity,
@@ -27,6 +28,9 @@ const Cart = () => {
   const { cart, message } = useSelector((state) => state.cart);
   const { shippingCost } = useSelector((state) => state.checkout);
   const dispatch = useDispatch();
+
+  // Authentication checking
+  const isLoggedIn = useAuth();
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [severity, setSeverity] = useState('');
@@ -152,13 +156,23 @@ const Cart = () => {
                       </Typography>
                     </TableRow>
 
-                    <TableRow className={''}>
-                      <Link href='/checkout' passHref>
-                        <a className={styles.link}>
-                          <CustomButton label='Checkout' fullWidth />
-                        </a>
-                      </Link>
-                    </TableRow>
+                    {isLoggedIn ? (
+                      <TableRow className={''}>
+                        <Link href='/checkout' passHref>
+                          <a className={styles.link}>
+                            <CustomButton label='Checkout' fullWidth />
+                          </a>
+                        </Link>
+                      </TableRow>
+                    ) : (
+                      <Typography
+                        variant='body2'
+                        textAlign='center'
+                        color='error'
+                      >
+                        Please login before checkout
+                      </Typography>
+                    )}
                   </TableBody>
                 </Table>
               </Box>

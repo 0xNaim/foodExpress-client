@@ -41,7 +41,7 @@ const Product = ({ product, handleAddToCart }) => {
               variant='body1'
               gutterBottom
             >
-              {(product.title || 'Anaros').substring(0, 28)}
+              {(product.title || 'Anaros').substring(0, 25)}
             </Typography>
 
             <Box className={styles.product__details__wrapper} component='div'>
