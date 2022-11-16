@@ -1,7 +1,7 @@
 import { Box, Divider } from '@mui/material';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetCart } from '../../../redux/features/cart/cartSlice';
 import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
@@ -22,6 +22,7 @@ const PaymentForm = ({ backStep }) => {
   const dispatch = useDispatch();
 
   const [payDisable, setPayDisable] = useState(true);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState('');
   const [error, setError] = useState(false);
@@ -32,6 +33,7 @@ const PaymentForm = ({ backStep }) => {
   const elements = useElements();
 
   // Alert handler
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
   // Handle payment
@@ -66,15 +68,24 @@ const PaymentForm = ({ backStep }) => {
     createOrder(data);
   };
 
-  if (isError) {
-    alert('Order failed!');
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      setMessage('Order has been confirmed');
+      setSeverity('success');
+      handleOpenSnackbar();
+      dispatch(resetCart());
+      dispatch(resetForm());
+      setTimeout(() => {
+        router.push('/');
+      }, 1000);
+    }
 
-  if (!isError && isSuccess) {
-    dispatch(resetCart());
-    dispatch(resetForm());
-    router.push('/checkout/success');
-  }
+    if (isError) {
+      setMessage('Order has been failed');
+      setSeverity('error');
+      handleOpenSnackbar();
+    }
+  }, [isError, isSuccess, dispatch, router]);
 
   return (
     <>
@@ -118,6 +129,16 @@ const PaymentForm = ({ backStep }) => {
           severity={severity}
         />
       )}
+
+      {isError ||
+        (isSuccess && (
+          <Notify
+            openSnackbar={handleOpenSnackbar}
+            closeSnackbar={handleCloseSnackbar}
+            message={message}
+            severity={severity}
+          />
+        ))}
     </>
   );
 };
