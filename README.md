@@ -6,7 +6,7 @@
 
 <!-- PROJECT DESCRIPTIONS -->
 <p>
-  Food Express is an e-commerce application, user can buy essential daily food from here and pay through the Stripe payment gateway.
+  FoodExpress is an e-commerce application, user can buy essential daily food from here and pay through the Stripe payment gateway.
 </p>
 
 <!-- FEATURES -->
