@@ -1,10 +1,10 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
-import Product from '../Product';
 import styles from '../FeatureProducts.module.scss';
+import Product from '../Product';
 
 // Import css files
 import { useDispatch, useSelector } from 'react-redux';
@@ -120,6 +120,17 @@ const DailyProducts = () => {
                 />
               ))}
           </Slider>
+
+          <Box className={styles['view-btn__wrapper']}>
+            <Button
+              className={styles['view--btn']}
+              variant='contained'
+              size='small'
+              disableRipple
+            >
+              View All
+            </Button>
+          </Box>
         </Box>
       )}
 

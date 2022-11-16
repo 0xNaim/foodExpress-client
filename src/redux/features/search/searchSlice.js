@@ -11,7 +11,7 @@ const searchSlice = createSlice({
     searched: (state, action) => {
       state.searchTerm = action.payload;
     },
-    clearSearchTerm: state => initialState
+    clearSearchTerm: () => initialState,
   },
 });
 

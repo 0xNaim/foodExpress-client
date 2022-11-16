@@ -33,4 +33,14 @@
   .divider {
     margin: 0.8rem 0 !important;
   }
+
+  .view-btn__wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+
+    .view--btn {
+      background: #000;
+    }
+  }
 }
