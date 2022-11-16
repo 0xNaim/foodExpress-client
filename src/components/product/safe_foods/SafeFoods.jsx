@@ -1,8 +1,9 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Box, Button, Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import Slider from 'react-slick';
+import styles from '../FeatureProducts.module.scss';
 import Product from '../Product';
 
 // Import css files
@@ -69,30 +70,17 @@ const SafeFoods = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
     ],
   };
 
-  const buttonSX = {
-    color: 'white',
-    background: 'black',
-    '&:hover': {
-      background: 'black',
-    },
-  };
   return (
     <>
       {isLoading && (
-        <Box
-          component='div'
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          }}
-        >
+        <Box className={styles.skeleton__wrapper}>
           <ProductSkeleton />
           <ProductSkeleton />
           <ProductSkeleton />
@@ -101,27 +89,27 @@ const SafeFoods = () => {
       )}
 
       {!isLoading && isSuccess && (
-        <Box sx={{ width: '100%' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Typography sx={{ fontSize: '2rem' }}>Safe Foods </Typography>
-            <Box>
-              <Button onClick={handlePrevSlide} disableRipple>
-                <ArrowBackIosIcon />
-              </Button>
-              <Button onClick={handleNextSlide} disableRipple>
-                <ArrowForwardIosIcon />
-              </Button>
+        <Box className={styles.content__wrapper}>
+          <Box className={styles.header}>
+            <Typography className={styles.title}>Safe Foods </Typography>
+            <Box className={styles.btn__group}>
+              <ArrowBackIosIcon
+                className={styles.icon}
+                onClick={handlePrevSlide}
+                color='primary'
+                title='Prev'
+              />
+              <ArrowForwardIosIcon
+                className={styles.icon}
+                onClick={handleNextSlide}
+                color='primary'
+                title='Next'
+              />
             </Box>
           </Box>
-          <Divider sx={{ mb: 1.5 }} />
+          <Divider className={styles.divider} />
 
-          <Slider ref={ref} style={{}} {...settings}>
+          <Slider ref={ref} {...settings}>
             {products &&
               products.map((product, index) => (
                 <Product
@@ -131,16 +119,6 @@ const SafeFoods = () => {
                 />
               ))}
           </Slider>
-
-          {/* <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginTop: '2rem',
-            }}
-          >
-            <Button sx={buttonSX}>View All</Button>
-          </Box> */}
         </Box>
       )}
 
