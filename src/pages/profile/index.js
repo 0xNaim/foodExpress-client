@@ -13,8 +13,9 @@ import {
 } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Notify from '../../components/ui/notify/Notify';
 import useAuth from '../../hooks/useAuth';
 import {
   useGetProfileQuery,
@@ -34,18 +35,35 @@ const Profile = () => {
   const { data: user, isLoading, isSuccess } = useGetProfileQuery();
   const [
     updateProfile,
-    { isError: updateError, error: responseError, isSuccess: updateSuccess },
+    {
+      isError: isUpdateError,
+      error: responseError,
+      isSuccess: isUpdateSuccess,
+    },
   ] = useUpdateProfileMutation();
-
-  const [editMode, setEditMode] = useState(false);
 
   const {
     register,
     handleSubmit,
-    watch,
-    setError,
     formState: { errors },
   } = useForm();
+
+  const [editMode, setEditMode] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  // Alert handler
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  useEffect(() => {
+    if (isUpdateSuccess) {
+      handleOpenSnackbar();
+    }
+
+    if (isUpdateError) {
+      handleOpenSnackbar();
+    }
+  }, [isUpdateError, isUpdateSuccess]);
 
   // form value state
   const [values, setValues] = useState({
@@ -247,6 +265,24 @@ const Profile = () => {
             </FormControl>
           </FormGroup>
         </form>
+      )}
+
+      {isUpdateError && (
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={handleCloseSnackbar}
+          message={responseError?.data?.error?.message}
+          severity='error'
+        />
+      )}
+
+      {isUpdateSuccess && (
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={handleCloseSnackbar}
+          message={'Profile Updated'}
+          severity='success'
+        />
       )}
     </>
   );
