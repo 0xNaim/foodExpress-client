@@ -53,6 +53,7 @@ const Category = () => {
 
   const { pagination } = products?.meta || {};
 
+  // Alert handler
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 

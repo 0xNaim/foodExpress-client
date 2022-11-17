@@ -133,7 +133,7 @@ const PaymentForm = ({ backStep }) => {
       {isError ||
         (isSuccess && (
           <Notify
-            openSnackbar={handleOpenSnackbar}
+            openSnackbar={openSnackbar}
             closeSnackbar={handleCloseSnackbar}
             message={message}
             severity={severity}
