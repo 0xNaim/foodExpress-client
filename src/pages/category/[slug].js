@@ -13,7 +13,7 @@ import styles from '../../styles/CategoryProduct.module.scss';
 
 const Category = () => {
   const { message } = useSelector((state) => state.cart);
-   const { searchTerm } = useSelector((state) => state.search);
+  const { searchTerm } = useSelector((state) => state.search);
   const dispatch = useDispatch();
   const { query } = useRouter();
   const { slug } = query;
@@ -82,17 +82,17 @@ const Category = () => {
         </Box>
       )}
 
-      {products?.data?.length === 0 && (
-        <Box className={styles['product__not-found']} component='div'>
-          <Typography variant='h6'>There are no products</Typography>
-        </Box>
-      )}
-
       <Box className={styles.filter__wrapper}>
         <FilterSection options={filterOptions} setIndex={setFilterIndex} />
         <FilterSection options={sortOptions} setIndex={setSortIndex} />
       </Box>
       <Divider className={styles.divider} />
+
+      {products?.data?.length === 0 && (
+        <Box className={styles['product__not-found']} component='div'>
+          <Typography variant='h6'>There are no products</Typography>
+        </Box>
+      )}
 
       <Grid container spacing={2}>
         {products?.data?.map((singleProduct) => (
