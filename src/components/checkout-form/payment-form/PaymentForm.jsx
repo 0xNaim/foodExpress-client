@@ -7,7 +7,7 @@ import { resetCart } from '../../../redux/features/cart/cartSlice';
 import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
 import { useCreateOrderMutation } from '../../../services/order/orderApi';
 import getTotalPrice from '../../../utils/getTotalPrice';
-import CustomButton from '../../ui/Button/CustomButton';
+import CustomButton from '../../ui/button/CustomButton';
 import Notify from '../../ui/notify/Notify';
 import ReviewItems from '../ReviewItems';
 import styles from './PaymentForm.module.scss';

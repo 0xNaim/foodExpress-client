@@ -4,7 +4,7 @@ import {
   Table,
   TableBody,
   TableRow,
-  Typography,
+  Typography
 } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -12,14 +12,17 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from '../../public/assets/empty.png';
+import SignIn from '../components/auth/SignIn';
+import SignUp from '../components/auth/SignUp';
 import CartItems from '../components/cart-items/CartItems';
-import CustomButton from '../components/ui/Button/CustomButton';
+import Modal from '../components/modal/Modal';
+import CustomButton from '../components/ui/button/CustomButton';
 import Notify from '../components/ui/notify/Notify';
 import useAuth from '../hooks/useAuth';
 import {
   addToCart,
   decreaseProductQuantity,
-  removeFromCart,
+  removeFromCart
 } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
 import getTotalPrice from '../utils/getTotalPrice';
@@ -34,9 +37,8 @@ const Cart = () => {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [severity, setSeverity] = useState('');
-
-  const handleOpenSnackbar = () => setOpenSnackbar(true);
-  const handleCloseSnackbar = () => setOpenSnackbar(false);
+  const [openModel, setOpenModel] = useState(false);
+  const [signUp, setSignUp] = useState(false);
 
   // Remove item from the cart
   const handleRemoveFromCart = (payload) => {
@@ -57,6 +59,22 @@ const Cart = () => {
     dispatch(decreaseProductQuantity(payload));
     setSeverity('error');
     handleOpenSnackbar();
+  };
+
+  // Notify handler
+  const handleOpenSnackbar = () => setOpenSnackbar(true);
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  // modal handler
+  const handleOpen = () => {
+    setOpenModel(true);
+    handleOpenSnackbar();
+  };
+  const handleClose = () => setOpenModel(false);
+
+  // handle signup
+  const handleSignUp = () => {
+    setSignUp(!signUp);
   };
 
   return (
@@ -165,13 +183,11 @@ const Cart = () => {
                         </Link>
                       </TableRow>
                     ) : (
-                      <Typography
-                        variant='body2'
-                        textAlign='center'
-                        color='error'
-                      >
-                        Please login before checkout
-                      </Typography>
+                      <CustomButton
+                        label='Checkout'
+                        handleClick={handleOpen}
+                        fullWidth
+                      />
                     )}
                   </TableBody>
                 </Table>
@@ -181,12 +197,31 @@ const Cart = () => {
         </Grid>
       </Box>
 
-      <Notify
-        openSnackbar={openSnackbar}
-        closeSnackbar={handleCloseSnackbar}
-        message={message}
-        severity={severity}
-      />
+      <Modal openModel={openModel} handleClose={handleClose}>
+        {signUp ? (
+          <SignUp handleSignUp={handleSignUp} />
+        ) : (
+          <SignIn handleClose={handleClose} handleSignUp={handleSignUp} />
+        )}
+      </Modal>
+
+      {!isLoggedIn && (
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={handleCloseSnackbar}
+          message={'Please login before checkout'}
+          severity='error'
+        />
+      )}
+
+      {isLoggedIn && (
+        <Notify
+          openSnackbar={openSnackbar}
+          closeSnackbar={handleCloseSnackbar}
+          message={message}
+          severity={severity}
+        />
+      )}
     </>
   );
 };

@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   Container,
-  Divider,
   IconButton,
   Menu,
   MenuItem,
@@ -18,56 +17,35 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import EmptyCart from '../../../../public/assets/empty.png';
 import useAuth from '../../../hooks/useAuth';
 import { userLoggedOut } from '../../../redux/features/auth/authSlice';
-import { removeFromCart } from '../../../redux/features/cart/cartSlice';
-import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
-import CartItems from '../../cart-items/CartItems';
 
-import Image from 'next/image';
 import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
 import {
   clearSearchTerm,
   searched,
 } from '../../../redux/features/search/searchSlice';
 import getTotalPrice from '../../../utils/getTotalPrice';
-import MyDrawer from '../../drawer/Drawer';
+import CartDrawer from '../../drawer/cart-drawer/CartDrawer';
+import CategoryDrawer from '../../drawer/category-drawer/CategoryDrawer';
 import Modal from '../../modal/Modal';
-import CustomButton from '../../ui/Button/CustomButton';
-import Notify from '../../ui/notify/Notify';
-import ListItems from '../sidebar/list-items/ListItems';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const { data, isSuccess } = useGetCategoriesQuery();
-  const { cart, message } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
-  const { shippingCost } = useSelector((state) => state.checkout);
   const dispatch = useDispatch();
   const isLoggedIn = useAuth();
 
   const [cartDrawer, setCartDrawer] = useState(false);
   const [categoryDrawer, setCategoryDrawer] = useState(false);
-  const [open, setOpen] = useState({});
   const [signUp, setSignUp] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [search, setSearch] = useState('');
-
-  // Notify handler
-  const handleOpenSnackbar = () => setOpenSnackbar(true);
-  const handleCloseSnackbar = () => setOpenSnackbar(false);
-
-  // Remove item from the cart
-  const handleRemoveFromCart = (payload) => {
-    dispatch(removeFromCart(payload));
-    handleOpenSnackbar();
-  };
 
   // handle open user menu
   const handleOpenUserMenu = () => {
@@ -84,10 +62,9 @@ const Header = () => {
     setSignUp(!signUp);
   };
 
-  // modal close
-  const handleClose = () => {
-    setOpenModel(false);
-  };
+  // modal handler
+  const handleOpen = () => setOpenModel(true);
+  const handleClose = () => setOpenModel(false);
 
   // handle search term
   const handleSearch = (e) => {
@@ -109,16 +86,11 @@ const Header = () => {
   // toggle category drawer
   const toggleCategoryDrawer = () => setCategoryDrawer((prev) => !prev);
 
-  // single category
-  const handleClick = (id) => setOpen({ [id]: !open[id] });
-
   // user logout
   const handleUserLogout = () => {
     dispatch(userLoggedOut());
     dispatch(resetForm());
   };
-
-  const categories = data?.data?.map((category) => category);
 
   return (
     <>
@@ -234,7 +206,7 @@ const Header = () => {
               <Box className={styles.account} component='div'>
                 <IconButton
                   className={styles.account__iconBtn}
-                  onClick={() => setOpenModel(true)}
+                  onClick={handleOpen}
                   disableRipple
                 >
                   <AccountCircleIcon
@@ -256,138 +228,13 @@ const Header = () => {
         </Container>
       </AppBar>
 
-      <MyDrawer open={cartDrawer} onClose={toggleCartDrawer} anchor='right'>
-        <Box className={styles['sidebar-cart__wrapper']} component='div'>
-          <Typography
-            className={styles['sidebar-cart__title']}
-            variant='h5'
-            textAlign={'center'}
-          >
-            Shopping Cart
-          </Typography>
-          <Divider />
+      {/* Cart drawer */}
+      <CartDrawer cartDrawer={cartDrawer} toggleCartDrawer={toggleCartDrawer} />
 
-          <Box className={styles['sidebar-cart__content']} component='div'>
-            <CartItems handleRemoveFromCart={handleRemoveFromCart} />
-          </Box>
-
-          {cart?.length === 0 && (
-            <Box className={styles.empty__cart} component='div'>
-              <Image
-                src={EmptyCart}
-                width={150}
-                height={150}
-                alt='Empty Cart'
-              />
-              <Typography variant='subtitle1'>Your cart is empty!</Typography>
-            </Box>
-          )}
-
-          {cart?.length > 0 && <Divider className={styles.separator} />}
-
-          {cart?.length > 0 && (
-            <Box className={styles['sidebar-cart__btnGroup']} component='div'>
-              <Box
-                className={styles['sidebar-cart__price__wrapper']}
-                component='div'
-              >
-                <Typography
-                  className={styles['sidebar-cart__subtotal']}
-                  variant='body1'
-                >
-                  Total + Shipping:
-                </Typography>
-                <Typography
-                  className={styles['sidebar-cart__price']}
-                  variant='body1'
-                >
-                  {getTotalPrice(cart) + shippingCost} Tk
-                </Typography>
-              </Box>
-
-              <Box
-                className={styles['sidebar-cart__btn__wrapper']}
-                component='div'
-              >
-                <Link href='/cart' passHref>
-                  <a className={styles['sidebar-cart__link']}>
-                    <Box
-                      className={styles['sidebar-cart__btn']}
-                      component='div'
-                    >
-                      <CustomButton
-                        label='View Cart'
-                        variant='outlined'
-                        handleClick={toggleCartDrawer}
-                        fullWidth
-                      />
-                    </Box>
-                  </a>
-                </Link>
-
-                {isLoggedIn ? (
-                  <Link href='/checkout' passHref>
-                    <a className={styles['sidebar-cart__link']}>
-                      <Box
-                        className={styles['sidebar-cart__btn']}
-                        component='div'
-                      >
-                        <CustomButton
-                          label='Checkout'
-                          handleClick={toggleCartDrawer}
-                          fullWidth
-                        />
-                      </Box>
-                    </a>
-                  </Link>
-                ) : (
-                  <Typography color='error' variant='body2' textAlign='center'>
-                    Please login before checkout
-                  </Typography>
-                )}
-              </Box>
-            </Box>
-          )}
-        </Box>
-      </MyDrawer>
-
-      <MyDrawer
-        open={categoryDrawer}
-        onClose={toggleCategoryDrawer}
-        anchor='left'
-      >
-        <Box component='div'>
-          <Typography className={styles['sicebar-brand__name']} variant='h5'>
-            Food
-            <Box
-              className={styles['sicebar-brand__name--color']}
-              component='span'
-            >
-              Express
-            </Box>
-          </Typography>
-          <Divider />
-        </Box>
-
-        {categories?.length === 0 && (
-          <Typography variant='body1'>There is no categories</Typography>
-        )}
-
-        {isSuccess && categories?.length > 0 && (
-          <ListItems
-            categories={categories}
-            handleClick={handleClick}
-            toggleCategoryDrawer={toggleCategoryDrawer}
-            open={open}
-          />
-        )}
-      </MyDrawer>
-
-      <Notify
-        openSnackbar={openSnackbar}
-        closeSnackbar={handleCloseSnackbar}
-        message={message}
-        severity='error'
+      {/* Category drawer */}
+      <CategoryDrawer
+        categoryDrawer={categoryDrawer}
+        toggleCategoryDrawer={toggleCategoryDrawer}
       />
     </>
   );

@@ -5,11 +5,11 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography,
+  Typography
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import CustomButton from '../ui/Button/CustomButton';
+import CustomButton from '../ui/button/CustomButton';
 import styles from './Product.module.scss';
 
 const Product = ({ product, handleAddToCart }) => {
