@@ -1,0 +1,9 @@
+.sicebar-brand__name {
+  text-align: center;
+  font-weight: var(--fw-title) !important;
+  padding: 0.5em 0;
+
+  &--color {
+    color: var(--clr-primary);
+  }
+}

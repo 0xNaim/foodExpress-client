@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddress } from '../../../redux/features/checkout/checkoutSlice';
-import CustomButton from '../../ui/Button/CustomButton';
+import CustomButton from '../../ui/button/CustomButton';
 import styles from './ShippingForm.module.scss';
 
 const ShippingForm = ({ nextStep }) => {

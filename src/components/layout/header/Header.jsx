@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   Container,
-  Divider,
   IconButton,
   Menu,
   MenuItem,
@@ -20,7 +19,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
 import { userLoggedOut } from '../../../redux/features/auth/authSlice';
-import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
 
 import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
@@ -32,13 +30,11 @@ import {
 } from '../../../redux/features/search/searchSlice';
 import getTotalPrice from '../../../utils/getTotalPrice';
 import CartDrawer from '../../drawer/cart-drawer/CartDrawer';
-import MyDrawer from '../../drawer/Drawer';
+import CategoryDrawer from '../../drawer/category-drawer/CategoryDrawer';
 import Modal from '../../modal/Modal';
-import ListItems from '../sidebar/list-items/ListItems';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const { data, isSuccess } = useGetCategoriesQuery();
   const { cart } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -46,7 +42,6 @@ const Header = () => {
 
   const [cartDrawer, setCartDrawer] = useState(false);
   const [categoryDrawer, setCategoryDrawer] = useState(false);
-  const [open, setOpen] = useState({});
   const [signUp, setSignUp] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
@@ -91,16 +86,11 @@ const Header = () => {
   // toggle category drawer
   const toggleCategoryDrawer = () => setCategoryDrawer((prev) => !prev);
 
-  // single category
-  const handleClick = (id) => setOpen({ [id]: !open[id] });
-
   // user logout
   const handleUserLogout = () => {
     dispatch(userLoggedOut());
     dispatch(resetForm());
   };
-
-  const categories = data?.data?.map((category) => category);
 
   return (
     <>
@@ -241,37 +231,11 @@ const Header = () => {
       {/* Cart drawer */}
       <CartDrawer cartDrawer={cartDrawer} toggleCartDrawer={toggleCartDrawer} />
 
-      <MyDrawer
-        open={categoryDrawer}
-        onClose={toggleCategoryDrawer}
-        anchor='left'
-      >
-        <Box component='div'>
-          <Typography className={styles['sicebar-brand__name']} variant='h5'>
-            Food
-            <Box
-              className={styles['sicebar-brand__name--color']}
-              component='span'
-            >
-              Express
-            </Box>
-          </Typography>
-          <Divider />
-        </Box>
-
-        {categories?.length === 0 && (
-          <Typography variant='body1'>There is no categories</Typography>
-        )}
-
-        {isSuccess && categories?.length > 0 && (
-          <ListItems
-            categories={categories}
-            handleClick={handleClick}
-            toggleCategoryDrawer={toggleCategoryDrawer}
-            open={open}
-          />
-        )}
-      </MyDrawer>
+      {/* Category drawer */}
+      <CategoryDrawer
+        categoryDrawer={categoryDrawer}
+        toggleCategoryDrawer={toggleCategoryDrawer}
+      />
     </>
   );
 };

@@ -11,7 +11,7 @@ import SignIn from '../../auth/SignIn';
 import SignUp from '../../auth/SignUp';
 import CartItems from '../../cart-items/CartItems';
 import Modal from '../../modal/Modal';
-import CustomButton from '../../ui/Button/CustomButton';
+import CustomButton from '../../ui/button/CustomButton';
 import Notify from '../../ui/notify/Notify';
 import MyDrawer from '../Drawer';
 import styles from './CartDrawer.module.scss';
