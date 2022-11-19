@@ -17,10 +17,13 @@ import MyDrawer from '../Drawer';
 import styles from './CartDrawer.module.scss';
 
 const CartDrawer = ({ cartDrawer, toggleCartDrawer }) => {
-  const { cart, message } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart);
   const { shippingCost } = useSelector((state) => state.checkout);
   const dispatch = useDispatch();
 
+  const [authAlert, setAuthAlert] = useState(null);
+  const [openAuthAlert, setOpenAuthAlert] = useState(false);
+  const [message, setMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openModel, setOpenModel] = useState(false);
   const [signUp, setSignUp] = useState(false);
@@ -32,10 +35,15 @@ const CartDrawer = ({ cartDrawer, toggleCartDrawer }) => {
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
+  // Auth alert handler
+  const handleOpenAuthAlert = () => setOpenAuthAlert(true);
+  const handleCloseAuthAlert = () => setOpenAuthAlert(false);
+
   // modal handler
   const handleOpen = () => {
     setOpenModel(true);
-    handleOpenSnackbar();
+    setAuthAlert('Please Login Before Checkout');
+    handleOpenAuthAlert();
   };
   const handleClose = () => setOpenModel(false);
 
@@ -47,6 +55,7 @@ const CartDrawer = ({ cartDrawer, toggleCartDrawer }) => {
   // Remove item from the cart
   const handleRemoveFromCart = (payload) => {
     dispatch(removeFromCart(payload));
+    setMessage('Product Removed From The Cart');
     handleOpenSnackbar();
   };
 
@@ -144,23 +153,21 @@ const CartDrawer = ({ cartDrawer, toggleCartDrawer }) => {
         )}
       </Modal>
 
-      {!isLoggedIn && (
+      {authAlert && (
         <Notify
-          openSnackbar={openSnackbar}
-          closeSnackbar={handleCloseSnackbar}
-          message={'Please login before checkout'}
+          openSnackbar={openAuthAlert}
+          closeSnackbar={handleCloseAuthAlert}
+          message={authAlert}
           severity='error'
         />
       )}
 
-      {isLoggedIn && (
-        <Notify
-          openSnackbar={openSnackbar}
-          closeSnackbar={handleCloseSnackbar}
-          message={message}
-          severity='error'
-        />
-      )}
+      <Notify
+        openSnackbar={openSnackbar}
+        closeSnackbar={handleCloseSnackbar}
+        message={message}
+        severity='error'
+      />
     </>
   );
 };

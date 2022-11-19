@@ -4,7 +4,7 @@ import {
   Table,
   TableBody,
   TableRow,
-  Typography
+  Typography,
 } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -22,7 +22,7 @@ import useAuth from '../hooks/useAuth';
 import {
   addToCart,
   decreaseProductQuantity,
-  removeFromCart
+  removeFromCart,
 } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
 import getTotalPrice from '../utils/getTotalPrice';
@@ -35,6 +35,8 @@ const Cart = () => {
   // Authentication checking
   const isLoggedIn = useAuth();
 
+  const [authAlert, setAuthAlert] = useState(null);
+  const [openAuthAlert, setOpenAuthAlert] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [severity, setSeverity] = useState('');
   const [openModel, setOpenModel] = useState(false);
@@ -65,10 +67,15 @@ const Cart = () => {
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
+  // Auth alert handler
+  const handleOpenAuthAlert = () => setOpenAuthAlert(true);
+  const handleCloseAuthAlert = () => setOpenAuthAlert(false);
+
   // modal handler
   const handleOpen = () => {
     setOpenModel(true);
-    handleOpenSnackbar();
+    setAuthAlert('Please Login Before Checkout');
+    handleOpenAuthAlert();
   };
   const handleClose = () => setOpenModel(false);
 
@@ -205,23 +212,21 @@ const Cart = () => {
         )}
       </Modal>
 
-      {!isLoggedIn && (
+      {authAlert && (
         <Notify
-          openSnackbar={openSnackbar}
-          closeSnackbar={handleCloseSnackbar}
-          message={'Please login before checkout'}
+          openSnackbar={openAuthAlert}
+          closeSnackbar={handleCloseAuthAlert}
+          message={authAlert}
           severity='error'
         />
       )}
 
-      {isLoggedIn && (
-        <Notify
-          openSnackbar={openSnackbar}
-          closeSnackbar={handleCloseSnackbar}
-          message={message}
-          severity={severity}
-        />
-      )}
+      <Notify
+        openSnackbar={openSnackbar}
+        closeSnackbar={handleCloseSnackbar}
+        message={message}
+        severity={severity}
+      />
     </>
   );
 };
