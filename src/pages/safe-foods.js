@@ -10,7 +10,7 @@ import { addToCart } from '../redux/features/cart/cartSlice';
 import { useGetFeatureProductsQuery } from '../services/products/productsApi';
 import styles from '../styles/FeaturesProducts.module.scss';
 
-const Daily = () => {
+const SafeFoods = () => {
   const { message } = useSelector((state) => state.cart);
   const { searchTerm } = useSelector((state) => state.search);
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Daily = () => {
   const [filterIndex, setFilterIndex] = useState(0);
   const [sortIndex, setSortIndex] = useState(0);
   const [page, setPage] = useState(1);
-  const [variant] = useState('daily');
+  const [variant] = useState('safeFoods');
 
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
@@ -127,4 +127,4 @@ const Daily = () => {
   );
 };
 
-export default Daily;
+export default SafeFoods;

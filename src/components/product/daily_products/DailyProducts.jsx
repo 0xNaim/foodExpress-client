@@ -123,7 +123,7 @@ const DailyProducts = () => {
           </Slider>
 
           <Box className={styles['view-btn__wrapper']}>
-            <Link href='daily'>
+            <Link href='/daily-foods'>
               <Button
                 className={styles['view--btn']}
                 variant='contained'
