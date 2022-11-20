@@ -11,12 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { addToCart } from '../../../redux/features/cart/cartSlice';
-import { useGetFeatureProductsQuery } from '../../../services/products/productsApi';
+import { useGetVariantProductsQuery } from '../../../services/products/productsApi';
 import ProductSkeleton from '../../ui/loading/ProductSkeleton';
 import Notify from '../../ui/notify/Notify';
 
 const SafeFoods = () => {
-  const { data, isLoading, isSuccess } = useGetFeatureProductsQuery('safeFood');
+  const { data, isLoading, isSuccess } = useGetVariantProductsQuery('safeFood');
   const { message } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 

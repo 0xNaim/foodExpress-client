@@ -1,19 +1,24 @@
 .sub-header__container {
   overflow: hidden;
   padding: 1.5em 0;
-  
+
   @media only screen and (max-width: 900px) {
-    display: none !important;
+    padding: 1em 0;
   }
 
-  .sub-header__btn {
-    background-color: var(--clr-primary);
-    color: var(--clr-white);
-    font-weight: var(--fw-title);
-    font-size: 0.9em;
-    padding: 0.8em;
-    border-radius: 1em;
-    text-transform: uppercase;
+  .sub-header__btn__wrapper {
+    @media only screen and (max-width: 900px) {
+      display: none !important;
+    }
+    .sub-header__btn {
+      background-color: var(--clr-primary);
+      color: var(--clr-white);
+      font-weight: var(--fw-title);
+      font-size: 0.9em;
+      padding: 0.8em;
+      border-radius: 1em;
+      text-transform: uppercase;
+    }
   }
 
   .sub-header {

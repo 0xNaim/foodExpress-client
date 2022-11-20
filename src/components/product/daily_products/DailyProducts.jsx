@@ -7,16 +7,17 @@ import styles from '../FeatureProducts.module.scss';
 import Product from '../Product';
 
 // Import css files
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { addToCart } from '../../../redux/features/cart/cartSlice';
-import { useGetFeatureProductsQuery } from '../../../services/products/productsApi';
+import { useGetVariantProductsQuery } from '../../../services/products/productsApi';
 import ProductSkeleton from '../../ui/loading/ProductSkeleton';
 import Notify from '../../ui/notify/Notify';
 
 const DailyProducts = () => {
-  const { data, isLoading, isSuccess } = useGetFeatureProductsQuery('daily');
+  const { data, isLoading, isSuccess } = useGetVariantProductsQuery('daily');
   const { message } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -122,14 +123,16 @@ const DailyProducts = () => {
           </Slider>
 
           <Box className={styles['view-btn__wrapper']}>
-            <Button
-              className={styles['view--btn']}
-              variant='contained'
-              size='small'
-              disableRipple
-            >
-              View All
-            </Button>
+            <Link href='daily'>
+              <Button
+                className={styles['view--btn']}
+                variant='contained'
+                size='small'
+                disableRipple
+              >
+                View All
+              </Button>
+            </Link>
           </Box>
         </Box>
       )}
