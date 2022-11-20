@@ -14,6 +14,7 @@ import { addToCart } from '../../../redux/features/cart/cartSlice';
 import { useGetVariantProductsQuery } from '../../../services/products/productsApi';
 import ProductSkeleton from '../../ui/loading/ProductSkeleton';
 import Notify from '../../ui/notify/Notify';
+import Link from 'next/link';
 
 const MonthlyProducts = () => {
   const { data, isLoading, isSuccess } = useGetVariantProductsQuery('monthly');
@@ -121,14 +122,16 @@ const MonthlyProducts = () => {
           </Slider>
 
           <Box className={styles['view-btn__wrapper']}>
-            <Button
-              className={styles['view--btn']}
-              variant='contained'
-              size='small'
-              disableRipple
-            >
-              View All
-            </Button>
+            <Link href='/monthly-foods'>
+              <Button
+                className={styles['view--btn']}
+                variant='contained'
+                size='small'
+                disableRipple
+              >
+                View All
+              </Button>
+            </Link>
           </Box>
         </Box>
       )}
