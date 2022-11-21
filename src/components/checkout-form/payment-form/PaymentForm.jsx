@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetCart } from '../../../redux/features/cart/cartSlice';
 import { resetForm } from '../../../redux/features/checkout/checkoutSlice';
-import { useCreateOrderMutation } from '../../../services/order/orderApi';
+import { useCreateOrderMutation } from '../../../redux/features/order/orderApi';
 import getTotalPrice from '../../../utils/getTotalPrice';
 import CustomButton from '../../ui/button/CustomButton';
 import Notify from '../../ui/notify/Notify';

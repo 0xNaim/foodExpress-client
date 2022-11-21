@@ -8,13 +8,13 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-  TextField,
+  TextField
 } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUserRegisterMutation } from '../../redux/features/auth/authApi';
 
-const SignUp = ({ handleSignUp }) => {
+const SignUp = ({ handleSignUp, handleClose }) => {
   const {
     register,
     handleSubmit,
@@ -41,10 +41,12 @@ const SignUp = ({ handleSignUp }) => {
       showPassword: !values.showPassword,
     });
   };
-  //handle submit
+
+  // Handle close modal
   if (isSuccess) {
-    handleSignUp();
+    handleClose()
   }
+
   const onSubmit = (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
 
