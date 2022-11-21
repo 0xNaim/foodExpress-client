@@ -9,6 +9,21 @@ const authApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+
+          dispatch(
+            userLoggedIn({
+              accessToken: result.data.jwt,
+              user: result.data.user,
+            })
+          );
+        } catch (err) {
+          // do nothing
+        }
+      },
+      invalidatesTags: ['Profile'],
     }),
     userLogin: builder.mutation({
       query: (data) => ({

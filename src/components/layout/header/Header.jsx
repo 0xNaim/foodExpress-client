@@ -219,7 +219,7 @@ const Header = () => {
 
             <Modal openModel={openModel} handleClose={handleClose}>
               {signUp ? (
-                <SignUp handleSignUp={handleSignUp} />
+                <SignUp handleClose={handleClose} handleSignUp={handleSignUp} />
               ) : (
                 <SignIn handleClose={handleClose} handleSignUp={handleSignUp} />
               )}
