@@ -1,5 +1,5 @@
-import apiSlice from '../../redux/features/api/apiSlice';
-import { updateUserState } from '../../redux/features/auth/authSlice';
+import apiSlice from '../api/apiSlice';
+import { updateUserState } from '../auth/authSlice';
 
 const profileApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

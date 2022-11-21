@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
-import { useGetOrdersQuery } from '../../../services/order/orderApi';
+import { useGetOrdersQuery } from '../../../redux/features/order/orderApi';
 import styles from '../../../styles/Order.module.scss';
 
 const Orders = () => {

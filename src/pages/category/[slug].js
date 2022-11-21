@@ -8,7 +8,7 @@ import Product from '../../components/product/Product';
 import ProductSkeleton from '../../components/ui/loading/ProductSkeleton';
 import Notify from '../../components/ui/notify/Notify';
 import { addToCart } from '../../redux/features/cart/cartSlice';
-import { useGetProductsQuery } from '../../services/products/productsApi';
+import { useGetProductsQuery } from '../../redux/features/products/productsApi';
 import styles from '../../styles/CategoryProduct.module.scss';
 
 const Category = () => {

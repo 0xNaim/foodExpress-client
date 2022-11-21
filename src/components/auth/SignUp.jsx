@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useUserRegisterMutation } from '../../services/auth/authApi';
+import { useUserRegisterMutation } from '../../redux/features/auth/authApi';
 
 const SignUp = ({ handleSignUp }) => {
   const {

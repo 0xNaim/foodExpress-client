@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
+import { useGetCategoriesQuery } from '../../../redux/features/categories/categoriesApi';
 import CategorySkeleton from '../../ui/loading/CategorySkeleton';
 import ListItems from './list-items/ListItems';
 import styles from './Sidebar.module.scss';

@@ -1,6 +1,6 @@
 import { Box, Divider, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useGetCategoriesQuery } from '../../../services/categories/categoriesApi';
+import { useGetCategoriesQuery } from '../../../redux/features/categories/categoriesApi';
 import ListItems from '../../layout/sidebar/list-items/ListItems';
 import MyDrawer from '../Drawer';
 import styles from './CategoryDrawer.module.scss';

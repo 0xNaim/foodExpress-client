@@ -17,10 +17,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Notify from '../../components/ui/notify/Notify';
 import useAuth from '../../hooks/useAuth';
-import {
-  useGetProfileQuery,
-  useUpdateProfileMutation,
-} from '../../services/profile/profileApi';
+import { useGetProfileQuery, useUpdateProfileMutation } from '../../redux/features/profile/profileApi';
 import styles from '../../styles/Profile.module.scss';
 
 const Profile = () => {

@@ -12,9 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { addToCart } from '../../../redux/features/cart/cartSlice';
-import { useGetVariantProductsQuery } from '../../../services/products/productsApi';
 import ProductSkeleton from '../../ui/loading/ProductSkeleton';
 import Notify from '../../ui/notify/Notify';
+import { useGetVariantProductsQuery } from '../../../redux/features/products/productsApi';
 
 const DailyProducts = () => {
   const { data, isLoading, isSuccess } = useGetVariantProductsQuery('daily');
