@@ -19,7 +19,7 @@ const SafeFoods = () => {
   const [filterIndex, setFilterIndex] = useState(0);
   const [sortIndex, setSortIndex] = useState(0);
   const [page, setPage] = useState(1);
-  const [variant] = useState('safeFoods');
+  const [variant] = useState('safeFood');
 
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
