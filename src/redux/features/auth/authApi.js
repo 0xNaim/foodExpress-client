@@ -1,5 +1,5 @@
-import apiSlice from '../../redux/features/api/apiSlice';
-import { userLoggedIn } from '../../redux/features/auth/authSlice';
+import apiSlice from '../api/apiSlice';
+import { userLoggedIn } from './authSlice';
 
 const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

@@ -1,4 +1,4 @@
-import apiSlice from '../../redux/features/api/apiSlice';
+import apiSlice from '../api/apiSlice';
 
 const orderApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

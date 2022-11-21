@@ -1,21 +1,21 @@
 import { Add, Remove } from '@mui/icons-material';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Box, Button, Grid, Skeleton, Typography } from '@mui/material';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FilterSection from '../../components/filter/FilterSection';
 import Notify from '../../components/ui/notify/Notify';
 import {
   addToCart,
   decreaseProductQuantity,
 } from '../../redux/features/cart/cartSlice';
-import { useGetProductQuery } from '../../services/products/productsApi';
+import { useGetProductQuery } from '../../redux/features/products/productsApi';
 import styles from '../../styles/ProductDetails.module.scss';
 
 const ProductDetails = () => {
-  const { query } = useRouter();
+  const { query, back } = useRouter();
   const { slug } = query;
 
   const { cart, message } = useSelector((state) => state.cart);
@@ -28,6 +28,7 @@ const ProductDetails = () => {
   const product = data?.data[0]?.attributes;
   const { image } = product || {};
 
+  // Notify handler
   const handleOpenSnackbar = () => setOpenSnackbar(true);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
 
@@ -56,12 +57,24 @@ const ProductDetails = () => {
     handleOpenSnackbar();
   };
 
+  // Go back
+  const goBack = () => back();
+
   return (
     <>
-
       <Head>
         <title>Product Details || FoodExpress</title>
       </Head>
+
+      <Button
+        className={styles.button}
+        onClick={goBack}
+        variant='contained'
+        size='small'
+        disableRipple
+      >
+        <ArrowRightAltIcon className={styles.icon} /> Go Back
+      </Button>
 
       <Grid container spacing={2} className={styles.product__details__wrapper}>
         <Grid item xs={12} md={6}>

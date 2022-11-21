@@ -7,7 +7,7 @@ import Product from '../components/product/Product';
 import ProductSkeleton from '../components/ui/loading/ProductSkeleton';
 import Notify from '../components/ui/notify/Notify';
 import { addToCart } from '../redux/features/cart/cartSlice';
-import { useGetFeatureProductsQuery } from '../services/products/productsApi';
+import { useGetFeatureProductsQuery } from '../redux/features/products/productsApi';
 import styles from '../styles/FeaturesProducts.module.scss';
 
 const MonthlyFoods = () => {

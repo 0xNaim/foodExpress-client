@@ -16,7 +16,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
-import { useGetOrderByOrderIdQuery } from '../../../services/order/orderApi';
+import { useGetOrderByOrderIdQuery } from '../../../redux/features/order/orderApi';
 import styles from '../../../styles/OrderDetails.module.scss';
 import getTotalPrice from '../../../utils/getTotalPrice';
 
@@ -64,6 +64,7 @@ const OrderDetails = () => {
           >
             <ArrowRightAltIcon className={styles.icon} /> Go Back
           </Button>
+
           <Paper>
             <Table className={styles.table}>
               <TableHead className={styles.table__head}>
