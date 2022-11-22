@@ -1,6 +1,6 @@
 <!-- PROJECT COVER IMAGE -->
 <div align='center' title='Food Express'>
-  <img src='https://raw.githubusercontent.com/0xNaim/foodExpress-client/main/public/foodExpress.jpg' />
+  <img src='https://raw.githubusercontent.com/0xNaim/foodExpress-client/main/public/food-express.jpg' />
   <h1 align='center'><a href='https://foodexpress-0x.vercel.app/' target='_blank'>Food Express</a></h1>
 </div>
 
