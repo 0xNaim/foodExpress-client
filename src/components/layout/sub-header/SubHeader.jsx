@@ -33,7 +33,7 @@ const SubHeader = () => {
                   </Typography>
                 </a>
               </Link>
-              <Link href='/' passHref>
+              <Link href='/products' passHref>
                 <a className={styles['sub-header--link']}>
                   <Typography variant='body1'>Shop</Typography>
                 </a>

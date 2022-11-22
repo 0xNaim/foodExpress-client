@@ -1,6 +1,5 @@
 import { Box, Divider, Grid, Pagination, Typography } from '@mui/material';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterSection from '../../components/filter/FilterSection';
@@ -8,16 +7,13 @@ import Product from '../../components/product/Product';
 import ProductSkeleton from '../../components/ui/loading/ProductSkeleton';
 import Notify from '../../components/ui/notify/Notify';
 import { addToCart } from '../../redux/features/cart/cartSlice';
-import { useGetProductsByCategoryQuery } from '../../redux/features/products/productsApi';
-import styles from '../../styles/CategoryProduct.module.scss';
+import { useGetProductsQuery } from '../../redux/features/products/productsApi';
+import styles from '../../styles/Products.module.scss';
 
-const Category = () => {
+const Products = () => {
   const { message } = useSelector((state) => state.cart);
   const { searchTerm } = useSelector((state) => state.search);
   const dispatch = useDispatch();
-
-  const { query } = useRouter();
-  const { slug } = query;
 
   const [page, setPage] = useState(1);
   const [filterIndex, setFilterIndex] = useState(0);
@@ -49,14 +45,9 @@ const Category = () => {
   const {
     data: products,
     isLoading,
+    isError,
     isSuccess,
-  } = useGetProductsByCategoryQuery({
-    slug,
-    page,
-    filterPrice,
-    sortOrder,
-    searchTerm,
-  });
+  } = useGetProductsQuery({ page, filterPrice, sortOrder, searchTerm });
 
   const { pagination } = products?.meta || {};
 
@@ -73,7 +64,7 @@ const Category = () => {
   return (
     <>
       <Head>
-        <title>Product || FoodExpress</title>
+        <title>Products || FoodExpress</title>
       </Head>
 
       {isLoading && (
@@ -140,4 +131,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Products;
