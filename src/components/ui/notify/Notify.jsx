@@ -9,7 +9,6 @@ const Notify = ({ openSnackbar, closeSnackbar, message, severity }) => (
   >
     <Alert
       onClose={() => closeSnackbar()}
-      variant='filled'
       severity={severity}
       sx={{ width: '100%' }}
     >

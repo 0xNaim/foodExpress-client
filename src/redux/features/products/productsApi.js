@@ -12,9 +12,14 @@ export const productsApi = apiSlice.injectEndpoints({
         `/products?filters[variant][$eq]=${variant}&filters[sellPrice][$lte]=${filterPrice}&filters[title][$containsi]=${searchTerm}&sort[0]=sellPrice:${sortOrder}&pagination[page]=${page}&pagination[pageSize]=8&populate=*`,
     }),
 
-    getProducts: builder.query({
+    getProductsByCategory: builder.query({
       query: ({ slug, page, filterPrice, sortOrder, searchTerm }) =>
         `/products?filters[sub_category][slug][$eq]=${slug}&filters[sellPrice][$lte]=${filterPrice}&filters[title][$containsi]=${searchTerm}&sort[0]=sellPrice:${sortOrder}&pagination[page]=${page}&pagination[pageSize]=8&populate=*`,
+    }),
+
+    getProducts: builder.query({
+      query: ({ page, filterPrice, sortOrder, searchTerm }) =>
+        `/products?filters[sellPrice][$lte]=${filterPrice}&filters[title][$containsi]=${searchTerm}&sort[0]=sellPrice:${sortOrder}&pagination[page]=${page}&pagination[pageSize]=8&populate=*`,
     }),
 
     getProduct: builder.query({
@@ -27,6 +32,7 @@ export const productsApi = apiSlice.injectEndpoints({
 export const {
   useGetVariantProductsQuery,
   useGetFeatureProductsQuery,
+  useGetProductsByCategoryQuery,
   useGetProductsQuery,
   useGetProductQuery,
 } = productsApi;
