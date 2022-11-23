@@ -68,7 +68,7 @@ const Products = () => {
       </Head>
 
       {isLoading && (
-        <Box className={styles.skeleton__wrapper} component='div'>
+        <Box className={styles.skeleton__wrapper} component="div">
           <ProductSkeleton />
           <ProductSkeleton />
           <ProductSkeleton />
@@ -80,15 +80,19 @@ const Products = () => {
         </Box>
       )}
 
-      <Box className={styles.filter__wrapper}>
-        <FilterSection options={filterOptions} setIndex={setFilterIndex} />
-        <FilterSection options={sortOptions} setIndex={setSortIndex} />
-      </Box>
-      <Divider className={styles.divider} />
+      {!isLoading && (
+        <>
+          <Box className={styles.filter__wrapper}>
+            <FilterSection options={filterOptions} setIndex={setFilterIndex} />
+            <FilterSection options={sortOptions} setIndex={setSortIndex} />
+          </Box>
+          <Divider className={styles.divider} />
+        </>
+      )}
 
       {products?.data?.length === 0 && (
-        <Box className={styles['product__not-found']} component='div'>
-          <Typography variant='h6'>There are no products</Typography>
+        <Box className={styles['product__not-found']} component="div">
+          <Typography variant="h6">There are no products</Typography>
         </Box>
       )}
 
@@ -111,12 +115,12 @@ const Products = () => {
       </Grid>
 
       {!isLoading && isSuccess && products?.data?.length > 0 && (
-        <Box className={styles.pagination__wrapper} component='div'>
+        <Box className={styles.pagination__wrapper} component="div">
           <Pagination
             count={pagination?.pageCount}
             onChange={(e, value) => setPage(value)}
-            shape='rounded'
-            color='primary'
+            shape="rounded"
+            color="primary"
           />
         </Box>
       )}
