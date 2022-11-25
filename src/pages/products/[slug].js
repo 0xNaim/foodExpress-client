@@ -1,18 +1,21 @@
 import { Add, Remove } from '@mui/icons-material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { Box, Button, Grid, Skeleton, Typography } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Notify from '../../components/ui/notify/Notify';
 import {
   addToCart,
   decreaseProductQuantity,
 } from '../../redux/features/cart/cartSlice';
 import { useGetProductQuery } from '../../redux/features/products/productsApi';
 import styles from '../../styles/ProductDetails.module.scss';
+const Notify = dynamic(() => import('../../components/ui/notify/Notify'), {
+  suspense: true,
+});
 
 const ProductDetails = () => {
   const { query, back } = useRouter();
@@ -69,8 +72,8 @@ const ProductDetails = () => {
       <Button
         className={styles.button}
         onClick={goBack}
-        variant='contained'
-        size='small'
+        variant="contained"
+        size="small"
         disableRipple
       >
         <ArrowRightAltIcon className={styles.icon} /> Go Back
@@ -78,11 +81,11 @@ const ProductDetails = () => {
 
       <Grid container spacing={2} className={styles.product__details__wrapper}>
         <Grid item xs={12} md={6}>
-          <Box className={styles.image__wrapper} component='div'>
+          <Box className={styles.image__wrapper} component="div">
             {isLoading && (
               <Skeleton
-                variant='rectangular'
-                animation='wave'
+                variant="rectangular"
+                animation="wave"
                 width={300}
                 height={300}
               />
@@ -99,27 +102,27 @@ const ProductDetails = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box className={styles.details__wrapper} component={'div'}>
-            <Typography className={styles.product__title} variant='h5'>
-              {isLoading && <Skeleton animation='wave' />}
+            <Typography className={styles.product__title} variant="h5">
+              {isLoading && <Skeleton animation="wave" />}
               {!isError && isSuccess && product?.title}
             </Typography>
-            <Typography className={styles.product__weight} variant='body1'>
-              {isLoading && <Skeleton animation='wave' width='20%' />}
+            <Typography className={styles.product__weight} variant="body1">
+              {isLoading && <Skeleton animation="wave" width="20%" />}
               {!isError && isSuccess && product?.weight}
             </Typography>
 
             <Box className={styles.price__wrapper} component={'div'}>
               <Typography
                 className={styles.sell__price}
-                variant='h4'
+                variant="h4"
                 fontWeight={500}
               >
-                {isLoading && <Skeleton animation='wave' />}
+                {isLoading && <Skeleton animation="wave" />}
                 {!isError && isSuccess && `${product?.sellPrice} tk`}
               </Typography>
 
               {product?.regularPrice && (
-                <Typography className={styles.regularPrice} variant='body1'>
+                <Typography className={styles.regularPrice} variant="body1">
                   {`${product.regularPrice} tk`}
                 </Typography>
               )}
@@ -127,10 +130,10 @@ const ProductDetails = () => {
 
             {isLoading ? (
               <Skeleton
-                animation='wave'
-                variant='rectangular'
-                width='40%'
-                height='30px'
+                animation="wave"
+                variant="rectangular"
+                width="40%"
+                height="30px"
               />
             ) : (
               <>
@@ -138,18 +141,18 @@ const ProductDetails = () => {
                   <Box className={styles.quantity__wrapper}>
                     <Button
                       onClick={handleDecreaseItemQuantity}
-                      variant='contained'
+                      variant="contained"
                       disableRipple
                       disabled={cartProduct ? false : true}
                     >
                       <Remove />
                     </Button>
-                    <Typography className={styles.quantity} variant='h4'>
+                    <Typography className={styles.quantity} variant="h4">
                       {cartProduct ? cartProduct?.quantity : 1}
                     </Typography>
                     <Button
                       onClick={handleAddToCart}
-                      variant='contained'
+                      variant="contained"
                       disableRipple
                     >
                       <Add />
@@ -160,7 +163,7 @@ const ProductDetails = () => {
             )}
 
             {product?.description && (
-              <Box className={styles.descriptions__wrapper} component='div'>
+              <Box className={styles.descriptions__wrapper} component="div">
                 {product?.description}
               </Box>
             )}

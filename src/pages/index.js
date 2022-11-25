@@ -1,12 +1,22 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React, { useRef } from 'react';
 
 // Import css files
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
-import DailyProducts from '../components/product/daily_products/DailyProducts';
-import MonthlyProducts from '../components/product/monthly_products/MonthlyProducts';
-import SafeFoods from '../components/product/safe_foods/SafeFoods';
+const DailyProducts = dynamic(
+  () => import('../components/product/daily_products/DailyProducts'),
+  { suspense: true }
+);
+const MonthlyProducts = dynamic(
+  () => import('../components/product/monthly_products/MonthlyProducts'),
+  { suspense: true }
+);
+const SafeFoods = dynamic(
+  () => import('../components/product/safe_foods/SafeFoods'),
+  { suspense: true }
+);
 
 const Home = () => {
   const ref = useRef(null);

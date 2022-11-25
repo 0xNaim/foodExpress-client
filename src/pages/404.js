@@ -15,9 +15,9 @@ const NotFound = () => {
           src={'/assets/404.gif'}
           width={400}
           height={350}
-          alt='Page Not Found'
+          alt="Page Not Found"
         />
-        <Typography variant='h4' textAlign={'center'}>
+        <Typography variant="h4" textAlign={'center'}>
           Page Not Found
         </Typography>
       </Box>

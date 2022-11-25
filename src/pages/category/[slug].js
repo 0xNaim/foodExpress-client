@@ -1,15 +1,26 @@
 import { Box, Divider, Grid, Pagination, Typography } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FilterSection from '../../components/filter/FilterSection';
-import Product from '../../components/product/Product';
-import ProductSkeleton from '../../components/ui/loading/ProductSkeleton';
-import Notify from '../../components/ui/notify/Notify';
 import { addToCart } from '../../redux/features/cart/cartSlice';
 import { useGetProductsByCategoryQuery } from '../../redux/features/products/productsApi';
 import styles from '../../styles/CategoryProduct.module.scss';
+const Notify = dynamic(() => import('../../components/ui/notify/Notify'), {
+  suspense: true,
+});
+const FilterSection = dynamic(
+  () => import('../../components/filter/FilterSection'),
+  { suspense: true }
+);
+const Product = dynamic(() => import('../../components/product/Product'), {
+  suspense: true,
+});
+const ProductSkeleton = dynamic(
+  () => import('../../components/ui/loading/ProductSkeleton'),
+  { suspense: true }
+);
 
 const Category = () => {
   const { message } = useSelector((state) => state.cart);
@@ -77,7 +88,7 @@ const Category = () => {
       </Head>
 
       {isLoading && (
-        <Box className={styles.skeleton__wrapper} component='div'>
+        <Box className={styles.skeleton__wrapper} component="div">
           <ProductSkeleton />
           <ProductSkeleton />
           <ProductSkeleton />
@@ -96,8 +107,8 @@ const Category = () => {
       <Divider className={styles.divider} />
 
       {products?.data?.length === 0 && (
-        <Box className={styles['product__not-found']} component='div'>
-          <Typography variant='h6'>There are no products</Typography>
+        <Box className={styles['product__not-found']} component="div">
+          <Typography variant="h6">There are no products</Typography>
         </Box>
       )}
 
@@ -120,12 +131,12 @@ const Category = () => {
       </Grid>
 
       {!isLoading && isSuccess && products?.data?.length > 0 && (
-        <Box className={styles.pagination__wrapper} component='div'>
+        <Box className={styles.pagination__wrapper} component="div">
           <Pagination
             count={pagination?.pageCount}
             onChange={(e, value) => setPage(value)}
-            shape='rounded'
-            color='primary'
+            shape="rounded"
+            color="primary"
           />
         </Box>
       )}

@@ -6,18 +6,13 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from '../../public/assets/empty.png';
-import SignIn from '../components/auth/SignIn';
-import SignUp from '../components/auth/SignUp';
-import CartItems from '../components/cart-items/CartItems';
-import Modal from '../components/modal/Modal';
-import CustomButton from '../components/ui/button/CustomButton';
-import Notify from '../components/ui/notify/Notify';
 import useAuth from '../hooks/useAuth';
 import {
   addToCart,
@@ -25,7 +20,28 @@ import {
   removeFromCart,
 } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
-import getTotalPrice from '../utils/getTotalPrice';
+const getTotalPrice = dynamic(() => import('../utils/getTotalPrice'), {
+  suspense: true,
+});
+const SignIn = dynamic(() => import('../components/auth/SignIn'), {
+  suspense: true,
+});
+const SignUp = dynamic(() => import('../components/auth/SignUp'), {
+  suspense: true,
+});
+const CartItems = dynamic(() => import('../components/cart-items/CartItems'), {
+  suspense: true,
+});
+const Modal = dynamic(() => import('../components/modal/Modal'), {
+  suspense: true,
+});
+const CustomButton = dynamic(
+  () => import('../components/ui/button/CustomButton'),
+  { suspense: true }
+);
+const Notify = dynamic(() => import('../components/ui/notify/Notify'), {
+  suspense: true,
+});
 
 const Cart = () => {
   const { cart, message } = useSelector((state) => state.cart);
@@ -90,10 +106,10 @@ const Cart = () => {
         <title>Cart || FoodExpress</title>
       </Head>
 
-      <Box component='div' className={styles.cart_wrapper}>
+      <Box component="div" className={styles.cart_wrapper}>
         <Grid container>
           <Grid item xs={12} sm={12} md={8}>
-            <Box component='div' className={styles.left_part}>
+            <Box component="div" className={styles.left_part}>
               <Typography
                 variant={'h5'}
                 fontWeight={'700'}
@@ -103,14 +119,14 @@ const Cart = () => {
               </Typography>
 
               {cart?.length == 0 && (
-                <Box className={styles.empty__cart} component='div'>
+                <Box className={styles.empty__cart} component="div">
                   <Image
                     src={EmptyCart}
                     width={250}
                     height={200}
-                    alt='Empty Cart'
+                    alt="Empty Cart"
                   />
-                  <Typography variant='body1'>Your cart is empty!</Typography>
+                  <Typography variant="body1">Your cart is empty!</Typography>
                 </Box>
               )}
 
@@ -128,7 +144,7 @@ const Cart = () => {
 
           <Grid item xs={12} sm={12} md={4}>
             {cart?.length > 0 && (
-              <Box component='div' className={styles.right_part}>
+              <Box component="div" className={styles.right_part}>
                 <Typography
                   variant={'h5'}
                   fontWeight={'700'}
@@ -140,31 +156,31 @@ const Cart = () => {
                 <Table>
                   <TableBody>
                     <TableRow className={styles.table_row}>
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         Total Items:
                       </Typography>
 
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         {cart?.length}
                       </Typography>
                     </TableRow>
 
                     <TableRow className={styles.table_row}>
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         Total Price:
                       </Typography>
 
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         {getTotalPrice(cart)} Tk
                       </Typography>
                     </TableRow>
 
                     <TableRow className={styles.table_row}>
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         Shipping Cost:
                       </Typography>
 
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         {shippingCost} Tk
                       </Typography>
                     </TableRow>
@@ -172,26 +188,26 @@ const Cart = () => {
                     <hr />
 
                     <TableRow className={styles.table_row}>
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         Subtotal:
                       </Typography>
 
-                      <Typography variant='body1' fontWeight={'500'}>
+                      <Typography variant="body1" fontWeight={'500'}>
                         {getTotalPrice(cart) + shippingCost} Tk
                       </Typography>
                     </TableRow>
 
                     {isLoggedIn ? (
                       <TableRow className={''}>
-                        <Link href='/checkout' passHref>
+                        <Link href="/checkout" passHref>
                           <a className={styles.link}>
-                            <CustomButton label='Checkout' fullWidth />
+                            <CustomButton label="Checkout" fullWidth />
                           </a>
                         </Link>
                       </TableRow>
                     ) : (
                       <CustomButton
-                        label='Checkout'
+                        label="Checkout"
                         handleClick={handleOpen}
                         fullWidth
                       />
@@ -217,7 +233,7 @@ const Cart = () => {
           openSnackbar={openAuthAlert}
           closeSnackbar={handleCloseAuthAlert}
           message={authAlert}
-          severity='error'
+          severity="error"
         />
       )}
 

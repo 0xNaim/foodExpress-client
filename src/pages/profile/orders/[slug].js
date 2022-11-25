@@ -11,6 +11,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -18,7 +19,9 @@ import { useSelector } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
 import { useGetOrderByOrderIdQuery } from '../../../redux/features/order/orderApi';
 import styles from '../../../styles/OrderDetails.module.scss';
-import getTotalPrice from '../../../utils/getTotalPrice';
+const getTotalPrice = dynamic(() => import('../../../utils/getTotalPrice'), {
+  suspense: true,
+});
 
 const OrderDetails = () => {
   const router = useRouter();
@@ -42,7 +45,7 @@ const OrderDetails = () => {
         <title>Order Details || FoodExpress</title>
       </Head>
 
-      {isLoading && <Typography variant='body2'>Loading...</Typography>}
+      {isLoading && <Typography variant="body2">Loading...</Typography>}
 
       {isError && !isSuccess && (
         <Typography>Order details not found!</Typography>
@@ -50,7 +53,7 @@ const OrderDetails = () => {
 
       {!isError && isSuccess && (
         <Box className={styles['order-details__wrapper']}>
-          <Typography className={styles.heading} variant='h4' gutterBottom>
+          <Typography className={styles.heading} variant="h4" gutterBottom>
             Order Details
           </Typography>
           <Divider className={styles.divider} />
@@ -58,8 +61,8 @@ const OrderDetails = () => {
           <Button
             className={styles.button}
             onClick={goBack}
-            variant='contained'
-            size='small'
+            variant="contained"
+            size="small"
             disableRipple
           >
             <ArrowRightAltIcon className={styles.icon} /> Go Back
@@ -80,7 +83,7 @@ const OrderDetails = () => {
                 {order?.items?.map((item) => (
                   <>
                     <TableRow key={item.slug} className={styles.table__row}>
-                      <TableCell component='td'>
+                      <TableCell component="td">
                         <Image
                           src={item.image}
                           width={120}

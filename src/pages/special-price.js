@@ -1,15 +1,25 @@
-
 import { Box, Divider, Grid, Pagination, Typography } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FilterSection from '../components/filter/FilterSection';
-import Product from '../components/product/Product';
-import ProductSkeleton from '../components/ui/loading/ProductSkeleton';
-import Notify from '../components/ui/notify/Notify';
 import { addToCart } from '../redux/features/cart/cartSlice';
 import { useGetDiscountProductsQuery } from '../redux/features/products/productsApi';
 import styles from '../styles/SpecialPrice.module.scss';
+const FilterSection = dynamic(
+  () => import('../components/filter/FilterSection'),
+  { suspense: true }
+);
+const Product = dynamic(() => import('../components/product/Product'), {
+  suspense: true,
+});
+const ProductSkeleton = dynamic(
+  () => import('../components/ui/loading/ProductSkeleton'),
+  { suspense: true }
+);
+const Notify = dynamic(() => import('../components/ui/notify/Notify'), {
+  suspense: true,
+});
 
 const SpecialPrice = () => {
   const { message } = useSelector((state) => state.cart);

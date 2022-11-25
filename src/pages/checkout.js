@@ -7,13 +7,22 @@ import {
   Stepper,
   Typography,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import styles from '../styles/Checkout.module.scss';
-import PaymentForm from '../components/checkout-form/payment-form/PaymentForm';
-import ShippingForm from '../components/checkout-form/shipping-form/ShippingForm';
 import useAuth from '../hooks/useAuth';
-import useMultiStepForm from '../hooks/useMultiStepForm';
+import styles from '../styles/Checkout.module.scss';
+const PaymentForm = dynamic(
+  () => import('../components/checkout-form/payment-form/PaymentForm'),
+  { suspense: true }
+);
+const ShippingForm = dynamic(
+  () => import('../components/checkout-form/shipping-form/ShippingForm'),
+  { suspense: true }
+);
+const useMultiStepForm = dynamic(() => import('../hooks/useMultiStepForm'), {
+  suspense: true,
+});
 
 const steps = ['Shipping address', 'Payment details'];
 
@@ -36,11 +45,11 @@ const Checkout = () => {
 
       <Box
         className={styles.checkout__wrapper}
-        component='main'
+        component="main"
         maxWidth={'md'}
       >
         <Paper className={styles.checkout__paper}>
-          <Typography variant='h4' align='center'>
+          <Typography variant="h4" align="center">
             Checkout
           </Typography>
           <Stepper className={styles.stepper} activeStep={currentStepIndex}>
