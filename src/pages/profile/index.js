@@ -11,14 +11,20 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Notify from '../../components/ui/notify/Notify';
 import useAuth from '../../hooks/useAuth';
-import { useGetProfileQuery, useUpdateProfileMutation } from '../../redux/features/profile/profileApi';
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from '../../redux/features/profile/profileApi';
 import styles from '../../styles/Profile.module.scss';
+const Notify = dynamic(() => import('../../components/ui/notify/Notify'), {
+  suspense: true,
+});
 
 const Profile = () => {
   const router = useRouter();
@@ -106,26 +112,26 @@ const Profile = () => {
         <title>Profile || FoodExpress</title>
       </Head>
 
-      {isLoading && <Typography variant='body2'>Loading...</Typography>}
+      {isLoading && <Typography variant="body2">Loading...</Typography>}
 
       {!isLoading && isSuccess && (
         <form className={styles.profile__wrapper}>
           <FormGroup>
             <Box className={styles.header}>
-              <Typography className={styles.head} variant='h3'>
+              <Typography className={styles.head} variant="h3">
                 My{' '}
-                <Box component='span' color='primary'>
+                <Box component="span" color="primary">
                   Profile
                 </Box>
               </Typography>
               <Box>
                 {editMode ? (
                   <Button
-                    variant='contained'
+                    variant="contained"
                     onClick={handleSubmit(handleFormSubmit)}
-                    color='primary'
+                    color="primary"
                     disableRipple
-                    size='small'
+                    size="small"
                     sx={{
                       mr: 3,
                     }}
@@ -135,8 +141,8 @@ const Profile = () => {
                 ) : (
                   <Button
                     onClick={handleEditMode}
-                    variant='contained'
-                    size='small'
+                    variant="contained"
+                    size="small"
                     sx={{
                       mr: 3,
                     }}
@@ -146,9 +152,9 @@ const Profile = () => {
                 )}
 
                 <Button
-                  variant='contained'
-                  color='primary'
-                  size='small'
+                  variant="contained"
+                  color="primary"
+                  size="small"
                   disableRipple
                   onClick={() => router.push('/profile/orders')}
                 >
@@ -156,99 +162,99 @@ const Profile = () => {
                 </Button>
               </Box>
             </Box>
-            <Typography variant='body1'>Personal Information</Typography>
-            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+            <Typography variant="body1">Personal Information</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant="outlined">
               <TextField
-                type='text'
+                type="text"
                 multiline
                 maxRows={2}
                 defaultValue={user?.username}
                 value={values.firstName}
                 onChange={handleChange}
-                placeholder='First Name'
+                placeholder="First Name"
                 fullWidth
-                name='firstName'
+                name="firstName"
                 disabled={!editMode}
               />
             </FormControl>
 
-            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant="outlined">
               <TextField
-                placeholder='Last Name'
-                type='text'
+                placeholder="Last Name"
+                type="text"
                 multiline
                 maxRows={2}
                 defaultValue={user?.lastName}
                 value={values.lastName}
                 onChange={handleChange}
                 fullWidth
-                name='lastName'
+                name="lastName"
                 disabled={!editMode}
               />
             </FormControl>
 
-            <Typography variant='body1'>Email Address</Typography>
-            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+            <Typography variant="body1">Email Address</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant="outlined">
               <TextField
-                type='email'
+                type="email"
                 value={user?.email}
                 multiline
                 maxRows={2}
                 onChange={handleChange}
                 fullWidth
-                name='email'
+                name="email"
                 disabled
               />
             </FormControl>
 
-            <Typography variant='body1'>Phone</Typography>
-            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+            <Typography variant="body1">Phone</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant="outlined">
               <TextField
-                type='text'
+                type="text"
                 multiline
                 maxRows={2}
                 defaultValue={user?.phone}
                 value={values.phone}
                 onChange={handleChange}
-                placeholder='Phone Number'
+                placeholder="Phone Number"
                 fullWidth
-                name='phone'
+                name="phone"
                 disabled={!editMode}
               />
             </FormControl>
 
-            <Typography variant='body1'>Address</Typography>
-            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant='outlined'>
+            <Typography variant="body1">Address</Typography>
+            <FormControl sx={{ mt: 1, mb: 1 }} fullWidth variant="outlined">
               <TextareaAutosize
                 minRows={5}
-                placeholder='write your address'
-                type='text'
-                multiline='true'
+                placeholder="write your address"
+                type="text"
+                multiline="true"
                 defaultValue={user?.address}
                 value={values.address}
                 onChange={handleChange}
-                fullwidth='true'
-                name='address'
+                fullwidth="true"
+                name="address"
                 disabled={!editMode}
               />
             </FormControl>
-            <Typography variant='body1'>Password</Typography>
-            <FormControl sx={{ mt: 1 }} fullWidth variant='outlined'>
+            <Typography variant="body1">Password</Typography>
+            <FormControl sx={{ mt: 1 }} fullWidth variant="outlined">
               <TextField
-                label='Password'
+                label="Password"
                 type={values.showPassword ? 'text' : 'password'}
-                name='password'
+                name="password"
                 {...register('password', {
                   minLength: 6,
                 })}
-                defaultValue=''
+                defaultValue=""
                 error={errors?.password}
                 helperText={errors?.password && 'Password must be 6 characters'}
                 disabled={!editMode}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton onClick={handleClickShowPassword} edge='end'>
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword} edge="end">
                         {values?.showPassword ? (
                           <VisibilityOff />
                         ) : (
@@ -269,7 +275,7 @@ const Profile = () => {
           openSnackbar={openSnackbar}
           closeSnackbar={handleCloseSnackbar}
           message={responseError?.data?.error?.message}
-          severity='error'
+          severity="error"
         />
       )}
 
@@ -278,7 +284,7 @@ const Profile = () => {
           openSnackbar={openSnackbar}
           closeSnackbar={handleCloseSnackbar}
           message={'Profile Updated'}
-          severity='success'
+          severity="success"
         />
       )}
     </>

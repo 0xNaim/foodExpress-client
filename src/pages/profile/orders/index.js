@@ -45,13 +45,15 @@ const Orders = () => {
         <title>Orders || FoodExpress</title>
       </Head>
 
-      {isLoading && <Typography variant='body2'>Loading...</Typography>}
+      {isLoading && <Typography variant="body2">Loading...</Typography>}
 
-      {!isLoading && orders?.length === 0 && <Typography>There are no orders</Typography>}
+      {!isLoading && orders?.length === 0 && (
+        <Typography>There are no orders</Typography>
+      )}
 
       {isSuccess && orders?.length > 0 && (
-        <Box className={styles.order__wrapper} component='section'>
-          <Typography className={styles.heading} variant='h4' gutterBottom>
+        <Box className={styles.order__wrapper} component="section">
+          <Typography className={styles.heading} variant="h4" gutterBottom>
             My Orders
           </Typography>
           <Divider className={styles.divider} />
@@ -69,21 +71,21 @@ const Orders = () => {
               <TableBody>
                 {orders?.map((order) => (
                   <TableRow key={order.order_id} className={styles.table__row}>
-                    <TableCell component='td'>{order.order_id}</TableCell>
-                    <TableCell component='td'>{order.amount} Tk</TableCell>
-                    <TableCell component='td'>
+                    <TableCell component="td">{order.order_id}</TableCell>
+                    <TableCell component="td">{order.amount} Tk</TableCell>
+                    <TableCell component="td">
                       <Box
                         className={
                           order.status === 'pending'
                             ? `${styles['status--pending']}`
                             : `${styles['status--delivered']}`
                         }
-                        component='span'
+                        component="span"
                       >
                         {order.status}
                       </Box>
                     </TableCell>
-                    <TableCell component='td'>
+                    <TableCell component="td">
                       <Link
                         href={`/profile/orders/${order.order_id}`}
                         legacyBehavior
@@ -91,9 +93,9 @@ const Orders = () => {
                         <a className={styles.link}>
                           <Button
                             className={styles.view__btn}
-                            variant='contained'
-                            color='primary'
-                            size='small'
+                            variant="contained"
+                            color="primary"
+                            size="small"
                             disableRipple
                           >
                             View
@@ -111,8 +113,8 @@ const Orders = () => {
             <Pagination
               onChange={(e, value) => setPage(value)}
               count={pagination?.pageCount}
-              color='primary'
-              shape='rounded'
+              color="primary"
+              shape="rounded"
             />
           </Box>
         </Box>

@@ -17,7 +17,7 @@ const Product = ({ product, handleAddToCart, discountPrice }) => {
     slug: product?.slug,
     title: product?.title,
     image: product?.image?.data?.attributes?.url,
-    price: product?.sellPrice,
+    price: discountPrice ? product?.discountPrice : product?.sellPrice,
     quantity: 1,
   };
 
