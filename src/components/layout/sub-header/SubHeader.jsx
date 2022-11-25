@@ -20,7 +20,7 @@ const SubHeader = () => {
           </Grid>
           <Grid item xs={12} md={10}>
             <Box component='div' className={styles['sub-header']}>
-              <Link href='/' passHref>
+              <Link href='/special-price' passHref>
                 <a className={styles['sub-header--link']}>
                   <Typography
                     className={styles['sub-header__special']}
