@@ -5,14 +5,14 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography
+  Typography,
 } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import CustomButton from '../ui/button/CustomButton';
 import styles from './Product.module.scss';
 
-const Product = ({ product, handleAddToCart }) => {
+const Product = ({ product, handleAddToCart, discountPrice }) => {
   const payload = {
     slug: product?.slug,
     title: product?.title,
@@ -24,37 +24,45 @@ const Product = ({ product, handleAddToCart }) => {
   return (
     <>
       <Card className={styles.product__wrapper}>
-        <Box component='div'>
+        <Box component="div">
           <Image
-            layout='responsive'
-            src={product?.image?.data?.attributes?.url || '/assets/anaros.jpg'}
+            layout="responsive"
+            src={product?.image?.data?.attributes?.url}
             width={100}
             height={100}
-            alt={product.title || 'anaros'}
+            alt={product?.title}
           />
         </Box>
 
         <CardContent>
-          <Box className={styles.product__content} component='div'>
+          <Box className={styles.product__content} component="div">
             <Typography
               className={styles['product__content--title']}
-              variant='body1'
+              variant="body1"
               gutterBottom
             >
-              {(product.title || 'Anaros').substring(0, 25)}
+              {(product?.title).substring(0, 25)}
             </Typography>
 
-            <Box className={styles.product__details__wrapper} component='div'>
-              <Box className={styles.product__details} component='div'>
-                <Box className={styles.product__weight} component='div'>
-                  {product.weight || '1 pcs'}
+            <Box className={styles.product__details__wrapper} component="div">
+              <Box className={styles.product__details} component="div">
+                <Box className={styles.product__weight} component="div">
+                  {product?.weight}
                 </Box>
-                <Box className={styles.product__price} component='div'>
-                  {product.sellPrice || '80 tk'} tk
+                <Box className={styles.product__price} component="div">
+                  {discountPrice ? product?.discountPrice : product?.sellPrice}{' '}
+                  tk
                 </Box>
-                {product.regularPrice && (
-                  <Box className={styles.product__oldPrice} component='div'>
-                    {product.regularPrice} tk
+
+                {product?.regularPrice && !discountPrice && (
+                  <Box className={styles.product__oldPrice} component="div">
+                    {`${product?.regularPrice} tk`}
+                  </Box>
+                )}
+
+                {discountPrice && (
+                  <Box className={styles.product__oldPrice} component="div">
+                    {`${product?.sellPrice} tk`}
                   </Box>
                 )}
               </Box>
@@ -63,7 +71,7 @@ const Product = ({ product, handleAddToCart }) => {
         </CardContent>
 
         <CardActions>
-          <Box className={styles.product__btnGroup} component='div'>
+          <Box className={styles.product__btnGroup} component="div">
             <Link href={`/products/${product.slug}`}>
               <Button className={styles['product__details--btn']} disableRipple>
                 Details&nbsp;
@@ -73,7 +81,7 @@ const Product = ({ product, handleAddToCart }) => {
             <Box className={styles['product__cart--btn']} component={'div'}>
               <CustomButton
                 handleClick={() => handleAddToCart(payload)}
-                label='Add To Cart'
+                label="Add To Cart"
                 showCartIcon
                 fullWidth
               />

@@ -25,6 +25,11 @@ export const productsApi = apiSlice.injectEndpoints({
     getProduct: builder.query({
       query: (slug) => `/products?filters[slug][$eq]=${slug}&populate=*`,
     }),
+
+    getDiscountProducts: builder.query({
+      query: ({ page, filterPrice, sortOrder, searchTerm }) =>
+        `/products?filters[discountPrice][$gt]=0&filters[discountPrice][$lte]=${filterPrice}&filters[title][$containsi]=${searchTerm}&sort[0]=discountPrice:${sortOrder}&pagination[page]=${page}&pagination[pageSize]=8&populate=*`,
+    }),
   }),
   overrideExisting: true,
 });
@@ -35,4 +40,5 @@ export const {
   useGetProductsByCategoryQuery,
   useGetProductsQuery,
   useGetProductQuery,
+  useGetDiscountProductsQuery,
 } = productsApi;
