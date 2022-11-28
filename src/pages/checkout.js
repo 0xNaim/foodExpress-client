@@ -20,9 +20,7 @@ const ShippingForm = dynamic(
   () => import('../components/checkout-form/shipping-form/ShippingForm'),
   { suspense: true }
 );
-const useMultiStepForm = dynamic(() => import('../hooks/useMultiStepForm'), {
-  suspense: true,
-});
+import useMultiStepForm from '../hooks/useMultiStepForm'
 
 const steps = ['Shipping address', 'Payment details'];
 
