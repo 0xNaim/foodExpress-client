@@ -20,9 +20,7 @@ import {
   removeFromCart,
 } from '../redux/features/cart/cartSlice';
 import styles from '../styles/Cart.module.scss';
-const getTotalPrice = dynamic(() => import('../utils/getTotalPrice'), {
-  suspense: true,
-});
+import getTotalPrice from '../utils/getTotalPrice';
 const SignIn = dynamic(() => import('../components/auth/SignIn'), {
   suspense: true,
 });

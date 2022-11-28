@@ -77,7 +77,7 @@ const PaymentForm = ({ backStep }) => {
       dispatch(resetForm());
       setTimeout(() => {
         router.push('/');
-      }, 1000);
+      }, 3000);
     }
 
     if (isError) {

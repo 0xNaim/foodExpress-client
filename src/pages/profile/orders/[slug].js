@@ -11,7 +11,6 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -19,9 +18,7 @@ import { useSelector } from 'react-redux';
 import useAuth from '../../../hooks/useAuth';
 import { useGetOrderByOrderIdQuery } from '../../../redux/features/order/orderApi';
 import styles from '../../../styles/OrderDetails.module.scss';
-const getTotalPrice = dynamic(() => import('../../../utils/getTotalPrice'), {
-  suspense: true,
-});
+import getTotalPrice from '../../../utils/getTotalPrice';
 
 const OrderDetails = () => {
   const router = useRouter();
