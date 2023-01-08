@@ -6,26 +6,20 @@
 
 <!-- PROJECT DESCRIPTIONS -->
 <p>
-  FoodExpress is an e-commerce application, user can buy essential daily food from here and pay through the Stripe payment gateway.
+  FoodExpress is an e-commerce platform that allows users to purchase essential daily food items and pay through the Stripe payment gateway. The application is built using JavaScript, Next.js, and several popular React libraries including Redux-Toolkit, React-Redux, Redux-Persist, and React-Hook-Form. The user interface is designed using Material-UI, and the application is a progressive web app (PWA), providing a seamless and fast experience for users on both desktop and mobile devices. With FoodExpress, users can easily and securely purchase their daily food essentials from the comfort of their own homes.
 </p>
 
 <!-- FEATURES -->
 ## Features
-  * User can register
-  * User can login
-  * User can logout
-  * User can update their profile
-  * User can update their password
-  * Users can add products to the cart
-  * User can remove product from the cart
-  * User can increase/decrease cart product quantity
-  * Users can search any products
-  * Users can filter products by price range
-  * Users can sort products in ascending/descending order
-  * User can pagination
-  * User can pay through the stripe payment gateway
-  * User can track their order history
-  * PWA - Progressive Web Apps
+  * User login system that allows users to create an account and login into their account.
+  * Product listings, including images and descriptions, for users to browse and select items to purchase.
+  * Search bar to allow users to easily find specific items.
+  * Shopping cart that allows users to add and remove items, and view the total cost of their purchase.
+  * Payment gateway integration with Stripe, allows users to securely pay for their purchases.  
+  * Ability to track orders and view order history.
+  * Ability to update user profile information.
+  * Responsive design that provides a seamless user experience on both desktop and mobile devices.
+  * Progressive web app (PWA) capabilities: The app can be installed on a user's device and work offline or with low connectivity, just like a native app.
 
 <!-- HOW TO RUN -->
 ## How to run
